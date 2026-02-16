@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Garden Shed Clay</title>
+  <meta name="description" content="Garden Shed Clay — handcrafted pottery and digital tools for growers and makers." />
+  <style>
+    :root{
+      --bg:#fbfaf7;
+      --text:#1f2937;
+      --muted:#4b5563;
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --accent:#2f6f5e; /* Oribe-ish green */
+      --accentDark:#255b4c;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius:18px;
+      --max: 980px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:linear-gradient(180deg, var(--bg), #ffffff);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:48px 20px 64px;}
+    header{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:10px; max-width:640px;
+    }
+    .kicker{
+      letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:var(--muted);
+    }
+    h1{font-size:44px; line-height:1.05; margin:0;}
+    .tagline{font-size:18px; color:var(--muted); margin:0; line-height:1.5;}
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:16px;
+      margin:28px 0 34px;
+    }
+    @media (max-width: 860px){
+      h1{font-size:36px}
+      .cards{grid-template-columns:1fr; }
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height: 180px;
+    }
+    .card h2{margin:0; font-size:18px;}
+    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px;}
+    .btn{
+      margin-top:auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      border:1px solid rgba(255,255,255,.12);
+      transition:transform .06s ease, background .15s ease;
+    }
+    .btn:hover{background:var(--accentDark)}
+    .btn:active{transform:translateY(1px)}
+    .bio{
+      background:rgba(255,255,255,.7);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      line-height:1.7;
+    }
+    .bio h3{margin:0 0 8px 0; font-size:16px;}
+    .bio p{margin:0; color:var(--muted)}
+    footer{
+      margin-top:26px;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .pill{
+      display:inline-flex; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="kicker">Philadelphia • Small-batch ceramics • Digital tools</div>
+        <h1>Garden Shed Clay</h1>
+        <p class="tagline">
+          Handcrafted pottery and thoughtfully designed apps for growers and makers.
+          Choose your path below.
+        </p>
+      </div>
+    </header>
+
+    <section class="cards" aria-label="Choose your path">
+      <div class="card">
+        <h2>Shop the Pottery</h2>
+        <p>
+          Small-batch ceramic work designed for everyday use—forms, glazes, and experiments
+          inspired by the garden.
+        </p>
+        <a class="btn" href="https://shop.gardenshedclay.com" rel="noopener">Visit the Shop →</a>
+      </div>
+
+      <div class="card">
+        <h2>My Garden Journal</h2>
+        <p>
+          A beautifully simple iPhone garden planner to help you map beds, track planting,
+          and stay organized season after season.
+        </p>
+        <a class="btn" href="https://gardening.gardenshedclay.com" rel="noopener">Explore the App →</a>
+      </div>
+
+      <div class="card">
+        <h2>Clay Studio Manager</h2>
+        <p>
+          Built by a working potter to manage inventory, firings, glaze tests, materials,
+          and studio workflow in one place.
+        </p>
+        <a class="btn" href="https://claystudio.gardenshedclay.com" rel="noopener">Learn More →</a>
+      </div>
+    </section>
+
+    <section class="bio">
+      <h3>About the studio</h3>
+      <p>
+        Garden Shed Clay is the home studio of Lester Morris—where clay, gardening, and practical systems meet.
+        I make small-batch pottery in Philadelphia and build digital tools that help gardeners and ceramic artists
+        plan, track, and create with less friction and more joy.
+      </p>
+    </section>
+
+    <footer>
+      <span>© <span id="y"></span> Garden Shed Clay</span>
+      <span>•</span>
+      <a class="pill" href="https://www.instagram.com/gardenshedclay" rel="noopener">Instagram</a>
+      <a class="pill" href="mailto:hello@gardenshedclay.com">hello@gardenshedclay.com</a>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
