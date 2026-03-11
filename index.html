@@ -61,16 +61,21 @@
       box-shadow:var(--shadow);
     }
 .logo{
-  width:220px;
+  width:150px;
   height:auto;
-  margin-bottom:12px;
+  margin-bottom:0px;
 }    .kicker{
       letter-spacing:.12em;
       text-transform:uppercase;
       font-size:12px;
       color:var(--muted);
     }
-
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
     h1{
       font-size:38px;
       line-height:1.05;
@@ -195,18 +200,15 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">
+     <div class="brand">
   <div class="kicker">Philadelphia • Small-batch ceramics • Digital tools</div>
 
-  <img src="Garden%20Shed%20Clay%20logo%20design-2.png" alt="Garden Shed Clay logo" class="logo">
+  <div class="brand-row">
+    <img src="Garden%20Shed%20Clay%20logo%20design-2.png" alt="Garden Shed Clay logo" class="logo">
+    <h1>Garden Shed Clay</h1>
+  </div>
 
-  <h1>Garden Shed Clay</h1>        <p class="tagline">
-          Handcrafted pottery and thoughtfully designed apps for growers and makers.
-          Choose your path below.
-        </p>
-      </div>
-    </header>
-
+  <p class="tagline">
     <section class="cards" aria-label="Choose your path">
       <div class="card">
         <h2>Shop the Pottery</h2>
