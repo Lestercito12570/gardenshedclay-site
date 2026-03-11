@@ -1,332 +1,495 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Garden Shed Clay</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Garden Shed Clay</title>
   <meta name="description" content="Garden Shed Clay — handcrafted pottery and digital tools for growers and makers." />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    :root{
+      --text:#1f2937;
+      --muted:#4b5563;
+      --card:rgba(255,255,255,.88);
+      --border:rgba(255,255,255,.28);
+      --accent:#2f6f5e;
+      --accentDark:#255b4c;
+      --shadow:0 12px 34px rgba(0,0,0,.12);
+      --radius:18px;
+      --max:1120px;
+      --font:'Inter', system-ui, sans-serif;
+      --serif:'DM Serif Display', serif;
+    }
 
-:root{
---bg:#fbfaf7;
---text:#1f2937;
---muted:#4b5563;
---card:rgba(255,255,255,.92);
---border:rgba(229,231,235,.95);
---accent:#2f6f5e;
---accentDark:#255b4c;
---shadow:0 10px 30px rgba(0,0,0,.06);
---radius:18px;
---max:980px;
---font:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-}
+    *{box-sizing:border-box}
 
-*{box-sizing:border-box}
+    html{scroll-behavior:smooth}
 
-body{
-margin:0;
-font-family:var(--font);
-color:var(--text);
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        linear-gradient(rgba(26,22,18,.44), rgba(26,22,18,.30)),
+        url("IMG_6904.jpeg") center center / cover no-repeat fixed;
+    }
 
-background:
-linear-gradient(rgba(247,244,236,.55),rgba(255,255,255,.65)),
-url("IMG_6904.jpeg") center/cover no-repeat fixed;
-}
+    a{color:inherit}
 
-a{color:inherit}
+    .page{
+      min-height:100vh;
+      background:linear-gradient(rgba(248,245,239,.68), rgba(248,245,239,.88));
+    }
 
-.wrap{
-max-width:var(--max);
-margin:0 auto;
-padding:48px 20px 64px;
-}
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:26px 20px 64px;
+    }
 
-header{
-margin-bottom:34px;
-}
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-bottom:42px;
+      padding:14px 18px;
+      background:rgba(255,255,255,.68);
+      border:1px solid rgba(255,255,255,.42);
+      border-radius:999px;
+      backdrop-filter:blur(10px);
+      box-shadow:var(--shadow);
+    }
 
-.brand{
-display:flex;
-flex-direction:column;
-gap:10px;
-max-width:640px;
+    .brandmark{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      text-decoration:none;
+      min-width:0;
+    }
 
-background:rgba(255,255,255,.60);
-backdrop-filter:blur(4px);
-padding:22px 24px;
+    .logo{
+      width:92px;
+      height:auto;
+      display:block;
+      flex:0 0 auto;
+    }
 
-border:1px solid rgba(229,231,235,.9);
-border-radius:var(--radius);
-box-shadow:var(--shadow);
-}
+    .brandtext{
+      min-width:0;
+    }
 
-.kicker{
-letter-spacing:.12em;
-text-transform:uppercase;
-font-size:12px;
-color:var(--muted);
-}
+    .site-title{
+      margin:0;
+      font-family:var(--serif);
+      font-size:34px;
+      line-height:1;
+      letter-spacing:.01em;
+    }
 
-.brand-row{
-display:flex;
-align-items:center;
-gap:20px;
-flex-wrap:wrap;
-}
+    .site-sub{
+      margin:6px 0 0 0;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
 
-.logo{
-width:160px;
-height:auto;
-}
+    .nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
 
-h1{
-font-family:'DM Serif Display', serif;
-font-size:40px;
-line-height:1.1;
-margin:0;
-letter-spacing:.02em;
-}
-.tagline{
-font-size:18px;
-color:var(--muted);
-margin:0;
-line-height:1.5;
-}
+    .nav a{
+      text-decoration:none;
+      font-size:14px;
+      color:var(--muted);
+      padding:8px 0;
+    }
 
-.cards{
-display:grid;
-grid-template-columns:repeat(3,minmax(0,1fr));
-gap:20px;
+    .nav a:hover{
+      color:var(--accentDark);
+    }
 
-margin:40px 0;
+    .hero{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:28px;
+      align-items:end;
+      margin-bottom:40px;
+    }
 
-padding:26px;
+    .hero-copy{
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.38);
+      border-radius:28px;
+      padding:34px 34px 30px;
+      backdrop-filter:blur(8px);
+      box-shadow:var(--shadow);
+    }
 
-background:rgba(255,255,255,.45);
-border-radius:22px;
+    .eyebrow{
+      margin:0 0 14px 0;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
 
-backdrop-filter:blur(6px);
-}
-@media(max-width:860px){
-.cards{grid-template-columns:1fr}
-}
+    .hero h1{
+      margin:0 0 16px 0;
+      font-family:var(--serif);
+      font-size:62px;
+      line-height:.98;
+      letter-spacing:.01em;
+      color:#1f1a17;
+    }
 
-.card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:var(--radius);
-box-shadow:var(--shadow);
-padding:22px;
+    .hero p{
+      margin:0;
+      max-width:42rem;
+      font-size:18px;
+      line-height:1.7;
+      color:#413b36;
+    }
 
-display:flex;
-flex-direction:column;
-gap:12px;
-min-height:180px;
-}
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
 
-.card h2{
-margin:0;
-font-size:18px;
-}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:13px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:600;
+      transition:transform .08s ease, background .15s ease, color .15s ease;
+    }
 
-.card p{
-margin:0;
-color:var(--muted);
-line-height:1.5;
-font-size:14.5px;
-}
+    .btn:hover{transform:translateY(-1px)}
 
-.btn{
-margin-top:auto;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-gap:10px;
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
 
-padding:12px 14px;
-border-radius:14px;
+    .btn-primary:hover{
+      background:var(--accentDark);
+    }
 
-background:var(--accent);
-color:#fff;
-text-decoration:none;
-font-weight:600;
+    .btn-secondary{
+      background:rgba(255,255,255,.78);
+      color:#2f6f5e;
+      border:1px solid rgba(47,111,94,.16);
+    }
 
-border:1px solid rgba(255,255,255,.12);
-transition:transform .06s ease,background .15s ease;
-}
+    .hero-note{
+      background:rgba(255,255,255,.50);
+      border:1px solid rgba(255,255,255,.36);
+      border-radius:24px;
+      padding:24px;
+      backdrop-filter:blur(8px);
+      box-shadow:var(--shadow);
+    }
 
-.btn:hover{
-background:var(--accentDark)
-}
+    .hero-note h2{
+      margin:0 0 10px 0;
+      font-family:var(--serif);
+      font-size:28px;
+    }
 
-.bio{
-background:rgba(255,255,255,.75);
-border:1px solid var(--border);
-border-radius:var(--radius);
-padding:20px;
-line-height:1.7;
-}
+    .hero-note p{
+      margin:0;
+      color:#4a453f;
+      line-height:1.7;
+      font-size:15px;
+    }
 
-.bio h3{
-margin:0 0 8px 0;
-font-size:16px;
-}
+    .section{
+      margin-top:44px;
+    }
 
-.bio p{
-margin:0;
-color:var(--muted)
-}
+    .section-heading{
+      margin:0 0 18px 0;
+      font-family:var(--serif);
+      font-size:34px;
+      color:#1f1a17;
+    }
 
-footer{
-margin-top:26px;
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-align-items:center;
+    .section-intro{
+      margin:0 0 22px 0;
+      max-width:52rem;
+      color:#4b5563;
+      line-height:1.7;
+      font-size:16px;
+    }
 
-color:var(--muted);
-font-size:13px;
-}
+    .path-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:20px;
+    }
 
-.pill{
-display:inline-flex;
-padding:6px 10px;
-border-radius:999px;
-border:1px solid var(--border);
-background:#fff;
-text-decoration:none;
-}
+    .path-card{
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(255,255,255,.44);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      backdrop-filter:blur(8px);
+      min-height:240px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
 
-</style>
+    .path-card h3{
+      margin:0;
+      font-family:var(--serif);
+      font-size:28px;
+      line-height:1.1;
+      color:#1f1a17;
+    }
+
+    .path-card p{
+      margin:0;
+      color:#4b5563;
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .path-card a{
+      margin-top:auto;
+      color:var(--accentDark);
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .path-card a:hover{
+      text-decoration:underline;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .about-card{
+      background:rgba(255,255,255,.70);
+      border:1px solid rgba(255,255,255,.42);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+
+    .about-card h3{
+      margin:0 0 12px 0;
+      font-family:var(--serif);
+      font-size:28px;
+      color:#1f1a17;
+    }
+
+    .about-card p{
+      margin:0;
+      color:#4b5563;
+      line-height:1.8;
+      font-size:15px;
+    }
+
+    footer{
+      margin-top:48px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:#4b5563;
+      font-size:13px;
+      padding-top:12px;
+    }
+
+    .pill{
+      display:inline-flex;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.42);
+      background:rgba(255,255,255,.70);
+      text-decoration:none;
+      box-shadow:var(--shadow);
+    }
+
+    @media (max-width: 960px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+
+      .path-grid,
+      .about{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:48px;
+      }
+
+      .site-title{
+        font-size:28px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .wrap{
+        padding:18px 16px 56px;
+      }
+
+      .topbar{
+        border-radius:24px;
+      }
+
+      .logo{
+        width:76px;
+      }
+
+      .hero-copy{
+        padding:26px 22px 24px;
+      }
+
+      .hero h1{
+        font-size:42px;
+      }
+
+      .section-heading{
+        font-size:30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="page">
+    <div class="wrap">
 
-<div class="wrap">
+      <header class="topbar">
+        <a class="brandmark" href="#">
+          <img src="Garden%20Shed%20Clay%20logo%20design-2.png" alt="Garden Shed Clay logo" class="logo">
+          <div class="brandtext">
+            <h2 class="site-title">Garden Shed Clay</h2>
+            <p class="site-sub">Philadelphia • Small-batch ceramics • Digital tools</p>
+          </div>
+        </a>
 
-<header>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="https://shop.gardenshedclay.com">Shop</a>
+          <a href="https://gardening.gardenshedclay.com">Garden Journal</a>
+          <a href="https://claystudio.gardenshedclay.com">Clay Studio Manager</a>
+          <a href="#about">About</a>
+        </nav>
+      </header>
 
-<div class="brand">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Pottery • Gardening • Useful Systems</p>
+          <h1>Clay, garden life, and thoughtful tools for makers.</h1>
+          <p>
+            Garden Shed Clay is the studio home of Lester Morris — a place for small-batch pottery,
+            quiet experimentation, and practical digital tools designed for gardeners and ceramic artists.
+          </p>
 
-<div class="kicker">
-Philadelphia • Small-batch ceramics • Digital tools
-</div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://shop.gardenshedclay.com">Shop the Pottery</a>
+            <a class="btn btn-secondary" href="#paths">Explore the Studio</a>
+          </div>
+        </div>
 
-<div class="brand-row">
+        <aside class="hero-note">
+          <h2>A working studio, not just a shop.</h2>
+          <p>
+            Handmade pottery sits at the center of Garden Shed Clay, with My Garden Journal and Clay Studio Manager
+            growing out of the same hands-on practice: observing, organizing, making, and refining.
+          </p>
+        </aside>
+      </section>
 
-<img src="Garden%20Shed%20Clay%20logo%20design-2.png"
-alt="Garden Shed Clay logo"
-class="logo">
+      <section class="section" id="paths">
+        <h2 class="section-heading">Choose your path</h2>
+        <p class="section-intro">
+          Start with the pottery, explore the garden planning app, or learn more about the studio management tools
+          being built for working ceramic artists.
+        </p>
 
-<h1>Garden Shed Clay</h1>
+        <div class="path-grid">
+          <article class="path-card">
+            <h3>Shop the Pottery</h3>
+            <p>
+              Small-batch ceramic work for everyday use — forms, surfaces, and functional pieces shaped by garden life
+              and studio rhythm.
+            </p>
+            <a href="https://shop.gardenshedclay.com">Visit the shop →</a>
+          </article>
 
-</div>
+          <article class="path-card">
+            <h3>My Garden Journal</h3>
+            <p>
+              A simple and thoughtful garden planning app to help growers map beds, keep records, and stay organized
+              through the whole season.
+            </p>
+            <a href="https://gardening.gardenshedclay.com">Explore the app →</a>
+          </article>
 
-<p class="tagline">
-Handcrafted pottery and thoughtfully designed apps for growers and makers.
-Choose your path below.
-</p>
+          <article class="path-card">
+            <h3>Clay Studio Manager</h3>
+            <p>
+              Built by a working potter to support inventory, firing logs, glaze tests, materials, and the practical
+              realities of a small studio.
+            </p>
+            <a href="https://claystudio.gardenshedclay.com">Learn more →</a>
+          </article>
+        </div>
+      </section>
 
-</div>
+      <section class="section about" id="about">
+        <div class="about-card">
+          <h3>About the studio</h3>
+          <p>
+            Garden Shed Clay is where clay, gardening, and practical systems meet. I make pottery in Philadelphia and
+            build tools that help gardeners and ceramic artists plan, track, and create with less friction and more joy.
+          </p>
+        </div>
 
-</header>
+        <div class="about-card">
+          <h3>What comes next</h3>
+          <p>
+            This site will continue evolving into a more complete studio home — with richer photography, a warmer visual
+            identity, and eventually things like updates, events, and mailing list signups.
+          </p>
+        </div>
+      </section>
 
+      <footer>
+        <span>© <span id="y"></span> Garden Shed Clay</span>
+        <span>•</span>
+        <a class="pill" href="https://www.instagram.com/gardenshedclay_com/" target="_blank" rel="noopener noreferrer">Instagram • @gardenshedclay_com</a>
+        <a class="pill" href="mailto:lester@gardenshedclay.com">lester@gardenshedclay.com</a>
+      </footer>
 
-<section class="cards">
+    </div>
+  </div>
 
-<div class="card">
-<h2>Shop the Pottery</h2>
-<p>
-Small-batch ceramic work designed for everyday use—forms, glazes,
-and experiments inspired by the garden.
-</p>
-
-<a class="btn"
-href="https://shop.gardenshedclay.com"
-rel="noopener">
-Visit the Shop →
-</a>
-</div>
-
-
-<div class="card">
-<h2>My Garden Journal</h2>
-
-<p>
-A beautifully simple iPhone garden planner to help you map beds,
-track planting, and stay organized season after season.
-</p>
-
-<a class="btn"
-href="https://gardening.gardenshedclay.com"
-rel="noopener">
-Explore the App →
-</a>
-</div>
-
-
-<div class="card">
-
-<h2>Clay Studio Manager</h2>
-
-<p>
-Built by a working potter to manage inventory, firings,
-glaze tests, materials, and studio workflow in one place.
-</p>
-
-<a class="btn"
-href="https://claystudio.gardenshedclay.com"
-rel="noopener">
-Learn More →
-</a>
-
-</div>
-
-</section>
-
-
-<section class="bio">
-
-<h3>About the studio</h3>
-
-<p>
-Garden Shed Clay is the home studio of Lester Morris — where clay,
-gardening, and practical systems meet. I make small-batch pottery
-in Philadelphia and build digital tools that help gardeners and
-ceramic artists plan, track, and create with less friction and more joy.
-</p>
-
-</section>
-
-
-<footer>
-
-<span>© <span id="y"></span> Garden Shed Clay</span>
-
-<span>•</span>
-
-<a class="pill"
-href="https://www.instagram.com/gardenshedclay_com/"
-target="_blank"
-rel="noopener noreferrer">
-Instagram • @gardenshedclay_com
-</a>
-
-<a class="pill"
-href="mailto:lester@gardenshedclay.com">
-lester@gardenshedclay.com
-</a>
-
-</footer>
-
-</div>
-
-
-<script>
-document.getElementById("y").textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
