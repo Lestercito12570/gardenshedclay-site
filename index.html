@@ -10,46 +10,94 @@
       --bg:#fbfaf7;
       --text:#1f2937;
       --muted:#4b5563;
-      --card:#ffffff;
-      --border:#e5e7eb;
+      --card:rgba(255,255,255,.92);
+      --border:rgba(229,231,235,.95);
       --accent:#2f6f5e; /* Oribe-ish green */
       --accentDark:#255b4c;
-      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
       --radius:18px;
       --max: 980px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:var(--font);
-      background:linear-gradient(180deg, var(--bg), #ffffff);
       color:var(--text);
+      background:
+        linear-gradient(rgba(251,250,247,.82), rgba(255,255,255,.88)),
+        url("IMG_6904.jpeg") center center / cover no-repeat fixed;
     }
+
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:48px 20px 64px;}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:48px 20px 64px;
+    }
+
     header{
-      display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+      flex-wrap:wrap;
       margin-bottom:28px;
     }
+
     .brand{
-      display:flex; flex-direction:column; gap:10px; max-width:640px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-width:640px;
+      background:rgba(255,255,255,.68);
+      backdrop-filter: blur(4px);
+      padding:20px 22px;
+      border:1px solid rgba(229,231,235,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
+
     .kicker{
-      letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:var(--muted);
     }
-    h1{font-size:44px; line-height:1.05; margin:0;}
-    .tagline{font-size:18px; color:var(--muted); margin:0; line-height:1.5;}
+
+    h1{
+      font-size:44px;
+      line-height:1.05;
+      margin:0;
+    }
+
+    .tagline{
+      font-size:18px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.5;
+    }
+
     .cards{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:16px;
       margin:28px 0 34px;
     }
+
     @media (max-width: 860px){
       h1{font-size:36px}
-      .cards{grid-template-columns:1fr; }
+      .cards{grid-template-columns:1fr;}
+      body{
+        background:
+          linear-gradient(rgba(251,250,247,.88), rgba(255,255,255,.92)),
+          url("IMG_6904.jpeg") center center / cover no-repeat;
+      }
     }
+
     .card{
       background:var(--card);
       border:1px solid var(--border);
@@ -59,10 +107,22 @@
       display:flex;
       flex-direction:column;
       gap:12px;
-      min-height: 180px;
+      min-height:220px;
+      backdrop-filter: blur(4px);
     }
-    .card h2{margin:0; font-size:18px;}
-    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px;}
+
+    .card h2{
+      margin:0;
+      font-size:18px;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14.5px;
+    }
+
     .btn{
       margin-top:auto;
       display:inline-flex;
@@ -78,45 +138,70 @@
       border:1px solid rgba(255,255,255,.12);
       transition:transform .06s ease, background .15s ease;
     }
+
     .btn:hover{background:var(--accentDark)}
     .btn:active{transform:translateY(1px)}
+
     .bio{
-      background:rgba(255,255,255,.7);
+      background:rgba(255,255,255,.82);
       border:1px solid var(--border);
       border-radius:var(--radius);
       padding:18px;
       line-height:1.7;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(4px);
     }
-    .bio h3{margin:0 0 8px 0; font-size:16px;}
-    .bio p{margin:0; color:var(--muted)}
+
+    .bio h3{
+      margin:0 0 8px 0;
+      font-size:16px;
+    }
+
+    .bio p{
+      margin:0;
+      color:var(--muted);
+    }
+
     footer{
       margin-top:26px;
-      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
       color:var(--muted);
       font-size:13px;
+      background:rgba(255,255,255,.68);
+      border:1px solid rgba(229,231,235,.9);
+      border-radius:999px;
+      padding:10px 14px;
+      width:fit-content;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(4px);
     }
+
     .pill{
-      display:inline-flex; padding:6px 10px; border-radius:999px;
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
       border:1px solid var(--border);
-      background:#fff;
+      background:rgba(255,255,255,.9);
       text-decoration:none;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-  <header>
-  <div class="brand">
-    <div class="kicker">Philadelphia • Small-batch ceramics • Digital tools</div>
-    <h1>Garden Shed Clay</h1>
-    <p class="tagline">
-      Handcrafted pottery and thoughtfully designed apps for growers and makers.
-      Choose your path below.
-    </p>
-  </div>
-</header>
-<img src="IMG_6904.jpeg" alt="Garden Shed Clay pottery" style="width:100%; height:auto; border-radius:12px; margin:24px 0;">
-<section class="cards" aria-label="Choose your path">        
+    <header>
+      <div class="brand">
+        <div class="kicker">Philadelphia • Small-batch ceramics • Digital tools</div>
+        <h1>Garden Shed Clay</h1>
+        <p class="tagline">
+          Handcrafted pottery and thoughtfully designed apps for growers and makers.
+          Choose your path below.
+        </p>
+      </div>
+    </header>
+
     <section class="cards" aria-label="Choose your path">
       <div class="card">
         <h2>Shop the Pottery</h2>
@@ -158,12 +243,12 @@
     <footer>
       <span>© <span id="y"></span> Garden Shed Clay</span>
       <span>•</span>
-     <a class="pill"
-   href="https://www.instagram.com/gardenshedclay_com/"
-   target="_blank"
-   rel="noopener noreferrer">
-   Instagram • @gardenshedclay_com
-</a>
+      <a class="pill"
+         href="https://www.instagram.com/gardenshedclay_com/"
+         target="_blank"
+         rel="noopener noreferrer">
+         Instagram • @gardenshedclay_com
+      </a>
       <a class="pill" href="mailto:lester@gardenshedclay.com">lester@gardenshedclay.com</a>
     </footer>
   </div>
