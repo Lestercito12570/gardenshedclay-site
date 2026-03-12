@@ -23,12 +23,15 @@
 
     *{box-sizing:border-box}
 
-    html, body{
-      margin:0;
-      padding:0;
-      scroll-behavior:smooth;
-    }
+  html, body{
+  margin:0;
+  padding:0;
+  scroll-behavior:smooth;
+}
 
+body.lock-home{
+  overflow:hidden;
+}    
     body{
       font-family:var(--sans);
       background:#000;
@@ -269,7 +272,7 @@
       margin:0 auto;
     }
 .newsletter-intro{
-  max-width:700px;
+  max-width:560px;
   margin:0 auto 22px;
   color:#cfcfcf;
   text-align:center;
@@ -500,9 +503,53 @@ No spam. Just occasional studio updates.
     </footer>
   </main>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+<script>
+  const body = document.body;
 
+  function lockHomeIfTopLevel() {
+    const hash = window.location.hash;
+    if (!hash || hash === "#home") {
+      body.classList.add("lock-home");
+    } else {
+      body.classList.remove("lock-home");
+    }
+  }
+
+  function unlockAndGoTo(hash) {
+    body.classList.remove("lock-home");
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, "", hash);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    lockHomeIfTopLevel();
+
+    document.querySelectorAll('a[href="#about"], a[href="#newsletter"]').forEach(link => {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        unlockAndGoTo(this.getAttribute("href"));
+      });
+    });
+
+    document.querySelectorAll('a[href="#home"], .brand-block').forEach(link => {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        history.replaceState(null, "", window.location.pathname);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        body.classList.add("lock-home");
+      });
+    });
+
+    const yearEl = document.getElementById("y");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  });
+
+  window.addEventListener("hashchange", lockHomeIfTopLevel);
+</script>
 </body>
 </html>
