@@ -26,6 +26,7 @@
     html, body{
       margin:0;
       padding:0;
+      scroll-behavior:smooth;
     }
 
     body{
@@ -125,17 +126,18 @@
     .hero-content{
       position:relative;
       z-index:1;
-      padding:40px 24px 60px;
+      padding:40px 24px 72px;
       max-width:1100px;
     }
 
     .hero-logo{
-  width:140px;
-  max-width:32vw;
-  height:auto;
-  margin:0 auto 24px;
-  display:block;
-}
+      width:140px;
+      max-width:32vw;
+      height:auto;
+      margin:0 auto 24px;
+      display:block;
+    }
+
     .hero-title{
       margin:0;
       font-size:clamp(42px, 7vw, 94px);
@@ -258,6 +260,31 @@
       color:#d7cfbf;
     }
 
+    .newsletter-section{
+      text-align:center;
+    }
+
+    .newsletter-inner{
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .newsletter-intro{
+      margin:0 auto 24px;
+      max-width:680px;
+    }
+
+    .newsletter-form{
+      margin-top:24px;
+    }
+
+    .newsletter-consent{
+      margin-top:18px;
+      font-size:14px;
+      line-height:1.7;
+      color:rgba(255,255,255,.62);
+    }
+
     .footer{
       max-width:1100px;
       margin:0 auto;
@@ -305,6 +332,10 @@
 
       .hero{
         min-height:72vh;
+      }
+
+      .hero-content{
+        padding:32px 18px 60px;
       }
 
       .section{
@@ -362,10 +393,12 @@
       </div>
 
       <div class="hero-links">
-  <a href="https://shop.gardenshedclay.com">Shop the Pottery</a>
-  <a href="#about">About the Studio</a>
-  <a href="#newsletter">Studio &amp; Garden Updates</a>
-</div>
+        <a href="https://shop.gardenshedclay.com">Shop the Pottery</a>
+        <a href="#about">About the Studio</a>
+        <a href="#newsletter">Studio &amp; Garden Updates</a>
+      </div>
+    </div>
+  </section>
 
   <main class="content">
     <section class="section two-col" id="about">
@@ -395,6 +428,25 @@
           <p>Studio tools for inventory, firings, glaze tests, materials, and workflow.</p>
           <a href="https://claystudio.gardenshedclay.com">Learn more →</a>
         </div>
+      </div>
+    </section>
+
+    <section class="section newsletter-section" id="newsletter">
+      <div class="newsletter-inner">
+        <h2>Studio &amp; Garden Updates</h2>
+        <p class="newsletter-intro">
+          Subscribe for occasional notes about new pottery, ceramics studio tools,
+          and updates to My Garden Journal.
+        </p>
+
+        <div class="newsletter-form">
+          <!-- Paste your MailerLite embed code here -->
+        </div>
+
+        <p class="newsletter-consent">
+          By subscribing, you agree to receive email updates from Garden Shed Clay.
+          You can unsubscribe at any time.
+        </p>
       </div>
     </section>
 
