@@ -8,424 +8,421 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<style>
-  :root{
-    --bg:#111111;
-    --panel:#171717;
-    --text:#f5f2ea;
-    --muted:rgba(255,255,255,.76);
-    --line:rgba(255,255,255,.14);
-    --accent:#d8d1c2;
-    --max:1400px;
-    --sans:'Inter', system-ui, sans-serif;
-    --serif:'Cormorant Garamond', serif;
-  }
+  <style>
+    :root{
+      --bg:#111111;
+      --panel:#171717;
+      --text:#f5f2ea;
+      --muted:rgba(255,255,255,.76);
+      --line:rgba(255,255,255,.14);
+      --accent:#d8d1c2;
+      --max:1400px;
+      --sans:'Inter', system-ui, sans-serif;
+      --serif:'Cormorant Garamond', serif;
+    }
 
-  *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
-  html, body{
-    margin:0;
-    padding:0;
-    scroll-behavior:smooth;
-  }
+    html, body{
+      margin:0;
+      padding:0;
+      scroll-behavior:smooth;
+    }
 
-  body.lock-home{
-    overflow:hidden;
-  }
+    body{
+      font-family:var(--sans);
+      background:#000;
+      color:var(--text);
+    }
 
-  body{
-    font-family:var(--sans);
-    background:#000;
-    color:var(--text);
-  }
+    body.lock-home{
+      overflow:hidden;
+    }
 
-  a{
-    color:inherit;
-  }
+    a{
+      color:inherit;
+    }
 
-  .topbar{
-    position:relative;
-    z-index:10;
-    background:#1a1a1a;
-    border-bottom:1px solid rgba(255,255,255,.08);
-  }
-
-  .topbar-inner{
-    max-width:var(--max);
-    margin:0 auto;
-    padding:22px 24px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:24px;
-    flex-wrap:wrap;
-  }
-
-  .brand-block{
-    text-decoration:none;
-    color:var(--text);
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    min-width:0;
-  }
-
-  .brand-title{
-    margin:0;
-    font-size:26px;
-    font-weight:300;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    line-height:1;
-  }
-
-  .brand-sub{
-    margin:0;
-    font-size:13px;
-    font-weight:300;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,.72);
-  }
-
-  .nav{
-    display:flex;
-    gap:28px;
-    flex-wrap:wrap;
-    align-items:center;
-    padding-top:8px;
-  }
-
-  .nav a{
-    text-decoration:none;
-    font-size:14px;
-    font-weight:400;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,.86);
-  }
-
-  .nav a:hover{
-    color:#ffffff;
-  }
-
-  .hero{
-    position:relative;
-    min-height:100vh;
-    background-image:url("IMG_6904.jpeg");
-    background-position:center center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-  }
-
-  .hero::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,.16);
-  }
-
-  .hero-content{
-    position:relative;
-    z-index:1;
-    padding:40px 24px 90px;
-    max-width:1100px;
-  }
-
-  .hero-logo{
-    width:140px;
-    max-width:32vw;
-    height:auto;
-    margin:0 auto 24px;
-    display:block;
-  }
-
-  .hero-title{
-    margin:0;
-    font-size:clamp(42px, 7vw, 94px);
-    font-weight:400;
-    letter-spacing:.20em;
-    text-transform:uppercase;
-    line-height:1.05;
-    color:#fff;
-    text-shadow:0 2px 18px rgba(0,0,0,.35);
-  }
-
-  .hero-subtitle{
-    margin:22px auto 0;
-    max-width:900px;
-    font-family:var(--serif);
-    font-size:clamp(24px, 2.5vw, 40px);
-    font-weight:400;
-    line-height:1.2;
-    color:rgba(255,255,255,.94);
-    text-shadow:0 2px 18px rgba(0,0,0,.30);
-  }
-
-  .hero-links{
-    margin-top:36px;
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    flex-wrap:wrap;
-  }
-
-  .hero-links a{
-    text-decoration:none;
-    border:1px solid rgba(255,255,255,.35);
-    padding:12px 18px;
-    font-size:13px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:#fff;
-    background:rgba(0,0,0,.18);
-    backdrop-filter:blur(2px);
-  }
-
-  .hero-links a:hover{
-    background:rgba(255,255,255,.12);
-  }
-
-  .content{
-    background:#111;
-    color:#eee7db;
-  }
-
-  .section{
-    max-width:1100px;
-    margin:0 auto;
-    padding:72px 24px;
-    border-top:1px solid var(--line);
-  }
-
-  .two-col{
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:40px;
-    align-items:start;
-  }
-
-  .section h2{
-    margin:0 0 18px 0;
-    font-family:var(--serif);
-    font-size:44px;
-    font-weight:500;
-    line-height:1.05;
-    color:#f3ede2;
-  }
-
-  .section p{
-    margin:0;
-    font-size:17px;
-    line-height:1.85;
-    color:rgba(255,255,255,.78);
-  }
-
-  .path-list{
-    display:grid;
-    gap:0;
-  }
-
-  .path-item,
-  .about-card{
-    padding:18px 0;
-    border-top:1px solid var(--line);
-  }
-
-  .path-list > *:first-child{
-    border-top:none;
-    padding-top:0;
-  }
-
-  .path-item h3,
-  .about-card-text h3{
-    margin:0 0 6px 0;
-    font-size:22px;
-    font-weight:500;
-    color:#f5efe3;
-  }
-
-  .path-item p,
-  .about-card-text p{
-    margin:0 0 8px 0;
-    font-size:15px;
-    line-height:1.7;
-    color:rgba(255,255,255,.72);
-  }
-
-  .path-item a,
-  .about-card-text a{
-    text-decoration:none;
-    font-size:13px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:#ffffff;
-  }
-
-  .path-item a:hover,
-  .about-card-text a:hover{
-    color:#d7cfbf;
-  }
-
-  .app-card{
-    display:grid;
-    grid-template-columns:110px 1fr;
-    gap:1.25rem;
-    align-items:start;
-  }
-
-  .app-thumb{
-    width:110px;
-    min-width:110px;
-    max-width:110px;
-    height:auto;
-    display:block;
-    border-radius:14px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.25);
-    object-fit:cover;
-  }
-
-  .newsletter-section{
-    text-align:center;
-  }
-
-  .newsletter-inner{
-    max-width:760px;
-    margin:0 auto;
-  }
-
-  .newsletter-intro{
-    max-width:700px;
-    margin:0 auto 22px;
-    color:#cfcfcf;
-    text-align:center;
-    line-height:1.6;
-  }
-
-  .newsletter-form{
-    margin-top:24px;
-  }
-
-  .newsletter-note{
-    margin-top:14px;
-    font-size:0.9rem;
-    color:#9a9a9a;
-  }
-
-  .newsletter-consent{
-    margin-top:10px;
-    font-size:0.8rem;
-    color:#777;
-    line-height:1.7;
-  }
-
-  .footer{
-    max-width:1100px;
-    margin:0 auto;
-    padding:28px 24px 44px;
-    border-top:1px solid var(--line);
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-    align-items:center;
-    color:rgba(255,255,255,.68);
-    font-size:13px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-  }
-
-  .footer a{
-    text-decoration:none;
-    color:rgba(255,255,255,.82);
-  }
-
-  .footer a:hover{
-    color:#fff;
-  }
-
-  @media (max-width: 900px){
-    .two-col{
-      grid-template-columns:1fr;
+    .topbar{
+      position:relative;
+      z-index:10;
+      background:#1a1a1a;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
 
     .topbar-inner{
-      padding:18px 18px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:24px;
+      flex-wrap:wrap;
     }
 
-    .nav{
-      gap:18px;
+    .brand-block{
+      text-decoration:none;
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
     }
 
     .brand-title{
-      font-size:20px;
+      margin:0;
+      font-size:26px;
+      font-weight:300;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      line-height:1;
     }
 
     .brand-sub{
-      font-size:11px;
+      margin:0;
+      font-size:13px;
+      font-weight:300;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
     }
 
-    .hero{
-      min-height:72vh;
-    }
-
-    .hero-content{
-      padding:32px 18px 60px;
-    }
-
-    .section{
-      padding:56px 18px;
-    }
-
-    .footer{
-      padding:24px 18px 36px;
-    }
-  }
-
-  @media (max-width: 768px){
-    .app-card{
-      grid-template-columns:1fr;
-    }
-
-    .app-thumb{
-      width:140px;
-      min-width:140px;
-      max-width:140px;
-    }
-  }
-
-  @media (max-width: 640px){
-    .hero-title{
-      letter-spacing:.12em;
+    .nav{
+      display:flex;
+      gap:28px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding-top:8px;
     }
 
     .nav a{
-      font-size:12px;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:400;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.86);
+    }
+
+    .nav a:hover{
+      color:#ffffff;
+    }
+
+    .hero{
+      position:relative;
+      min-height:100vh;
+      background-image:url("IMG_6904.jpeg");
+      background-position:center center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.16);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+      padding:40px 24px 90px;
+      max-width:1100px;
+    }
+
+    .hero-logo{
+      width:140px;
+      max-width:32vw;
+      height:auto;
+      margin:0 auto 24px;
+      display:block;
+    }
+
+    .hero-title{
+      margin:0;
+      font-size:clamp(42px, 7vw, 94px);
+      font-weight:400;
+      letter-spacing:.20em;
+      text-transform:uppercase;
+      line-height:1.05;
+      color:#fff;
+      text-shadow:0 2px 18px rgba(0,0,0,.35);
+    }
+
+    .hero-subtitle{
+      margin:22px auto 0;
+      max-width:900px;
+      font-family:var(--serif);
+      font-size:clamp(24px, 2.5vw, 40px);
+      font-weight:400;
+      line-height:1.2;
+      color:rgba(255,255,255,.94);
+      text-shadow:0 2px 18px rgba(0,0,0,.30);
+    }
+
+    .hero-links{
+      margin-top:36px;
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
     }
 
     .hero-links a{
-      width:100%;
-      max-width:320px;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.35);
+      padding:12px 18px;
+      font-size:13px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#fff;
+      background:rgba(0,0,0,.18);
+      backdrop-filter:blur(2px);
     }
-  }
-</style>
+
+    .hero-links a:hover{
+      background:rgba(255,255,255,.12);
+    }
+
+    .content{
+      background:#111;
+      color:#eee7db;
+    }
+
+    .section{
+      max-width:1100px;
+      margin:0 auto;
+      padding:72px 24px;
+      border-top:1px solid var(--line);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:48px;
+      align-items:start;
+    }
+
+    .section h2{
+      margin:0 0 18px 0;
+      font-family:var(--serif);
+      font-size:44px;
+      font-weight:500;
+      line-height:1.05;
+      color:#f3ede2;
+    }
+
+    .section p{
+      margin:0;
+      font-size:17px;
+      line-height:1.85;
+      color:rgba(255,255,255,.78);
+    }
+
+    .path-list{
+      display:grid;
+      gap:0;
+    }
+
+    .about-card{
+      padding:22px 0;
+      border-top:1px solid var(--line);
+    }
+
+    .path-list > *:first-child{
+      border-top:none;
+      padding-top:0;
+    }
+
+    .app-card{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:1.25rem;
+      align-items:start;
+    }
+
+    .app-thumb{
+      width:110px;
+      min-width:110px;
+      max-width:110px;
+      height:auto;
+      display:block;
+      border-radius:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+      object-fit:cover;
+    }
+
+    .about-card-text h3{
+      margin:0 0 8px 0;
+      font-size:22px;
+      font-weight:500;
+      color:#f5efe3;
+    }
+
+    .about-card-text p{
+      margin:0 0 10px 0;
+      font-size:15px;
+      line-height:1.7;
+      color:rgba(255,255,255,.72);
+    }
+
+    .about-card-text a{
+      text-decoration:none;
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#ffffff;
+    }
+
+    .about-card-text a:hover{
+      color:#d7cfbf;
+    }
+
+    .newsletter-section{
+      text-align:center;
+    }
+
+    .newsletter-inner{
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .newsletter-intro{
+      max-width:700px;
+      margin:0 auto 22px;
+      color:#cfcfcf;
+      text-align:center;
+      line-height:1.6;
+    }
+
+    .newsletter-form{
+      margin-top:24px;
+    }
+
+    .newsletter-note{
+      margin-top:14px;
+      font-size:0.9rem;
+      color:#9a9a9a;
+    }
+
+    .newsletter-consent{
+      margin-top:10px;
+      font-size:0.8rem;
+      color:#777;
+      line-height:1.7;
+    }
+
+    .footer{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 24px 44px;
+      border-top:1px solid var(--line);
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:rgba(255,255,255,.68);
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .footer a{
+      text-decoration:none;
+      color:rgba(255,255,255,.82);
+    }
+
+    .footer a:hover{
+      color:#fff;
+    }
+
+    @media (max-width: 900px){
+      .two-col{
+        grid-template-columns:1fr;
+      }
+
+      .topbar-inner{
+        padding:18px 18px;
+      }
+
+      .nav{
+        gap:18px;
+      }
+
+      .brand-title{
+        font-size:20px;
+      }
+
+      .brand-sub{
+        font-size:11px;
+      }
+
+      .hero{
+        min-height:72vh;
+      }
+
+      .hero-content{
+        padding:32px 18px 60px;
+      }
+
+      .section{
+        padding:56px 18px;
+      }
+
+      .footer{
+        padding:24px 18px 36px;
+      }
+    }
+
+    @media (max-width: 768px){
+      .app-card{
+        grid-template-columns:1fr;
+      }
+
+      .app-thumb{
+        width:140px;
+        min-width:140px;
+        max-width:140px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .hero-title{
+        letter-spacing:.12em;
+      }
+
+      .nav a{
+        font-size:12px;
+      }
+
+      .hero-links a{
+        width:100%;
+        max-width:320px;
+      }
+    }
+  </style>
+
   <!-- MailerLite Universal -->
-<script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
     (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
     ml('account', '2184911');
-</script>
-<!-- End MailerLite Universal --></head>
+  </script>
+  <!-- End MailerLite Universal -->
+</head>
 <body>
 
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand-block" href="#">
+      <a class="brand-block" href="#home">
         <h1 class="brand-title">Garden Shed Clay</h1>
         <p class="brand-sub">Lester Morris</p>
       </a>
@@ -440,44 +437,25 @@
     </div>
   </header>
 
-  <section class="section two-col" id="about">
-  <div>
-    <h2>About</h2>
-    <p>
-      Garden Shed Clay is the studio home of Lester Morris in Philadelphia. The work brings together
-      pottery, gardening, and practical digital tools built from daily studio life and seasonal practice.
-    </p>
-  </div>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img src="logo.png" alt="Garden Shed Clay logo" class="hero-logo">
 
-  <div class="path-list">
-    <div class="about-card app-card">
-      <img src="IMG_6930.png" alt="Garden Shed Clay pottery" class="app-thumb">
-      <div class="about-card-text">
-        <h3>Shop the Pottery</h3>
-        <p>Small-batch ceramic work for everyday use, shaped by the garden and the studio.</p>
-        <a href="https://shop.gardenshedclay.com" target="_blank" rel="noopener">Visit the shop →</a>
+      <div class="hero-title">Garden Shed Clay</div>
+
+      <div class="hero-subtitle">
+        Handmade pottery, garden planning tools, and studio management tools for ceramic artists.
+      </div>
+
+      <div class="hero-links">
+        <a href="https://shop.gardenshedclay.com">Shop the Pottery</a>
+        <a href="#about">Garden &amp; Studio Apps</a>
+        <a href="#newsletter">Studio &amp; Garden Updates</a>
       </div>
     </div>
+  </section>
 
-    <div class="about-card app-card">
-      <img src="garden-journal-planner.png" alt="My Garden Journal app preview" class="app-thumb">
-      <div class="about-card-text">
-        <h3>My Garden Journal</h3>
-        <p>A garden planning app for mapping beds, keeping records, and staying organized through the season.</p>
-        <a href="https://gardening.gardenshedclay.com" target="_blank" rel="noopener">Explore the app →</a>
-      </div>
-    </div>
-
-    <div class="about-card app-card">
-      <img src="clay_studio_refined_6.png" alt="Clay Studio Manager app preview" class="app-thumb">
-      <div class="about-card-text">
-        <h3>Clay Studio Manager</h3>
-        <p>Studio tools for inventory, firings, glaze tests, materials, and workflow.</p>
-        <a href="https://claystudio.gardenshedclay.com/" target="_blank" rel="noopener">Learn more →</a>
-      </div>
-    </div>
-  </div>
-</section>  <main class="content">
+  <main class="content">
     <section class="section two-col" id="about">
       <div>
         <h2>About</h2>
@@ -486,48 +464,53 @@
           pottery, gardening, and practical digital tools built from daily studio life and seasonal practice.
         </p>
       </div>
-<div class="about-card app-card">
-  <img src="IMG_6930.png" alt="Garden Shed Clay pottery" class="app-thumb">
-  <div class="about-card-text">
-    <h3>Shop the Pottery</h3>
-    <p>Small-batch ceramic work for everyday use, shaped by the garden and the studio.</p>
-    <a href="https://shop.gardenshedclay.com" target="_blank" rel="noopener">Visit the shop →</a>
-  </div>
-</div>
-        <div class="about-card app-card">
-  <img src="garden-journal-planner.png" alt="My Garden Journal app preview" class="app-thumb">
-  <div class="about-card-text">
-    <h3>My Garden Journal</h3>
-    <p>A garden planning app for mapping beds, keeping records, and staying organized through the season.</p>
-    <a href="#newsletter">Explore the App →</a>
-  </div>
-</div>
 
-<div class="about-card app-card">
-  <img src="clay_studio_refined_6.png" alt="Clay Studio Manager app preview" class="app-thumb">
-  <div class="about-card-text">
-    <h3>Clay Studio Manager</h3>
-    <p>Studio tools for inventory, firings, glaze tests, materials, and workflow.</p>
-    <a href="https://claystudio.gardenshedclay.com/" target="_blank" rel="noopener">Learn More →</a>
-  </div>
-</div>
+      <div class="path-list">
+        <div class="about-card app-card">
+          <img src="IMG_6930.png" alt="Garden Shed Clay pottery" class="app-thumb">
+          <div class="about-card-text">
+            <h3>Shop the Pottery</h3>
+            <p>Small-batch ceramic work for everyday use, shaped by the garden and the studio.</p>
+            <a href="https://shop.gardenshedclay.com" target="_blank" rel="noopener">Visit the shop →</a>
+          </div>
+        </div>
+
+        <div class="about-card app-card">
+          <img src="garden-journal-planner.png" alt="My Garden Journal app preview" class="app-thumb">
+          <div class="about-card-text">
+            <h3>My Garden Journal</h3>
+            <p>A garden planning app for mapping beds, keeping records, and staying organized through the season.</p>
+            <a href="https://gardening.gardenshedclay.com" target="_blank" rel="noopener">Explore the app →</a>
+          </div>
+        </div>
+
+        <div class="about-card app-card">
+          <img src="clay_studio_refined_6.png" alt="Clay Studio Manager app preview" class="app-thumb">
+          <div class="about-card-text">
+            <h3>Clay Studio Manager</h3>
+            <p>Studio tools for inventory, firings, glaze tests, materials, and workflow.</p>
+            <a href="https://claystudio.gardenshedclay.com" target="_blank" rel="noopener">Learn more →</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section newsletter-section" id="newsletter">
-           
+      <div class="newsletter-inner">
         <h2>Studio &amp; Garden Updates</h2>
         <p class="newsletter-intro">
-          Get occasional notes from the studio — new pottery, garden experiments,
-and tools I'm building for ceramic artists and gardeners.
+          Get occasional notes from the studio — new pottery, garden experiments, and tools I'm building for ceramic artists and gardeners.
         </p>
 
         <div class="newsletter-form">
-         <div class="ml-embedded" data-form="wDqx6V"></div>         
+          <div class="ml-embedded" data-form="wDqx6V"></div>
         </div>
-<p class="newsletter-note">
-No spam. Just occasional studio updates.
-</p>        
-      <p class="newsletter-consent">
+
+        <p class="newsletter-note">
+          No spam. Just occasional studio updates.
+        </p>
+
+        <p class="newsletter-consent">
           By subscribing, you agree to receive email updates from Garden Shed Clay.
           You can unsubscribe at any time.
         </p>
@@ -543,53 +526,53 @@ No spam. Just occasional studio updates.
     </footer>
   </main>
 
-<script>
-  const body = document.body;
+  <script>
+    const body = document.body;
 
-  function lockHomeIfTopLevel() {
-    const hash = window.location.hash;
-    if (!hash || hash === "#home") {
-      body.classList.add("lock-home");
-    } else {
-      body.classList.remove("lock-home");
-    }
-  }
-
-  function unlockAndGoTo(hash) {
-    body.classList.remove("lock-home");
-    const target = document.querySelector(hash);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      history.replaceState(null, "", hash);
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    lockHomeIfTopLevel();
-
-    document.querySelectorAll('a[href="#about"], a[href="#newsletter"]').forEach(link => {
-      link.addEventListener("click", function(e) {
-        e.preventDefault();
-        unlockAndGoTo(this.getAttribute("href"));
-      });
-    });
-
-    document.querySelectorAll('a[href="#home"], .brand-block').forEach(link => {
-      link.addEventListener("click", function(e) {
-        e.preventDefault();
-        history.replaceState(null, "", window.location.pathname);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    function lockHomeIfTopLevel() {
+      const hash = window.location.hash;
+      if (!hash || hash === "#home") {
         body.classList.add("lock-home");
+      } else {
+        body.classList.remove("lock-home");
+      }
+    }
+
+    function unlockAndGoTo(hash) {
+      body.classList.remove("lock-home");
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+        history.replaceState(null, "", hash);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lockHomeIfTopLevel();
+
+      document.querySelectorAll('a[href="#about"], a[href="#newsletter"]').forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          unlockAndGoTo(this.getAttribute("href"));
+        });
       });
+
+      document.querySelectorAll('a[href="#home"], .brand-block').forEach(link => {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          history.replaceState(null, "", window.location.pathname);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          body.classList.add("lock-home");
+        });
+      });
+
+      const yearEl = document.getElementById("y");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
     });
 
-    const yearEl = document.getElementById("y");
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
-  });
-
-  window.addEventListener("hashchange", lockHomeIfTopLevel);
-</script>
+    window.addEventListener("hashchange", lockHomeIfTopLevel);
+  </script>
 </body>
 </html>
