@@ -395,6 +395,34 @@ body.lock-home{
   margin-top:10px;
   font-size:0.8rem;
   color:#777;
+
+/* App cards layout */
+
+.app-card {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.app-thumb {
+  width: 110px;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Mobile layout */
+
+@media (max-width: 768px) {
+  .app-card {
+    grid-template-columns: 1fr;
+  }
+
+  .app-thumb {
+    width: 140px;
+  }  
 }  </style>
 <!-- MailerLite Universal -->
 <script>
