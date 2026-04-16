@@ -1,0 +1,49 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "My Ceramics Studio",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "DesignApplication, LifestyleApplication",
+  "description": "A comprehensive ceramics studio management tool featuring a direct Glazy.org database integration. Search, browse, and save glaze recipes directly to your digital firing logs.",
+  "featureList": [
+    "Glazy.org Database Integration",
+    "Digital Firing Logs",
+    "Ceramic Recipe Management",
+    "Studio Workflow Optimization"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "Garden Shed Clay LLC"
+  },
+  "brand": {
+    "@type": "Brand",
+    "name": "Garden Shed Clay LLC"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD",
+    "description": "Free version available with premium studio management features.",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": {
+      "@type": "ShippingDetail",
+      "shippingRate": "0.00",
+      "shippingDestination": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "US"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/FullRefund"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "ratingCount": "150"
+  }
+}
