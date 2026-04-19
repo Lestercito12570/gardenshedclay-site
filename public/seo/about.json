@@ -1,0 +1,35 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://gardenshedclay.com/pages/about",
+  "internalLink": {
+    "anchor": "About Garden Shed Clay",
+    "href": "https://gardenshedclay.com/collections/handmade-ceramic-bowls"
+  },
+  "brand": {
+    "@type": "Brand",
+    "name": "Garden Shed Clay"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://gardenshedclay.com/pages/about",
+    "priceCurrency": "USD",
+    "price": "25.00",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": {
+      "@type": "DeliveryChargeSpecification",
+      "shippingRate": 5
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/ReturnOnInvestment",
+      "returnPolicyUrl": "https://gardenshedclay.com/pages/return-policy"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": 120
+  }
+}
