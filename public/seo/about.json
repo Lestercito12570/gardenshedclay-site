@@ -12,24 +12,24 @@
   },
   "offers": {
     "@type": "Offer",
-    "url": "https://gardenshedclay.com/pages/about",
     "priceCurrency": "USD",
     "price": "25.00",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "shippingDetails": {
-      "@type": "DeliveryChargeSpecification",
-      "shippingRate": 5
+      "@type": "ShippingDetail",
+      "shippingRate": 5,
+      "shippingLabel": "Standard Shipping"
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "returnPolicyCategory": "https://schema.org/ReturnOnInvestment",
-      "returnPolicyUrl": "https://gardenshedclay.com/pages/return-policy"
+      "name": "30-Day Return Policy",
+      "url": "https://gardenshedclay.com/pages/returns"
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",
-    "reviewCount": 120
+    "reviewCount": 150
   }
 }
