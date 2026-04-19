@@ -1,1 +1,42 @@
-{"@context":"https://schema.org","@type":"WebPage","url":"https://gardenshedclay.com/collections/pottery-gifts","internalLink":{"anchor":"Pottery Gifts & Sets","href":"https://gardenshedclay.com/blogs/news"},"brand":{"@type":"Brand","name":"Garden Shed Clay"},"offers":{"@type":"Offer","priceCurrency":"USD","price":"29.99","itemCondition":"https://schema.org/NewCondition","availability":"https://schema.org/InStock","shippingDetails":{"@type":"OfferShippingDetails","shippingRate":"5.00","shippingDestination":{"@type":"Place","address":{"@type":"PostalAddress","addressCountry":"US"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","returnPolicyCategory":"https://schema.org/ReturnPolicyType/ReturnsAccepted"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"150"}}
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://gardenshedclay.com/collections/pottery-gifts",
+  "internalLink": {
+    "anchor": "Pottery Gifts & Sets",
+    "href": "https://gardenshedclay.com/blogs/news"
+  },
+  "brand": {
+    "@type": "Brand",
+    "name": "Garden Shed Clay"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "15.00",
+    "highPrice": "100.00",
+    "priceCurrency": "USD",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": "5.00",
+      "shippingDestination": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "USA",
+          "addressRegion": "US"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/NonRefundable"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "250"
+  }
+}
