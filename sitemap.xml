@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "message": "Update sitemap via Promoter",
+  "content": "W3htbCB2ZXJzaW9uPSIxLjAiIGVuY29raW5nPSJVVEYtOCI/Pi4uLl0=",
+  "sha": "optional-if-new-file",
+  "brand": {
+    "@type": "Brand",
+    "name": "YourBrandName"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://example.com/product",
+    "priceCurrency": "USD",
+    "price": "19.99",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingMethod": "https://schema.org/StandardShipping",
+      "shippingCharge": "5.00"
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "returnPolicyCategory": "https://schema.org/ReturnsAccepted"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": 150
+    }
+  }
+}
