@@ -12,24 +12,29 @@
   },
   "offers": {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock",
+    "url": "https://gardenshedclay.com/collections/ceramic-mugs",
     "priceCurrency": "USD",
     "price": "25.00",
     "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
     "shippingDetails": {
       "@type": "ShippingDetails",
-      "shippingCharge": 5,
-      "shippingRate": "Flat",
-      "serviceArea": "USA"
+      "deliveryTime": {
+        "@type": "DeliveryTime",
+        "maxValue": 5,
+        "minValue": 1
+      },
+      "shippingRate": 5
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "returnPolicyCategory": "https://schema.org/ReturnPolicy"
+      "returnPolicyCategory": "https://schema.org/ReturnExchanges",
+      "returnPolicyText": "30-day return policy for unused items."
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "4.8",
+    "ratingValue": "4.5",
     "reviewCount": 150
   }
 }
