@@ -14,22 +14,25 @@
     "@type": "Offer",
     "url": "https://gardenshedclay.com/collections/pottery-gifts",
     "priceCurrency": "USD",
-    "price": "25.00",
+    "price": "29.99",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "shippingDetails": {
-      "@type": "EligibleRegion",
-      "name": "United States"
+      "@type": "OfferShippingDetails",
+      "shippingRate": "5.00",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US"
+      }
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "name": "30-Day Return Policy",
       "returnPolicyCategory": "https://schema.org/MerchantReturnByMail"
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",
-    "ratingCount": "150"
+    "reviewCount": "150"
   }
 }
