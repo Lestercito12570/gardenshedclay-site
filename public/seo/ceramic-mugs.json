@@ -19,22 +19,22 @@
     "availability": "https://schema.org/InStock",
     "shippingDetails": {
       "@type": "ShippingDetails",
+      "shippingRate": "5.00",
       "deliveryTime": {
         "@type": "DeliveryTime",
-        "maxValue": 5,
-        "minValue": 1
-      },
-      "shippingRate": 5
+        "businessDays": "3-5"
+      }
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "returnPolicyCategory": "https://schema.org/ReturnExchanges",
-      "returnPolicyText": "30-day return policy for unused items."
+      "returnPolicySeasonal": false,
+      "returnPolicyCategory": "https://schema.org/Refund",
+      "returnPolicy": {}
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.5",
-    "reviewCount": 150
+    "ratingCount": "250"
   }
 }
