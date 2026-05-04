@@ -18,21 +18,25 @@
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "shippingDetails": {
-      "@type": "OfferShippingDetails",
+      "@type": "ShippingDetails",
       "shippingRate": "5.00",
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "US"
+      "shippingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "US"
+        }
       }
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnByMail"
+      "name": "30-Day Return Policy",
+      "returnPolicyCategory": "http://schema.org/ReturnPolicy"
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "4.8",
+    "ratingValue": "4.9",
     "reviewCount": "150"
   }
 }
