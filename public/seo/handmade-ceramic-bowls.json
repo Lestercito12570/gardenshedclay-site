@@ -12,26 +12,31 @@
   },
   "offers": {
     "@type": "Offer",
+    "url": "https://gardenshedclay.com/collections/handmade-ceramic-bowls",
     "priceCurrency": "USD",
     "price": "25.00",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "shippingDetails": {
-      "@type": "ShippingDetail",
+      "@type": "ShippingDetails",
       "shippingRate": "5.00",
       "shippingDestination": {
         "@type": "Place",
-        "name": "United States"
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "US"
+        }
       }
     },
     "hasMerchantReturnPolicy": {
       "@type": "MerchantReturnPolicy",
-      "returnPolicyCategory": "https://schema.org/NonRefundable"
+      "returnPolicyCategory": "https://schema.org/CommercialReturns",
+      "returnPolicyDisclosure": "30-day return policy"
     }
   },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",
-    "reviewCount": 150
+    "ratingCount": 150
   }
 }
