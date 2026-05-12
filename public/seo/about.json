@@ -1,1 +1,40 @@
-{"@context":"https://schema.org","@type":"WebPage","url":"https://gardenshedclay.com/pages/about","internalLink":{"anchor":"About Garden Shed Clay","href":"https://gardenshedclay.com/collections/handmade-ceramic-bowls"},"brand":{"@type":"Brand","name":"Garden Shed Clay"},"offers":{"@type":"Offer","priceCurrency":"USD","price":"29.99","itemCondition":"https://schema.org/NewCondition","availability":"https://schema.org/InStock","shippingDetails":{"@type":"ShippingDetails","shippingOption":[{"@type":"OfferShippingDetails","shippingRate":"5.00","shippingDestination":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":"United States"}}}]},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","name":"30-day return policy","returnPolicyCategory":"https://schema.org/Refund","itemCondition":"https://schema.org/NewCondition"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"120"}}
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://gardenshedclay.com/pages/about",
+  "internalLink": {
+    "anchor": "About Garden Shed Clay",
+    "href": "https://gardenshedclay.com/collections/handmade-ceramic-bowls"
+  },
+  "brand": {
+    "@type": "Brand",
+    "name": "Garden Shed Clay"
+  },
+  "offers": {
+    "@type": "Offer",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": "5.00",
+      "shippingDestination": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "US"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "name": "30-Day Return Policy",
+      "returnPolicyCategory": "https://schema.org/StoreCreditReturnPolicy",
+      "returnPolicyUrl": "https://gardenshedclay.com/pages/return-policy"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "ratingCount": "150"
+  }
+}
