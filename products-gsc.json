@@ -1,89 +1,37 @@
 {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "brand": {
-    "@type": "Brand",
-    "name": "GARDEN_SHED_CLAY_STUDIO"
-  },
-  "date": "2026-05-02T09:00:00Z",
-  "reach": 3100,
-  "impressions": 4500,
-  "engagement": 215,
-  "top_performing_items": [
+  "products": [
     {
-      "@type": "Product",
-      "name": "Handmade Stoneware Utensil Holder",
-      "offers": {
-        "@type": "Offer",
-        "price": 55,
-        "priceCurrency": "USD",
-        "availability": "http://schema.org/LowInventory",
-        "shippingDetails": {
-          "@type": "ShippingDetails",
-          "shippingRate": "5.00",
-          "shippingDestination": {
-            "@type": "Place",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Local",
-              "addressRegion": "State"
-            }
-          }
-        },
-        "hasMerchantReturnPolicy": {
-          "@type": "MerchantReturnPolicy",
-          "returnPolicyCategory": "http://schema.org/Refund",
-          "returnPolicyDescription": "30-day return policy."
-        },
-        "stock_level": "Low",
-        "variant": "Large Green / Celadon"
-      }
-    },
-    {
-      "@type": "Product",
+      "id": "moravian-star-brown-sugar-keeper",
       "name": "Moravian Star Brown Sugar Keeper",
-      "offers": {
-        "@type": "Offer",
-        "price": 10,
-        "priceCurrency": "USD",
-        "availability": "http://schema.org/InStock",
-        "shippingDetails": {
-          "@type": "ShippingDetails",
-          "shippingRate": "5.00",
-          "shippingDestination": {
-            "@type": "Place",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Local",
-              "addressRegion": "State"
-            }
-          }
-        },
-        "hasMerchantReturnPolicy": {
-          "@type": "MerchantReturnPolicy",
-          "returnPolicyCategory": "http://schema.org/Refund",
-          "returnPolicyDescription": "30-day return policy."
-        },
-        "stock_level": "In Stock",
-        "variant": "Earthenware"
-      }
+      "slug": "moravian-star-brown-sugar-keeper",
+      "description": "A handmade earthenware brown sugar keeper featuring a Moravian star design.",
+      "price": 10,
+      "currency": "USD",
+      "inventory": 25,
+      "colors": [
+        "Natural earthenware"
+      ],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "brown sugar keeper",
+        "kitchen pottery",
+        "Moravian star",
+        "earthenware"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 5
+      },
+      "images": [
+        "images/moravian-star-brown-sugar-keeper-1.jpg"
+      ],
+      "featured": true,
+      "published": true,
+      "etsyListed": true,
+      "stripePriceId": ""
     }
-  ],
-  "action_items": [
-    {
-      "priority": "medium",
-      "message": "Promote 'Liberty Bell' Brown Sugar Keepers for local Philly SEO.",
-      "category": "marketing"
-    },
-    {
-      "priority": "high",
-      "message": "Restock Large Celadon Utensil Holders before next kiln run.",
-      "category": "production"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": 4.5,
-    "reviewCount": 100
-  }
+  ]
 }
