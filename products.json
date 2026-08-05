@@ -28,6 +28,8 @@
       "images": [
         "moravian-star-brown-sugar-keeper-01.jpg"
       ],
+      "collection": "Kitchen",
+"sortOrder": 10,      
       "featured": true,
       "published": true,
       "etsyListed": true,
