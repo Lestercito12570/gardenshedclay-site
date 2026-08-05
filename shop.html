@@ -1,1 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1D4WZZ54LS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-1D4WZZ54LS");
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Current Pottery Collection | Garden Shed Clay</title>
+
+  <meta
+    name="description"
+    content="Browse handmade pottery from Garden Shed Clay, including kitchen pottery, mugs and cups, tableware, planters, and garden pottery made in Philadelphia."
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://gardenshedclay.com/shop.html"
+  >
+
+  <!-- Open Graph -->
+  <meta
+    property="og:title"
+    content="Current Pottery Collection | Garden Shed Clay"
+  >
+
+  <meta
+    property="og:description"
+    content="Browse handmade pottery created in the Garden Shed Clay studio in Philadelphia."
+  >
+
+  <meta property="og:type" content="website">
+
+  <meta
+    property="og:url"
+    content="https://gardenshedclay.com/shop.html"
+  >
+
+  <meta
+    property="og:image"
+    content="https://gardenshedclay.com/IMG_6930.jpeg"
+  >
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --paper: #f8f5ef;
+      --paper-deep: #eee8dd;
+      --white: #ffffff;
+      --ink: #26231f;
+      --muted: #70695f;
+      --line: rgba(38, 35, 31, 0.16);
+      --accent: #735b45;
+      --accent-dark: #4f3e30;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --max-width: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /*
+    ----------------------------------------
+    Header
+    ----------------------------------------
+    */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(248, 245, 239, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      min-height: 82px;
+      margin: 0 auto;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 39px);
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .main-nav a:hover,
+    .main-nav a[aria-current="page"] {
+      color: var(--accent);
+    }
+
+    /*
+    ----------------------------------------
+    Shop introduction
+    ----------------------------------------
+    */
+
+    .shop-intro {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 88px 28px 72px;
+      text-align: center;
+    }
+
+    .shop-eyebrow {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .shop-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(54px, 8vw, 96px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 0.96;
+    }
+
+    .shop-description {
+      max-width: 720px;
+      margin: 30px auto 0;
+      color: #504a42;
+      font-family: var(--serif);
+      font-size: clamp(21px, 2.3vw, 29px);
+      line-height: 1.45;
+    }
+
+    .shop-note {
+      max-width: 690px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /*
+    ----------------------------------------
+    Collection navigation
+    ----------------------------------------
+    */
+
+    .collection-nav-shell {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .collection-nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px 28px;
+      flex-wrap: wrap;
+    }
+
+    .collection-nav a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .collection-nav a:hover {
+      color: var(--ink);
+    }
+
+    /*
+    ----------------------------------------
+    Catalog
+    ----------------------------------------
+    */
+
+    .catalog-shell {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 70px 28px 100px;
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      min-height: 38vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .state-inner {
+      max-width: 520px;
+    }
+
+    .state-title {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 42px;
+      font-weight: 500;
+    }
+
+    .state-message {
+      margin: 0;
+      line-height: 1.8;
+    }
+
+    .collection-section {
+      margin-top: 94px;
+      scroll-margin-top: 120px;
+    }
+
+    .collection-section:first-child {
+      margin-top: 0;
+    }
+
+    .collection-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .collection-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .collection-count {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 50px 26px;
+    }
+
+    /*
+    ----------------------------------------
+    Product cards
+    ----------------------------------------
+    */
+
+    .product-card {
+      min-width: 0;
+    }
+
+    .product-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .product-image-shell {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--paper-deep);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .product-card-link:hover .product-image {
+      transform: scale(1.025);
+    }
+
+    .product-status {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 7px 10px;
+      background: rgba(248, 245, 239, 0.94);
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .product-status.sold-out {
+      background: rgba(38, 35, 31, 0.9);
+      color: var(--white);
+    }
+
+    .product-info {
+      padding-top: 18px;
+    }
+
+    .product-name {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 29px;
+      font-weight: 500;
+      line-height: 1.08;
+    }
+
+    .product-meta {
+      margin-top: 10px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .product-price {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 21px;
+    }
+
+    .product-availability {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .view-piece {
+      display: inline-block;
+      margin-top: 15px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--ink);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /*
+    ----------------------------------------
+    Studio statement
+    ----------------------------------------
+    */
+
+    .studio-statement {
+      background: var(--paper-deep);
+      border-top: 1px solid var(--line);
+    }
+
+    .studio-statement-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 78px 28px;
+      text-align: center;
+    }
+
+    .studio-statement h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(39px, 5vw, 58px);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .studio-statement p {
+      max-width: 690px;
+      margin: 24px auto 0;
+      color: #504a42;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    /*
+    ----------------------------------------
+    Footer
+    ----------------------------------------
+    */
+
+    .site-footer {
+      background: var(--paper-deep);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 34px 28px 42px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    /*
+    ----------------------------------------
+    Responsive
+    ----------------------------------------
+    */
+
+    @media (max-width: 900px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+      }
+
+      .main-nav {
+        gap: 16px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .header-inner,
+      .shop-intro,
+      .collection-nav,
+      .catalog-shell,
+      .studio-statement-inner,
+      .footer-inner {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .site-header {
+        position: relative;
+      }
+
+      .main-nav a {
+        font-size: 10px;
+      }
+
+      .shop-intro {
+        padding-top: 60px;
+        padding-bottom: 52px;
+      }
+
+      .collection-nav {
+        justify-content: flex-start;
+        gap: 10px 18px;
+      }
+
+      .catalog-shell {
+        padding-top: 52px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+        row-gap: 44px;
+      }
+
+      .collection-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .collection-section {
+        margin-top: 72px;
+      }
+
+      .product-name {
+        font-size: 27px;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Current Pottery Collection",
+    "url": "https://gardenshedclay.com/shop.html",
+    "description": "Current handmade pottery from Garden Shed Clay in Philadelphia.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Garden Shed Clay",
+      "url": "https://gardenshedclay.com"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        Garden Shed Clay
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/#pottery">Pottery</a>
+        <a href="/shop.html" aria-current="page">Collections</a>
+        <a href="/#studio">Studio</a>
+        <a href="/#about">About</a>
+        <a href="/shop.html">Shop</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="shop-intro">
+      <p class="shop-eyebrow">
+        Handmade in Philadelphia
+      </p>
+
+      <h1 class="shop-title">
+        Current Work
+      </h1>
+
+      <p class="shop-description">
+        Functional pottery made by hand for the kitchen,
+        the table, the home, and the garden.
+      </p>
+
+      <p class="shop-note">
+        Every piece is individually made, glazed, and fired in my
+        Philadelphia studio. Small variations in color, surface,
+        and form are part of what make handmade pottery unique.
+      </p>
+    </section>
+
+    <div class="collection-nav-shell">
+      <nav
+        id="collection-navigation"
+        class="collection-nav"
+        aria-label="Pottery collections"
+      >
+        <!-- shop.js will add collection links here -->
+      </nav>
+    </div>
+
+    <section class="catalog-shell">
+      <div id="loading-state" class="loading-state">
+        <div class="state-inner">
+          <p>Loading current work…</p>
+        </div>
+      </div>
+
+      <div id="catalog" hidden>
+        <!-- shop.js will build collection sections and product cards here -->
+      </div>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <div class="state-inner">
+          <h2 class="state-title">
+            New work is coming
+          </h2>
+
+          <p class="state-message">
+            There are no published pieces in the collection at the moment.
+            Please check back after the next kiln firing.
+          </p>
+        </div>
+      </div>
+
+      <div id="error-state" class="error-state" hidden>
+        <div class="state-inner">
+          <h2 class="state-title">
+            The collection could not be loaded
+          </h2>
+
+          <p class="state-message">
+            Please refresh the page or try again shortly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="studio-statement">
+      <div class="studio-statement-inner">
+        <h2>
+          Made to be used
+        </h2>
+
+        <p>
+          Garden Shed Clay pottery is made in small batches with an
+          emphasis on useful forms, comfortable proportions, and surfaces
+          inspired by the colors and textures of the garden. These pieces
+          are intended to become part of everyday life.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>
+        © <span id="year"></span> Garden Shed Clay
+        · Made by hand in Philadelphia
+      </span>
+
+      <div class="footer-links">
+        <a
+          href="https://www.instagram.com/gardenshedclay_com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram
+        </a>
+
+        <a href="mailto:lester@gardenshedclay.com">
+          Email
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/shop.js" defer></script>
+
+  <script>
+    const yearElement = document.getElementById("year");
+
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+  </script>
+</body>
+</html>
