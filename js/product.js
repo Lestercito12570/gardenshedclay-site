@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const CATALOG_URL = "/products-gsc.json";
+  const CATALOG_URL = "/products.json";
   const FALLBACK_IMAGE = "/IMG_8302.jpeg";
 
   const $ = (selector) => document.querySelector(selector);
