@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
+import Stripe from "stripe";
 
 const app = express();
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PORT = process.env.PORT || 3000;
 
