@@ -146,52 +146,77 @@
     return link;
   }
 
-  function renderFeaturedProducts(products) {
-    const featuredProducts = products
-      .filter((product) => {
-        return (
-          product &&
-          product.published === true &&
-          product.featured === true
-        );
-      })
-      .sort(compareFeaturedProducts)
-      .slice(0, MAX_FEATURED_PRODUCTS);
+ function renderFeaturedProducts(products) {
+  const featuredProducts = products
+    .filter((product) => {
+      return (
+        product &&
+        product.published === true &&
+        product.featured === true
+      );
+    })
+    .sort(compareFeaturedProducts)
+    .slice(0, MAX_FEATURED_PRODUCTS);
 
-    featuredContainer.innerHTML = "";
+  featuredContainer.innerHTML = "";
 
-    if (featuredProducts.length === 0) {
-      const message = document.createElement("p");
-      message.textContent =
-        "New featured pottery will be added after the next kiln firing.";
+  featuredContainer.classList.remove(
+    "featured-one",
+    "featured-two",
+    "featured-three"
+  );
 
-      featuredContainer.appendChild(message);
-      return;
-    }
+  if (featuredProducts.length === 0) {
+    const message = document.createElement("p");
 
-    const firstProduct = featuredProducts[0];
+    message.textContent =
+      "New featured pottery will be added after the next kiln firing.";
 
-    featuredContainer.appendChild(
-      createFeaturedCard(firstProduct, 0)
-    );
-
-    if (featuredProducts.length > 1) {
-      const stack = document.createElement("div");
-      stack.className = "pottery-stack";
-
-      featuredProducts
-        .slice(1)
-        .forEach((product, index) => {
-          stack.appendChild(
-            createFeaturedCard(product, index + 1)
-          );
-        });
-
-      featuredContainer.appendChild(stack);
-    }
+    featuredContainer.appendChild(message);
+    return;
   }
 
-  function showError(error) {
+  if (featuredProducts.length === 1) {
+    featuredContainer.classList.add("featured-one");
+
+    featuredContainer.appendChild(
+      createFeaturedCard(featuredProducts[0], 0)
+    );
+
+    return;
+  }
+
+  if (featuredProducts.length === 2) {
+    featuredContainer.classList.add("featured-two");
+
+    featuredProducts.forEach((product, index) => {
+      featuredContainer.appendChild(
+        createFeaturedCard(product, index)
+      );
+    });
+
+    return;
+  }
+
+  featuredContainer.classList.add("featured-three");
+
+  featuredContainer.appendChild(
+    createFeaturedCard(featuredProducts[0], 0)
+  );
+
+  const stack = document.createElement("div");
+  stack.className = "pottery-stack";
+
+  featuredProducts
+    .slice(1)
+    .forEach((product, index) => {
+      stack.appendChild(
+        createFeaturedCard(product, index + 1)
+      );
+    });
+
+  featuredContainer.appendChild(stack);
+}  function showError(error) {
     console.error("Unable to load featured pottery:", error);
 
     featuredContainer.innerHTML = "";
