@@ -315,9 +315,26 @@
       gap: 24px;
     }
 
-    .pottery-stack { display: grid; gap: 24px; }
+.pottery-stack {
+  display: grid;
+  gap: 24px;
+}
 
-    .pottery-card {
+.featured-one {
+  grid-template-columns: 1fr;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.featured-two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.featured-three {
+  grid-template-columns: 1.25fr .75fr;
+}
+
+.pottery-card {
       position: relative;
       min-height: 330px;
       overflow: hidden;
