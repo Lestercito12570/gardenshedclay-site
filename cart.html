@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Your Cart | Garden Shed Clay</title>
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+
+      <a class="logo" href="/">
+        Garden Shed Clay
+      </a>
+
+      <nav>
+        <a href="/shop.html">Shop</a>
+        <a href="/cart.html" aria-current="page">
+          Cart
+          <span id="cart-count">(0)</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="section">
+
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Garden Shed Clay</p>
+        <h1>Your Cart</h1>
+      </div>
+
+      <p>
+        Review your selections before continuing to secure checkout.
+      </p>
+    </div>
+
+    <div id="cart-items">
+
+      <p>Your cart is currently empty.</p>
+
+    </div>
+
+    <div class="cart-summary">
+
+      <h2>Order Summary</h2>
+
+      <p>
+        Subtotal:
+        <strong id="cart-subtotal">$0.00</strong>
+      </p>
+
+      <button
+        id="checkout-button"
+        class="button button-primary"
+        disabled>
+
+        Proceed to Checkout
+
+      </button>
+
+    </div>
+
+  </main>
+
+  <script src="/js/cart.js"></script>
+
+</body>
+</html>
