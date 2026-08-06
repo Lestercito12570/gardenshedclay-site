@@ -121,6 +121,14 @@
     image.src = item.image || "/logo.png";
     image.alt = item.name || "Garden Shed Clay pottery";
 
+    image.addEventListener(
+      "error",
+      () => {
+        image.src = "/logo.png";
+      },
+      { once: true }
+    );
+
     const details = document.createElement("div");
     details.className = "cart-item-details";
 
@@ -227,23 +235,89 @@
       formatPrice(subtotal);
 
     elements.checkoutButton.disabled = false;
+    elements.checkoutButton.textContent =
+      "Proceed to Checkout";
   }
 
-  function beginCheckout() {
+  async function beginCheckout() {
     const cart = loadCart();
 
     if (!cart.length) {
       return;
     }
 
-    console.log(
-      "Checkout will eventually send this cart to Stripe:",
-      cart
-    );
+    const invalidItem = cart.find((item) => {
+      return (
+        !item.stripePriceId ||
+        !Number.isFinite(Number(item.quantity)) ||
+        Number(item.quantity) < 1
+      );
+    });
 
-    alert(
-      "Stripe Checkout is not connected yet, but your cart is working."
-    );
+    if (invalidItem) {
+      console.error(
+        "Cart item is missing valid Stripe checkout information:",
+        invalidItem
+      );
+
+      alert(
+        "One of the items in your cart cannot be checked out yet."
+      );
+
+      return;
+    }
+
+    elements.checkoutButton.disabled = true;
+    elements.checkoutButton.textContent =
+      "Preparing checkout...";
+
+    try {
+      const response = await fetch(
+        "https://gsc-checkout.onrender.com/api/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            items: cart.map((item) => {
+              return {
+                id: item.id,
+                name: item.name,
+                stripePriceId: item.stripePriceId,
+                quantity: Number(item.quantity)
+              };
+            })
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Unable to start checkout."
+        );
+      }
+
+      if (!data.url) {
+        throw new Error(
+          "Stripe did not return a checkout URL."
+        );
+      }
+
+      window.location.href = data.url;
+    } catch (error) {
+      console.error("Checkout error:", error);
+
+      alert(
+        "Checkout could not be started. Please try again."
+      );
+
+      elements.checkoutButton.disabled = false;
+      elements.checkoutButton.textContent =
+        "Proceed to Checkout";
+    }
   }
 
   function initializeCart() {
@@ -251,10 +325,12 @@
 
     renderCart(cart);
 
-    elements.checkoutButton.addEventListener(
-      "click",
-      beginCheckout
-    );
+    if (elements.checkoutButton) {
+      elements.checkoutButton.addEventListener(
+        "click",
+        beginCheckout
+      );
+    }
   }
 
   document.addEventListener(
