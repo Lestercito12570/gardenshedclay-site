@@ -29,11 +29,36 @@
         "moravian-star-brown-sugar-keeper-01.jpg"
       ],
       "collection": "Kitchen",
-"sortOrder": 10,      
+      "sortOrder": 10,
       "featured": true,
       "published": true,
       "etsyListed": true,
       "stripePriceId": "price_1U1WurDTEEQD8p6Zk1D537nl"
+    },
+    {
+      "id": "fakey-fake-fake",
+      "name": "Fakey fake fake",
+      "slug": "fakey-fake-fake",
+      "description": "",
+      "price": 1,
+      "currency": "USD",
+      "inventory": 1,
+      "colors": [],
+      "dishwasherSafe": false,
+      "microwaveSafe": false,
+      "tags": [],
+      "readyToShip": false,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [],
+      "featured": false,
+      "published": false,
+      "etsyListed": false,
+      "stripeProductId": "prod_V1xloQRCL9M2rU",
+      "stripePriceId": "price_1U1tq0DTEEQD8p6ZgEikvq1D"
     }
   ]
 }
