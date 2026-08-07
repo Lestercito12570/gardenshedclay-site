@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
+  <title>Order Confirmed | Garden Shed Clay</title>
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    .success-page {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+    }
+
+    .success-card {
+      max-width: 680px;
+      text-align: center;
+    }
+
+    .success-eyebrow {
+      margin-bottom: 18px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6f695f;
+    }
+
+    .success-title {
+      margin: 0 0 24px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(48px, 7vw, 76px);
+      font-weight: 500;
+      line-height: 0.95;
+    }
+
+    .success-message {
+      max-width: 560px;
+      margin: 0 auto 16px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #6f695f;
+    }
+
+    .success-actions {
+      margin-top: 36px;
+    }
+
+    .success-link {
+      display: inline-block;
+      padding: 14px 24px;
+      background: #735b45;
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .success-link:hover {
+      background: #4f3e30;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="/">
+        Garden Shed Clay
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/shop.html">Shop</a>
+        <a href="/cart.html">
+          Cart <span id="site-cart-count">(0)</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="success-page">
+    <section class="success-card">
+      <p class="success-eyebrow">
+        Garden Shed Clay
+      </p>
+
+      <h1 class="success-title">
+        Thank you.
+      </h1>
+
+      <p class="success-message">
+        Your order has been received.
+      </p>
+
+      <p class="success-message">
+        Your pottery will be carefully packed and prepared
+        for its journey to you.
+      </p>
+
+      <div class="success-actions">
+        <a class="success-link" href="/shop.html">
+          Continue Shopping
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const CART_STORAGE_KEY = "gardenShedClayCart";
+
+      localStorage.removeItem(CART_STORAGE_KEY);
+    })();
+  </script>
+
+  <script src="/js/site.js" defer></script>
+
+</body>
+</html>
