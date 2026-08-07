@@ -107,6 +107,73 @@ app.get("/", (req, res) => {
 });
 
 app.post(
+  "/api/admin/create-stripe-product",
+  async (req, res) => {
+    try {
+      const {
+        name,
+        description = "",
+        price,
+        currency = "USD",
+        slug = ""
+      } = req.body;
+
+      const numericPrice = Number(price);
+
+      if (!name || !name.trim()) {
+        return res.status(400).json({
+          error: "Product name is required."
+        });
+      }
+
+      if (
+        !Number.isFinite(numericPrice) ||
+        numericPrice <= 0
+      ) {
+        return res.status(400).json({
+          error: "A valid product price is required."
+        });
+      }
+
+      const unitAmount =
+        Math.round(numericPrice * 100);
+
+      const stripeProduct =
+        await stripe.products.create({
+          name: name.trim(),
+          description:
+            description.trim() || undefined,
+          metadata: {
+            source: "garden-shed-clay-admin",
+            slug: slug || ""
+          }
+        });
+
+      const stripePrice =
+        await stripe.prices.create({
+          product: stripeProduct.id,
+          unit_amount: unitAmount,
+          currency: currency.toLowerCase()
+        });
+
+      return res.json({
+        productId: stripeProduct.id,
+        priceId: stripePrice.id
+      });
+    } catch (error) {
+      console.error(
+        "Unable to create Stripe product:",
+        error
+      );
+
+      return res.status(500).json({
+        error: "Unable to create Stripe product."
+      });
+    }
+  }
+);
+
+app.post(
   "/api/create-checkout-session",
   async (req, res) => {
     try {
