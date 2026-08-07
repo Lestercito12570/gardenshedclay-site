@@ -404,6 +404,15 @@
           Create in Stripe
         </button>
 
+<button
+  class="button button-primary"
+  id="publish-button"
+  type="button"
+  disabled
+>
+  Publish Product
+</button>
+        
         <button
           class="button"
           id="clear-form"
@@ -469,6 +478,11 @@
       const createStripeButton =
         document.getElementById("create-stripe-button");
 
+      const publishButton =
+  document.getElementById("publish-button");
+
+let currentProduct = null;      
+      
       const clearButton =
         document.getElementById("clear-form");
 
