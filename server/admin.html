@@ -697,6 +697,10 @@ let currentProduct = null;
             product.stripePriceId =
               data.priceId || "";
 
+currentProduct = product;
+
+publishButton.disabled = false;
+            
             showPreview(product);
 
             stripeProductId.textContent =
