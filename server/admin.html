@@ -732,7 +732,83 @@ publishButton.disabled = false;
           }
         }
       );
+publishButton.addEventListener(
+  "click",
+  async () => {
+    if (
+      !currentProduct ||
+      !currentProduct.stripeProductId ||
+      !currentProduct.stripePriceId
+    ) {
+      setStatus(
+        "Create the product in Stripe before publishing.",
+        "error"
+      );
 
+      return;
+    }
+
+    publishButton.disabled = true;
+    publishButton.textContent =
+      "Publishing...";
+
+    setStatus(
+      "Publishing product to the Garden Shed Clay catalog..."
+    );
+
+    try {
+      const response = await fetch(
+        "/api/admin/publish-product",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            product: currentProduct
+          })
+        }
+      );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to publish product."
+        );
+      }
+
+      showPreview(currentProduct);
+
+      setStatus(
+        "Product published successfully.",
+        "success"
+      );
+
+      publishButton.textContent =
+        "Published";
+    } catch (error) {
+      console.error(
+        "Unable to publish product:",
+        error
+      );
+
+      setStatus(
+        error.message ||
+        "Product publishing failed.",
+        "error"
+      );
+
+      publishButton.disabled = false;
+      publishButton.textContent =
+        "Publish Product";
+    }
+  }
+);
       clearButton.addEventListener("click", () => {
         form.reset();
 
@@ -742,7 +818,11 @@ publishButton.disabled = false;
         stripeResult.hidden = true;
         stripeProductId.textContent = "";
         stripePriceId.textContent = "";
+currentProduct = null;
 
+publishButton.disabled = true;
+publishButton.textContent =
+  "Publish Product";        
         setStatus("");
       });
     })();
