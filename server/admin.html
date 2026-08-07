@@ -252,8 +252,38 @@
             min="0"
           >
         </div>
+        
+<div class="form-group">
+  <label
+    class="form-label"
+    for="stripe-product-id-input"
+  >
+    Existing Stripe Product ID
+  </label>
 
-        <div class="form-group full">
+  <input
+    class="form-input"
+    id="stripe-product-id-input"
+    type="text"
+    placeholder="prod_..."
+  >
+</div>
+
+<div class="form-group">
+  <label
+    class="form-label"
+    for="stripe-price-id-input"
+  >
+    Existing Stripe Price ID
+  </label>
+
+  <input
+    class="form-input"
+    id="stripe-price-id-input"
+    type="text"
+    placeholder="price_..."
+  >
+</div>        <div class="form-group full">
           <label class="form-label" for="images">
             Images
           </label>
@@ -607,8 +637,15 @@ let currentProduct = null;
           etsyListed:
             document.getElementById("etsy-listed").checked,
 
-          stripeProductId: "",
-          stripePriceId: ""
+          stripeProductId:
+  document
+    .getElementById("stripe-product-id-input")
+    .value.trim(),
+
+stripePriceId:
+  document
+    .getElementById("stripe-price-id-input")
+    .value.trim()
         };
       }
 
@@ -636,8 +673,14 @@ let currentProduct = null;
         const product =
           buildProductRecord();
 
-        showPreview(product);
+currentProduct = product;
 
+publishButton.disabled =
+  !product.stripeProductId ||
+  !product.stripePriceId;        
+
+   showPreview(product);
+        
         stripeResult.hidden = true;
         setStatus("Product record preview generated.");
       });
