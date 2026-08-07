@@ -12,6 +12,18 @@ const stripe = new Stripe(
 
 const PORT = process.env.PORT || 3000;
 
+/*
+ * GitHub catalog configuration
+ *
+ * These values are not secrets.
+ * The actual GitHub token remains safely
+ * stored in Render as GITHUB_TOKEN.
+ */
+const GITHUB_OWNER = "Lestercito12570";
+const GITHUB_REPO = "gardenshedclay-site";
+const GITHUB_BRANCH = "main";
+const PRODUCTS_FILE_PATH = "products.json";
+
 app.use(cors());
 
 function safeCompare(valueA, valueB) {
@@ -262,10 +274,7 @@ app.get("/", (req, res) => {
 });
 
 /*
- * Protected Garden Shed Clay Admin
- *
- * We will place admin.html inside the
- * server folder in the next step.
+ * Protected Garden Shed Clay Admin page
  */
 app.get(
   "/admin",
@@ -379,6 +388,291 @@ app.post(
 );
 
 /*
+ * Protected catalog publishing
+ *
+ * Reads products.json from GitHub,
+ * adds the new product, then commits
+ * the updated catalog back to main.
+ */
+app.post(
+  "/api/admin/publish-product",
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
+
+      if (!githubToken) {
+        console.error(
+          "GITHUB_TOKEN is not configured."
+        );
+
+        return res.status(500).json({
+          error:
+            "GitHub publishing is not configured."
+        });
+      }
+
+      const { product } = req.body;
+
+      if (
+        !product ||
+        typeof product !== "object"
+      ) {
+        return res.status(400).json({
+          error:
+            "A product record is required."
+        });
+      }
+
+      if (
+        !product.id ||
+        !product.name
+      ) {
+        return res.status(400).json({
+          error:
+            "Product ID and name are required."
+        });
+      }
+
+      if (
+        !product.stripeProductId ||
+        !product.stripePriceId
+      ) {
+        return res.status(400).json({
+          error:
+            "Create the product in Stripe before publishing."
+        });
+      }
+
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+      const headers = {
+        Accept:
+          "application/vnd.github+json",
+
+        Authorization:
+          `Bearer ${githubToken}`,
+
+        "X-GitHub-Api-Version":
+          "2022-11-28",
+
+        "User-Agent":
+          "garden-shed-clay-admin"
+      };
+
+      const fileResponse =
+        await fetch(
+          githubFileUrl,
+          {
+            method: "GET",
+            headers
+          }
+        );
+
+      if (!fileResponse.ok) {
+        const errorText =
+          await fileResponse.text();
+
+        console.error(
+          "Unable to read products.json from GitHub:",
+          fileResponse.status,
+          errorText
+        );
+
+        return res.status(502).json({
+          error:
+            "Unable to read the product catalog from GitHub."
+        });
+      }
+
+      const fileData =
+        await fileResponse.json();
+
+      const decodedContent =
+        Buffer
+          .from(
+            fileData.content,
+            "base64"
+          )
+          .toString("utf8");
+
+      let catalog;
+
+      try {
+        catalog =
+          JSON.parse(decodedContent);
+      } catch (error) {
+        console.error(
+          "products.json contains invalid JSON:",
+          error
+        );
+
+        return res.status(500).json({
+          error:
+            "The current product catalog is invalid."
+        });
+      }
+
+      let products;
+
+      /*
+       * Your storefront already supports either:
+       *
+       * [
+       *   {...}
+       * ]
+       *
+       * or:
+       *
+       * {
+       *   "products": [
+       *     {...}
+       *   ]
+       * }
+       *
+       * This preserves whichever format
+       * products.json currently uses.
+       */
+      if (Array.isArray(catalog)) {
+        products = catalog;
+      } else if (
+        catalog &&
+        Array.isArray(catalog.products)
+      ) {
+        products =
+          catalog.products;
+      } else {
+        return res.status(500).json({
+          error:
+            "The product catalog has an unsupported structure."
+        });
+      }
+
+      const duplicate =
+        products.find((existing) => {
+          if (!existing) {
+            return false;
+          }
+
+          return (
+            existing.id === product.id ||
+            (
+              product.slug &&
+              existing.slug === product.slug
+            )
+          );
+        });
+
+      if (duplicate) {
+        return res.status(409).json({
+          error:
+            "A product with this ID or slug already exists."
+        });
+      }
+
+      products.push(product);
+
+      const updatedCatalog =
+        JSON.stringify(
+          catalog,
+          null,
+          2
+        ) + "\n";
+
+      const encodedCatalog =
+        Buffer
+          .from(
+            updatedCatalog,
+            "utf8"
+          )
+          .toString("base64");
+
+      const updateResponse =
+        await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}`,
+          {
+            method: "PUT",
+
+            headers: {
+              ...headers,
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              message:
+                `Publish product: ${product.name}`,
+
+              content:
+                encodedCatalog,
+
+              sha:
+                fileData.sha,
+
+              branch:
+                GITHUB_BRANCH
+            })
+          }
+        );
+
+      if (!updateResponse.ok) {
+        const errorText =
+          await updateResponse.text();
+
+        console.error(
+          "Unable to publish products.json to GitHub:",
+          updateResponse.status,
+          errorText
+        );
+
+        return res.status(502).json({
+          error:
+            "Unable to publish the product to GitHub."
+        });
+      }
+
+      const updateData =
+        await updateResponse.json();
+
+      console.log(
+        "Garden Shed Clay product published:",
+        {
+          id:
+            product.id,
+
+          name:
+            product.name,
+
+          commit:
+            updateData.commit?.sha ||
+            null
+        }
+      );
+
+      return res.json({
+        success: true,
+        product,
+        commitSha:
+          updateData.commit?.sha ||
+          null
+      });
+    } catch (error) {
+      console.error(
+        "Unable to publish Garden Shed Clay product:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to publish product."
+      });
+    }
+  }
+);
+
+/*
  * Public customer checkout
  */
 app.post(
@@ -443,7 +737,8 @@ app.post(
           .checkout
           .sessions
           .create({
-            mode: "payment",
+            mode:
+              "payment",
 
             line_items:
               lineItems,
@@ -465,7 +760,8 @@ app.post(
           });
 
       return res.json({
-        url: session.url
+        url:
+          session.url
       });
     } catch (error) {
       console.error(
