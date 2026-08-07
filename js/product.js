@@ -375,69 +375,73 @@
     );
   }
 
+  
   function addProductToCart(product) {
-    const cart = loadCart();
+  const cart = loadCart();
 
-    const productId =
-      product.id ||
-      product.slug;
+  const productId =
+    product.id ||
+    product.slug;
 
-    if (!productId) {
-      console.error(
-        "Unable to add product without an ID."
-      );
-
-      return;
-    }
-
-    const existingItem = cart.find(
-      (item) => item.id === productId
+  if (!productId) {
+    console.error(
+      "Unable to add product without an ID."
     );
 
-    if (existingItem) {
-      existingItem.quantity =
-        Number(
-          existingItem.quantity || 0
-        ) + 1;
-    } else {
-      const primaryImage =
-        Array.isArray(product.images) &&
-        product.images.length > 0
-          ? imageUrl(product.images[0])
-          : FALLBACK_IMAGE;
-
-      cart.push({
-        id: productId,
-        slug:
-          product.slug ||
-          product.id,
-        name:
-          product.name ||
-          "Untitled piece",
-        price:
-          Number(product.price),
-        currency:
-          product.currency ||
-          "USD",
-        image: primaryImage,
-        quantity: 1,
-        stripePriceId:
-          product.stripePriceId ||
-          ""
-      });
-    }
-
-    saveCart(cart);
-
-    elements.buyButton.textContent =
-      "Added to cart";
-
-    window.setTimeout(() => {
-      elements.buyButton.textContent =
-        "Add to cart";
-    }, 1400);
+    return;
   }
 
+  const existingItem = cart.find(
+    (item) => item.id === productId
+  );
+
+  if (existingItem) {
+    existingItem.quantity =
+      Number(
+        existingItem.quantity || 0
+      ) + 1;
+  } else {
+    const primaryImage =
+      Array.isArray(product.images) &&
+      product.images.length > 0
+        ? imageUrl(product.images[0])
+        : FALLBACK_IMAGE;
+
+    cart.push({
+      id: productId,
+      slug:
+        product.slug ||
+        product.id,
+      name:
+        product.name ||
+        "Untitled piece",
+      price:
+        Number(product.price),
+      currency:
+        product.currency ||
+        "USD",
+      image: primaryImage,
+      quantity: 1,
+      stripePriceId:
+        product.stripePriceId ||
+        ""
+    });
+  }
+
+  saveCart(cart);
+
+  window.dispatchEvent(
+    new Event("cart-updated")
+  );
+
+  elements.buyButton.textContent =
+    "Added to cart";
+
+  window.setTimeout(() => {
+    elements.buyButton.textContent =
+      "Add to cart";
+  }, 1400);
+}
   function configureCheckout(product) {
     const inventory =
       Number(product.inventory ?? 0);
