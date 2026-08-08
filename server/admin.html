@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -167,6 +168,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -176,24 +178,24 @@
       <p class="eyebrow">Garden Shed Clay</p>
       <h1>Product Admin</h1>
 
-      <p class="admin-note">
-        Create or edit pottery listings here. You can preview the product
-        record first, then create the corresponding Product and Price in
-        Stripe Sandbox.
-      </p>
-    </div>
-    
+  <p class="admin-note">
+    Create or edit pottery listings here. You can preview the product
+    record first, then create the corresponding Product and Price in
+    Stripe Sandbox.
+  </p>
+</div>
+
 <section class="product-card-form">
   <div>
     <p class="eyebrow">Etsy Migration</p>
     <h2>Import Etsy CSV</h2>
 
-    <p class="admin-note">
-      Upload an Etsy listings export to preview and review
-      listings before creating Stripe records or publishing
-      them to Garden Shed Clay.
-    </p>
-    
+<p class="admin-note">
+  Upload an Etsy listings export to preview and review
+  listings before creating Stripe records or publishing
+  them to Garden Shed Clay.
+</p>
+
   </div>
 
   <div class="form-group">
@@ -204,12 +206,13 @@
       Etsy CSV file
     </label>
 
-    <input
-      class="form-input"
-      id="etsy-csv-input"
-      type="file"
-      accept=".csv,text/csv"
-    >
+<input
+  class="form-input"
+  id="etsy-csv-input"
+  type="file"
+  accept=".csv,text/csv"
+>
+
   </div>
 
   <div class="admin-actions">
@@ -230,74 +233,75 @@
 </section>    
     <form id="product-form" class="product-card-form">
 
-      <div class="form-grid">
+  <div class="form-grid">
 
-        <div class="form-group">
-          <label class="form-label" for="name">
-            Product name
-          </label>
-          <input
-            class="form-input"
-            id="name"
-            name="name"
-            type="text"
-            required
-          >
-        </div>
+    <div class="form-group">
+      <label class="form-label" for="name">
+        Product name
+      </label>
+      <input
+        class="form-input"
+        id="name"
+        name="name"
+        type="text"
+        required
+      >
+    </div>
 
-        <div class="form-group">
-          <label class="form-label" for="slug">
-            Slug
-          </label>
-          <input
-            class="form-input"
-            id="slug"
-            name="slug"
-            type="text"
-            placeholder="moravian-star-brown-sugar-keeper"
-          >
-        </div>
+    <div class="form-group">
+      <label class="form-label" for="slug">
+        Slug
+      </label>
+      <input
+        class="form-input"
+        id="slug"
+        name="slug"
+        type="text"
+        placeholder="moravian-star-brown-sugar-keeper"
+      >
+    </div>
 
-        <div class="form-group full">
-          <label class="form-label" for="description">
-            Description
-          </label>
-          <textarea
-            class="form-textarea"
-            id="description"
-            name="description"
-          ></textarea>
-        </div>
+    <div class="form-group full">
+      <label class="form-label" for="description">
+        Description
+      </label>
+      <textarea
+        class="form-textarea"
+        id="description"
+        name="description"
+      ></textarea>
+    </div>
 
-        <div class="form-group">
-          <label class="form-label" for="price">
-            Price
-          </label>
-          <input
-            class="form-input"
-            id="price"
-            name="price"
-            type="number"
-            step="0.01"
-            min="0"
-            required
-          >
-        </div>
+    <div class="form-group">
+      <label class="form-label" for="price">
+        Price
+      </label>
+      <input
+        class="form-input"
+        id="price"
+        name="price"
+        type="number"
+        step="0.01"
+        min="0"
+        required
+      >
+    </div>
 
-        <div class="form-group">
-          <label class="form-label" for="inventory">
-            Inventory
-          </label>
-          <input
-            class="form-input"
-            id="inventory"
-            name="inventory"
-            type="number"
-            step="1"
-            min="0"
-          >
-        </div>
-        
+    <div class="form-group">
+      <label class="form-label" for="inventory">
+        Inventory
+      </label>
+      <input
+        class="form-input"
+        id="inventory"
+        name="inventory"
+        type="number"
+        step="1"
+        min="0"
+      >
+    </div>
+    
+
 <div class="form-group">
   <label
     class="form-label"
@@ -306,12 +310,10 @@
     Existing Stripe Product ID
   </label>
 
-  <input
-    class="form-input"
-    id="stripe-product-id-input"
-    type="text"
-    placeholder="prod_..."
-  >
+<inputclass="form-input"id="stripe-product-id-input"type="text"placeholder="prod_..."
+
+
+
 </div>
 
 <div class="form-group">
@@ -322,12 +324,10 @@
     Existing Stripe Price ID
   </label>
 
-  <input
-    class="form-input"
-    id="stripe-price-id-input"
-    type="text"
-    placeholder="price_..."
-  >
+<inputclass="form-input"id="stripe-price-id-input"type="text"placeholder="price_..."
+
+
+
 </div>        <div class="form-group full">
           <label class="form-label" for="images">
             Images
@@ -340,377 +340,562 @@
           ></textarea>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="colors">
-            Colors / glazes
-          </label>
-          <input
-            class="form-input"
-            id="colors"
-            name="colors"
-            type="text"
-            placeholder="Natural earthenware, Blue glaze"
-          >
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="tags">
-            Tags
-          </label>
-          <input
-            class="form-input"
-            id="tags"
-            name="tags"
-            type="text"
-            placeholder="kitchen pottery, earthenware, Moravian star"
-          >
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="shipping-type">
-            Shipping type
-          </label>
-          <select
-            class="form-select"
-            id="shipping-type"
-            name="shipping-type"
-          >
-            <option value="flat-rate">Flat rate</option>
-            <option value="free">Free shipping</option>
-            <option value="calculated">Calculated</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="shipping-price">
-            Shipping price
-          </label>
-          <input
-            class="form-input"
-            id="shipping-price"
-            name="shipping-price"
-            type="number"
-            step="0.01"
-            min="0"
-          >
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="lead-time">
-            Lead time
-          </label>
-          <input
-            class="form-input"
-            id="lead-time"
-            name="lead-time"
-            type="text"
-            placeholder="1–2 weeks"
-          >
-        </div>
-
-      </div>
-
-      <div class="checkbox-row">
-
-        <label class="checkbox-item">
-          <input
-            id="dishwasher-safe"
-            type="checkbox"
-          >
-          Dishwasher safe
-        </label>
-
-        <label class="checkbox-item">
-          <input
-            id="microwave-safe"
-            type="checkbox"
-          >
-          Microwave safe
-        </label>
-
-        <label class="checkbox-item">
-          <input
-            id="ready-to-ship"
-            type="checkbox"
-          >
-          Ready to ship
-        </label>
-
-        <label class="checkbox-item">
-          <input
-            id="featured"
-            type="checkbox"
-          >
-          Featured
-        </label>
-
-        <label class="checkbox-item">
-          <input
-            id="published"
-            type="checkbox"
-          >
-          Published
-        </label>
-
-        <label class="checkbox-item">
-          <input
-            id="etsy-listed"
-            type="checkbox"
-          >
-          Etsy listed
-        </label>
-
-      </div>
-
-      <div class="admin-actions">
-        <button
-          class="button"
-          id="preview-button"
-          type="button"
-        >
-          Preview Product Record
-        </button>
-
-        <button
-          class="button button-primary"
-          id="create-stripe-button"
-          type="button"
-        >
-          Create in Stripe
-        </button>
-
-<button
-  class="button button-primary"
-  id="publish-button"
-  type="button"
-  disabled
->
-  Publish Product
-</button>
-        
-        <button
-          class="button"
-          id="clear-form"
-          type="button"
-        >
-          Clear Form
-        </button>
-      </div>
-
-      <p
-        id="admin-status"
-        class="admin-status"
-        aria-live="polite"
-      ></p>
-
-    </form>
-
-    <section
-      id="preview"
-      class="preview-box"
-      hidden
-    >
-      <h2>Product Record Preview</h2>
-
-      <pre
-        id="preview-json"
-        class="preview-json"
-      ></pre>
-
-      <div
-        id="stripe-result"
-        class="stripe-result"
-        hidden
+    <div class="form-group">
+      <label class="form-label" for="colors">
+        Colors / glazes
+      </label>
+      <input
+        class="form-input"
+        id="colors"
+        name="colors"
+        type="text"
+        placeholder="Natural earthenware, Blue glaze"
       >
-        <strong>Stripe record created</strong>
+    </div>
 
-        <div>
-          Product ID:
-          <code id="stripe-product-id"></code>
-        </div>
+    <div class="form-group">
+      <label class="form-label" for="tags">
+        Tags
+      </label>
+      <input
+        class="form-input"
+        id="tags"
+        name="tags"
+        type="text"
+        placeholder="kitchen pottery, earthenware, Moravian star"
+      >
+    </div>
 
-        <div>
-          Price ID:
-          <code id="stripe-price-id"></code>
-        </div>
-      </div>
-    </section>
+    <div class="form-group">
+      <label class="form-label" for="shipping-type">
+        Shipping type
+      </label>
+      <select
+        class="form-select"
+        id="shipping-type"
+        name="shipping-type"
+      >
+        <option value="flat-rate">Flat rate</option>
+        <option value="free">Free shipping</option>
+        <option value="calculated">Calculated</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="shipping-price">
+        Shipping price
+      </label>
+      <input
+        class="form-input"
+        id="shipping-price"
+        name="shipping-price"
+        type="number"
+        step="0.01"
+        min="0"
+      >
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="lead-time">
+        Lead time
+      </label>
+      <input
+        class="form-input"
+        id="lead-time"
+        name="lead-time"
+        type="text"
+        placeholder="1–2 weeks"
+      >
+    </div>
+
+  </div>
+
+  <div class="checkbox-row">
+
+    <label class="checkbox-item">
+      <input
+        id="dishwasher-safe"
+        type="checkbox"
+      >
+      Dishwasher safe
+    </label>
+
+    <label class="checkbox-item">
+      <input
+        id="microwave-safe"
+        type="checkbox"
+      >
+      Microwave safe
+    </label>
+
+    <label class="checkbox-item">
+      <input
+        id="ready-to-ship"
+        type="checkbox"
+      >
+      Ready to ship
+    </label>
+
+    <label class="checkbox-item">
+      <input
+        id="featured"
+        type="checkbox"
+      >
+      Featured
+    </label>
+
+    <label class="checkbox-item">
+      <input
+        id="published"
+        type="checkbox"
+      >
+      Published
+    </label>
+
+    <label class="checkbox-item">
+      <input
+        id="etsy-listed"
+        type="checkbox"
+      >
+      Etsy listed
+    </label>
+
+  </div>
+
+  <div class="admin-actions">
+    <button
+      class="button"
+      id="preview-button"
+      type="button"
+    >
+      Preview Product Record
+    </button>
+
+    <button
+      class="button button-primary"
+      id="create-stripe-button"
+      type="button"
+    >
+      Create in Stripe
+    </button>
+
+<buttonclass="button button-primary"id="publish-button"type="button"disabled
+
+
+
+Publish Product</button>
+
+    <button
+      class="button"
+      id="clear-form"
+      type="button"
+    >
+      Clear Form
+    </button>
+  </div>
+
+  <p
+    id="admin-status"
+    class="admin-status"
+    aria-live="polite"
+  ></p>
+
+</form>
+
+<section
+  id="preview"
+  class="preview-box"
+  hidden
+>
+  <h2>Product Record Preview</h2>
+
+  <pre
+    id="preview-json"
+    class="preview-json"
+  ></pre>
+
+  <div
+    id="stripe-result"
+    class="stripe-result"
+    hidden
+  >
+    <strong>Stripe record created</strong>
+
+    <div>
+      Product ID:
+      <code id="stripe-product-id"></code>
+    </div>
+
+    <div>
+      Price ID:
+      <code id="stripe-price-id"></code>
+    </div>
+  </div>
+</section>
+
   </main>
 
   <script>
-    (() => {
-      "use strict";
+  (() => {
+    "use strict";
 
-      const STRIPE_CREATE_URL =
-        "https://gsc-checkout.onrender.com/api/admin/create-stripe-product";
+    const STRIPE_CREATE_URL =
+      "https://gsc-checkout.onrender.com/api/admin/create-stripe-product";
 
-      const form =
-        document.getElementById("product-form");
+    const form =
+      document.getElementById("product-form");
 
-      const previewButton =
-        document.getElementById("preview-button");
+    const previewButton =
+      document.getElementById("preview-button");
 
-      const createStripeButton =
-        document.getElementById("create-stripe-button");
+    const createStripeButton =
+      document.getElementById("create-stripe-button");
 
-      const publishButton =
-  document.getElementById("publish-button");
+    const publishButton =
+      document.getElementById("publish-button");
 
-let currentProduct = null;      
-      
-      const clearButton =
-        document.getElementById("clear-form");
+    const clearButton =
+      document.getElementById("clear-form");
 
-      const preview =
-        document.getElementById("preview");
+    const etsyCsvInput =
+      document.getElementById("etsy-csv-input");
 
-      const previewJson =
-        document.getElementById("preview-json");
+    const importEtsyButton =
+      document.getElementById("import-etsy-button");
 
-      const adminStatus =
-        document.getElementById("admin-status");
+    const etsyImportStatus =
+      document.getElementById("etsy-import-status");
 
-      const stripeResult =
-        document.getElementById("stripe-result");
+    const preview =
+      document.getElementById("preview");
 
-      const stripeProductId =
-        document.getElementById("stripe-product-id");
+    const previewJson =
+      document.getElementById("preview-json");
 
-      const stripePriceId =
-        document.getElementById("stripe-price-id");
+    const adminStatus =
+      document.getElementById("admin-status");
 
-      function splitCommaList(value) {
-        return value
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean);
-      }
+    const stripeResult =
+      document.getElementById("stripe-result");
 
-      function splitLineList(value) {
-        return value
-          .split(/\r?\n/)
-          .map((item) => item.trim())
-          .filter(Boolean);
-      }
+    const stripeProductId =
+      document.getElementById("stripe-product-id");
 
-      function makeSlug(value) {
-        return value
-          .toLowerCase()
-          .trim()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "");
-      }
+    const stripePriceId =
+      document.getElementById("stripe-price-id");
 
-      function buildProductRecord() {
-        const name =
-          document.getElementById("name").value.trim();
+    const stripeProductIdInput =
+      document.getElementById("stripe-product-id-input");
 
-        const enteredSlug =
-          document.getElementById("slug").value.trim();
+    const stripePriceIdInput =
+      document.getElementById("stripe-price-id-input");
 
-        const slug =
-          enteredSlug || makeSlug(name);
+    let currentProduct = null;
 
-        const shippingType =
-          document.getElementById("shipping-type").value;
+    function splitCommaList(value) {
+      return value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
 
-        const shippingPrice =
+    function splitLineList(value) {
+      return value
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function makeSlug(value) {
+      return value
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function buildProductRecord() {
+      const name =
+        document.getElementById("name").value.trim();
+
+      const enteredSlug =
+        document.getElementById("slug").value.trim();
+
+      const slug =
+        enteredSlug || makeSlug(name);
+
+      const shippingType =
+        document.getElementById("shipping-type").value;
+
+      const shippingPrice =
+        Number(
+          document.getElementById("shipping-price").value || 0
+        );
+
+      return {
+        id: slug,
+
+        name,
+
+        slug,
+
+        description:
+          document.getElementById("description").value.trim(),
+
+        price:
           Number(
-            document.getElementById("shipping-price").value || 0
-          );
+            document.getElementById("price").value || 0
+          ),
 
-        return {
-          id: slug,
-          name,
-          slug,
-          description:
-            document.getElementById("description").value.trim(),
+        currency: "USD",
+
+        inventory:
+          Number(
+            document.getElementById("inventory").value || 0
+          ),
+
+        colors:
+          splitCommaList(
+            document.getElementById("colors").value
+          ),
+
+        dishwasherSafe:
+          document.getElementById("dishwasher-safe").checked,
+
+        microwaveSafe:
+          document.getElementById("microwave-safe").checked,
+
+        tags:
+          splitCommaList(
+            document.getElementById("tags").value
+          ),
+
+        readyToShip:
+          document.getElementById("ready-to-ship").checked,
+
+        leadTime:
+          document.getElementById("lead-time").value.trim(),
+
+        shipping: {
+          type: shippingType,
 
           price:
-            Number(
-              document.getElementById("price").value || 0
-            ),
+            shippingType === "flat-rate"
+              ? shippingPrice
+              : 0
+        },
 
-          currency: "USD",
+        images:
+          splitLineList(
+            document.getElementById("images").value
+          ),
 
-          inventory:
-            Number(
-              document.getElementById("inventory").value || 0
-            ),
+        featured:
+          document.getElementById("featured").checked,
 
-          colors:
-            splitCommaList(
-              document.getElementById("colors").value
-            ),
+        published:
+          document.getElementById("published").checked,
 
-          dishwasherSafe:
-            document.getElementById("dishwasher-safe").checked,
+        etsyListed:
+          document.getElementById("etsy-listed").checked,
 
-          microwaveSafe:
-            document.getElementById("microwave-safe").checked,
+        stripeProductId:
+          stripeProductIdInput.value.trim(),
 
-          tags:
-            splitCommaList(
-              document.getElementById("tags").value
-            ),
+        stripePriceId:
+          stripePriceIdInput.value.trim()
+      };
+    }
 
-          readyToShip:
-            document.getElementById("ready-to-ship").checked,
+    function showPreview(product) {
+      previewJson.textContent =
+        JSON.stringify(product, null, 2);
 
-          leadTime:
-            document.getElementById("lead-time").value.trim(),
+      preview.hidden = false;
+    }
 
-          shipping: {
-            type: shippingType,
-            price:
-              shippingType === "flat-rate"
-                ? shippingPrice
-                : 0
-          },
+    function setStatus(message, type = "") {
+      adminStatus.textContent = message;
+      adminStatus.className = "admin-status";
 
-          images:
-            splitLineList(
-              document.getElementById("images").value
-            ),
+      if (type) {
+        adminStatus.classList.add(type);
+      }
+    }
 
-          featured:
-            document.getElementById("featured").checked,
+    /*
+     * Etsy CSV parser.
+     *
+     * This handles:
+     * - commas inside quoted fields
+     * - line breaks inside quoted descriptions
+     * - doubled quotation marks
+     * - Windows and Unix line endings
+     */
+    function parseCsv(text) {
+      const rows = [];
 
-          published:
-            document.getElementById("published").checked,
+      let row = [];
+      let field = "";
+      let insideQuotes = false;
 
-          etsyListed:
-            document.getElementById("etsy-listed").checked,
+      for (
+        let index = 0;
+        index < text.length;
+        index += 1
+      ) {
+        const character =
+          text[index];
 
-          stripeProductId:
-  document
-    .getElementById("stripe-product-id-input")
-    .value.trim(),
+        const nextCharacter =
+          text[index + 1];
 
-stripePriceId:
-  document
-    .getElementById("stripe-price-id-input")
-    .value.trim()
-        };
+        if (character === '"') {
+          if (
+            insideQuotes &&
+            nextCharacter === '"'
+          ) {
+            field += '"';
+            index += 1;
+          } else {
+            insideQuotes =
+              !insideQuotes;
+          }
+
+          continue;
+        }
+
+        if (
+          character === "," &&
+          !insideQuotes
+        ) {
+          row.push(field);
+          field = "";
+
+          continue;
+        }
+
+        if (
+          (
+            character === "\n" ||
+            character === "\r"
+          ) &&
+          !insideQuotes
+        ) {
+          if (
+            character === "\r" &&
+            nextCharacter === "\n"
+          ) {
+            index += 1;
+          }
+
+          row.push(field);
+          field = "";
+
+          const hasContent =
+            row.some(
+              (value) =>
+                String(value).trim() !== ""
+            );
+
+          if (hasContent) {
+            rows.push(row);
+          }
+
+          row = [];
+
+          continue;
+        }
+
+        field += character;
       }
 
-      function showPreview(product) {
-        previewJson.textContent =
-          JSON.stringify(product, null, 2);
+      row.push(field);
 
-        preview.hidden = false;
+      const finalRowHasContent =
+        row.some(
+          (value) =>
+            String(value).trim() !== ""
+        );
+
+      if (finalRowHasContent) {
+        rows.push(row);
       }
 
-      function setStatus(message, type = "") {
-        adminStatus.textContent = message;
-        adminStatus.className = "admin-status";
+      if (!rows.length) {
+        return [];
+      }
 
-        if (type) {
-          adminStatus.classList.add(type);
+      const headers =
+        rows[0].map(
+          (header) =>
+            String(header).trim()
+        );
+
+      return rows
+        .slice(1)
+        .map((values) => {
+          return headers.reduce(
+            (
+              record,
+              header,
+              index
+            ) => {
+              record[header] =
+                values[index] ?? "";
+
+              return record;
+            },
+            {}
+          );
+        });
+    }
+
+    importEtsyButton.addEventListener(
+      "click",
+      async () => {
+        const file =
+          etsyCsvInput.files?.[0];
+
+        if (!file) {
+          etsyImportStatus.textContent =
+            "Choose an Etsy CSV file first.";
+
+          return;
+        }
+
+        etsyImportStatus.textContent =
+          "Reading Etsy CSV...";
+
+        try {
+          const csvText =
+            await file.text();
+
+          const listings =
+            parseCsv(csvText);
+
+          etsyImportStatus.textContent =
+            `${listings.length} Etsy listings found.`;
+
+          console.log(
+            "Imported Etsy listings:",
+            listings
+          );
+        } catch (error) {
+          console.error(
+            "Unable to read Etsy CSV:",
+            error
+          );
+
+          etsyImportStatus.textContent =
+            "Unable to read Etsy CSV.";
         }
       }
+    );
 
-      previewButton.addEventListener("click", () => {
+    previewButton.addEventListener(
+      "click",
+      () => {
         if (!form.reportValidity()) {
           return;
         }
@@ -718,203 +903,265 @@ stripePriceId:
         const product =
           buildProductRecord();
 
-currentProduct = product;
+        currentProduct =
+          product;
 
-publishButton.disabled =
-  !product.stripeProductId ||
-  !product.stripePriceId;        
+        publishButton.disabled =
+          !product.stripeProductId ||
+          !product.stripePriceId;
 
-   showPreview(product);
-        
+        showPreview(product);
+
         stripeResult.hidden = true;
-        setStatus("Product record preview generated.");
-      });
 
-      createStripeButton.addEventListener(
-        "click",
-        async () => {
-          if (!form.reportValidity()) {
-            return;
-          }
+        setStatus(
+          "Product record preview generated."
+        );
+      }
+    );
 
-          const product =
-            buildProductRecord();
+    createStripeButton.addEventListener(
+      "click",
+      async () => {
+        if (!form.reportValidity()) {
+          return;
+        }
 
-          showPreview(product);
+        const product =
+          buildProductRecord();
 
-          stripeResult.hidden = true;
+        showPreview(product);
 
-          createStripeButton.disabled = true;
-          createStripeButton.textContent =
-            "Creating in Stripe...";
+        stripeResult.hidden = true;
 
-          setStatus(
-            "Creating Stripe Product and Price..."
-          );
+        createStripeButton.disabled = true;
 
-          try {
-            const response = await fetch(
+        createStripeButton.textContent =
+          "Creating in Stripe...";
+
+        setStatus(
+          "Creating Stripe Product and Price..."
+        );
+
+        try {
+          const response =
+            await fetch(
               STRIPE_CREATE_URL,
               {
                 method: "POST",
+
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type":
+                    "application/json"
                 },
+
                 body: JSON.stringify({
-                  name: product.name,
-                  description: product.description,
-                  price: product.price,
-                  currency: product.currency,
-                  slug: product.slug
+                  name:
+                    product.name,
+
+                  description:
+                    product.description,
+
+                  price:
+                    product.price,
+
+                  currency:
+                    product.currency,
+
+                  slug:
+                    product.slug
                 })
               }
             );
 
-            const data = await response.json();
+          const data =
+            await response.json();
 
-            if (!response.ok) {
-              throw new Error(
-                data.error ||
-                "Unable to create Stripe product."
-              );
-            }
-
-            product.stripeProductId =
-              data.productId || "";
-
-            product.stripePriceId =
-              data.priceId || "";
-
-currentProduct = product;
-
-publishButton.disabled = false;
-            
-            showPreview(product);
-
-            stripeProductId.textContent =
-              product.stripeProductId;
-
-            stripePriceId.textContent =
-              product.stripePriceId;
-
-            stripeResult.hidden = false;
-
-            setStatus(
-              "Stripe Product and Price created successfully.",
-              "success"
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Unable to create Stripe product."
             );
-          } catch (error) {
-            console.error(
-              "Unable to create Stripe product:",
-              error
-            );
-
-            setStatus(
-              "Stripe creation failed. Check the Render logs for details.",
-              "error"
-            );
-          } finally {
-            createStripeButton.disabled = false;
-            createStripeButton.textContent =
-              "Create in Stripe";
           }
+
+          product.stripeProductId =
+            data.productId || "";
+
+          product.stripePriceId =
+            data.priceId || "";
+
+          /*
+           * Also place the returned IDs
+           * into the visible form fields.
+           */
+          stripeProductIdInput.value =
+            product.stripeProductId;
+
+          stripePriceIdInput.value =
+            product.stripePriceId;
+
+          currentProduct =
+            product;
+
+          publishButton.disabled =
+            false;
+
+          showPreview(product);
+
+          stripeProductId.textContent =
+            product.stripeProductId;
+
+          stripePriceId.textContent =
+            product.stripePriceId;
+
+          stripeResult.hidden =
+            false;
+
+          setStatus(
+            "Stripe Product and Price created successfully.",
+            "success"
+          );
+        } catch (error) {
+          console.error(
+            "Unable to create Stripe product:",
+            error
+          );
+
+          setStatus(
+            "Stripe creation failed. Check the Render logs for details.",
+            "error"
+          );
+        } finally {
+          createStripeButton.disabled =
+            false;
+
+          createStripeButton.textContent =
+            "Create in Stripe";
         }
-      );
-publishButton.addEventListener(
-  "click",
-  async () => {
-    if (
-      !currentProduct ||
-      !currentProduct.stripeProductId ||
-      !currentProduct.stripePriceId
-    ) {
-      setStatus(
-        "Create the product in Stripe before publishing.",
-        "error"
-      );
-
-      return;
-    }
-
-    publishButton.disabled = true;
-    publishButton.textContent =
-      "Publishing...";
-
-    setStatus(
-      "Publishing product to the Garden Shed Clay catalog..."
+      }
     );
 
-    try {
-      const response = await fetch(
-        "/api/admin/publish-product",
-        {
-          method: "POST",
+    publishButton.addEventListener(
+      "click",
+      async () => {
+        if (
+          !currentProduct ||
+          !currentProduct.stripeProductId ||
+          !currentProduct.stripePriceId
+        ) {
+          setStatus(
+            "Create the product in Stripe before publishing.",
+            "error"
+          );
 
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            product: currentProduct
-          })
+          return;
         }
-      );
 
-      const data =
-        await response.json();
+        publishButton.disabled =
+          true;
 
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Unable to publish product."
+        publishButton.textContent =
+          "Publishing...";
+
+        setStatus(
+          "Publishing product to the Garden Shed Clay catalog..."
         );
+
+        try {
+          const response =
+            await fetch(
+              "/api/admin/publish-product",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  product:
+                    currentProduct
+                })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Unable to publish product."
+            );
+          }
+
+          showPreview(
+            currentProduct
+          );
+
+          setStatus(
+            "Product published successfully.",
+            "success"
+          );
+
+          publishButton.textContent =
+            "Published";
+        } catch (error) {
+          console.error(
+            "Unable to publish product:",
+            error
+          );
+
+          setStatus(
+            error.message ||
+            "Product publishing failed.",
+            "error"
+          );
+
+          publishButton.disabled =
+            false;
+
+          publishButton.textContent =
+            "Publish Product";
+        }
       }
+    );
 
-      showPreview(currentProduct);
-
-      setStatus(
-        "Product published successfully.",
-        "success"
-      );
-
-      publishButton.textContent =
-        "Published";
-    } catch (error) {
-      console.error(
-        "Unable to publish product:",
-        error
-      );
-
-      setStatus(
-        error.message ||
-        "Product publishing failed.",
-        "error"
-      );
-
-      publishButton.disabled = false;
-      publishButton.textContent =
-        "Publish Product";
-    }
-  }
-);
-      clearButton.addEventListener("click", () => {
+    clearButton.addEventListener(
+      "click",
+      () => {
         form.reset();
 
-        preview.hidden = true;
-        previewJson.textContent = "";
+        preview.hidden =
+          true;
 
-        stripeResult.hidden = true;
-        stripeProductId.textContent = "";
-        stripePriceId.textContent = "";
-currentProduct = null;
+        previewJson.textContent =
+          "";
 
-publishButton.disabled = true;
-publishButton.textContent =
-  "Publish Product";        
+        stripeResult.hidden =
+          true;
+
+        stripeProductId.textContent =
+          "";
+
+        stripePriceId.textContent =
+          "";
+
+        currentProduct =
+          null;
+
+        publishButton.disabled =
+          true;
+
+        publishButton.textContent =
+          "Publish Product";
+
         setStatus("");
-      });
-    })();
-  </script>
-
+      }
+    );
+  })();
+</script>
+  
 </body>
 </html>
