@@ -182,7 +182,52 @@
         Stripe Sandbox.
       </p>
     </div>
+    
+<section class="product-card-form">
+  <div>
+    <p class="eyebrow">Etsy Migration</p>
+    <h2>Import Etsy CSV</h2>
 
+    <p class="admin-note">
+      Upload an Etsy listings export to preview and review
+      listings before creating Stripe records or publishing
+      them to Garden Shed Clay.
+    </p>
+    
+  </div>
+
+  <div class="form-group">
+    <label
+      class="form-label"
+      for="etsy-csv-input"
+    >
+      Etsy CSV file
+    </label>
+
+    <input
+      class="form-input"
+      id="etsy-csv-input"
+      type="file"
+      accept=".csv,text/csv"
+    >
+  </div>
+
+  <div class="admin-actions">
+    <button
+      class="button button-primary"
+      id="import-etsy-button"
+      type="button"
+    >
+      Import Etsy CSV
+    </button>
+  </div>
+
+  <p
+    id="etsy-import-status"
+    class="admin-status"
+    aria-live="polite"
+  ></p>
+</section>    
     <form id="product-form" class="product-card-form">
 
       <div class="form-grid">
