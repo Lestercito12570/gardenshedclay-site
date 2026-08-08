@@ -230,6 +230,10 @@
     class="admin-status"
     aria-live="polite"
   ></p>
+<div
+  id="etsy-review-list"
+  class="etsy-review-list"
+></div>  
 </section>    
     <form id="product-form" class="product-card-form">
 
@@ -575,6 +579,9 @@
     const etsyImportStatus =
       document.getElementById("etsy-import-status");
 
+    const etsyReviewList =
+  document.getElementById("etsy-review-list");
+    
     const preview =
       document.getElementById("preview");
 
@@ -859,7 +866,70 @@
           );
         });
     }
+    
+    function renderEtsyReviewList(listings) {
+  etsyReviewList.innerHTML = "";
 
+  listings.forEach((listing, index) => {
+    const title =
+      listing.TITLE ||
+      `Listing ${index + 1}`;
+
+    const price =
+      listing.PRICE || "";
+
+    const quantity =
+      listing.QUANTITY || "";
+
+    const tags =
+      listing.TAGS || "";
+
+    const imageUrls =
+      Object.keys(listing)
+        .filter((key) =>
+          /^IMAGE\d+$/i.test(key)
+        )
+        .map((key) => listing[key])
+        .filter(Boolean);
+
+    const card =
+      document.createElement("div");
+
+    card.style.padding = "18px";
+    card.style.border =
+      "1px solid rgba(38, 35, 31, 0.16)";
+    card.style.marginTop = "14px";
+    card.style.background = "#fff";
+
+    const heading =
+      document.createElement("h3");
+
+    heading.textContent =
+      `${index + 1}. ${title}`;
+
+    heading.style.marginTop = "0";
+
+    const details =
+      document.createElement("p");
+
+    details.textContent =
+      `$${price} · Qty ${quantity} · ${imageUrls.length} images`;
+
+    const tagText =
+      document.createElement("p");
+
+    tagText.textContent =
+      tags
+        ? `Tags: ${tags}`
+        : "Tags: none";
+
+    card.appendChild(heading);
+    card.appendChild(details);
+    card.appendChild(tagText);
+
+    etsyReviewList.appendChild(card);
+  });
+}
     importEtsyButton.addEventListener(
       "click",
       async () => {
@@ -886,6 +956,8 @@
           etsyImportStatus.textContent =
             `${listings.length} Etsy listings found.`;
 
+renderEtsyReviewList(listings);          
+         
           console.log(
             "Imported Etsy listings:",
             listings
