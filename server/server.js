@@ -823,6 +823,53 @@ app.post(
       const githubUrl =
         `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repositoryPath}`;
 
+let existingFileSha = null;
+
+const existingFileResponse =
+  await fetch(
+    `${githubUrl}?ref=${GITHUB_BRANCH}`,
+    {
+      method: "GET",
+
+      headers: {
+        Accept:
+          "application/vnd.github+json",
+
+        Authorization:
+          `Bearer ${githubToken}`,
+
+        "X-GitHub-Api-Version":
+          "2022-11-28",
+
+        "User-Agent":
+          "garden-shed-clay-admin"
+      }
+    }
+  );
+
+if (existingFileResponse.ok) {
+  const existingFileData =
+    await existingFileResponse.json();
+
+  existingFileSha =
+    existingFileData.sha || null;
+} else if (
+  existingFileResponse.status !== 404
+) {
+  const errorText =
+    await existingFileResponse.text();
+
+  console.error(
+    "Unable to check existing product image:",
+    existingFileResponse.status,
+    errorText
+  );
+
+  return res.status(502).json({
+    error:
+      "Unable to check the existing product image."
+  });
+}      
       const githubResponse =
         await fetch(
           githubUrl,
@@ -846,18 +893,22 @@ app.post(
                 "application/json"
             },
 
-            body: JSON.stringify({
-              message:
-                `Import product image: ${fileName}`,
+body: JSON.stringify({
+  message:
+    `Import product image: ${fileName}`,
 
-              content:
-                imageBuffer.toString(
-                  "base64"
-                ),
+  content:
+    imageBuffer.toString(
+      "base64"
+    ),
 
-              branch:
-                GITHUB_BRANCH
-            })
+  ...(existingFileSha
+    ? { sha: existingFileSha }
+    : {}),
+
+  branch:
+    GITHUB_BRANCH
+})
           }
         );
 
