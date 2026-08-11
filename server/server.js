@@ -796,7 +796,7 @@ app.post(
         `${safeSlug}-${paddedIndex}.${extension}`;
 
       const repositoryPath =
-        `images/products/${fileName}`;
+        `product-images/${fileName}`;
 
       const imageBuffer =
         Buffer.from(
