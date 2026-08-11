@@ -305,7 +305,39 @@
       >
     </div>
     
+    <div class="form-group">
+  <label class="form-label" for="collection">
+    Collection
+  </label>
 
+  <select
+    class="form-select"
+    id="collection"
+    name="collection"
+  >
+    <option value="">Choose collection</option>
+    <option value="Kitchen">Kitchen</option>
+    <option value="Garden">Garden</option>
+    <option value="Home">Home</option>
+    <option value="Seasonal">Seasonal</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label class="form-label" for="sort-order">
+    Sort order
+  </label>
+
+  <input
+    class="form-input"
+    id="sort-order"
+    name="sort-order"
+    type="number"
+    step="1"
+    min="0"
+    value="10"
+  >
+</div>
 <div class="form-group">
   <label
     class="form-label"
@@ -670,6 +702,13 @@
             document.getElementById("inventory").value || 0
           ),
 
+collection:
+  document.getElementById("collection").value,
+
+sortOrder:
+  Number(
+    document.getElementById("sort-order").value || 0
+  ),        
         colors:
           splitCommaList(
             document.getElementById("colors").value
@@ -1383,6 +1422,11 @@ renderEtsyReviewList(listings);
         );
 
         try {
+          currentProduct.published =
+  true;
+
+document.getElementById("published").checked =
+  true;          
           const response =
             await fetch(
               "/api/admin/publish-product",
