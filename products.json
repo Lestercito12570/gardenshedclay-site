@@ -541,6 +541,54 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3SnT7mfcnlbUQ",
       "stripePriceId": "price_1U3LrVDTEEQD8p6ZXpB1Je8m"
+    },
+    {
+      "id": "wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches",
+      "name": "Wheel Thrown Handmade Celadon Container - Modern Rustic Design, Minimalist 3x4 Inches",
+      "slug": "wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches",
+      "description": "Discover our stunning wheel thrown, handmade ceramic container in a beautiful celadon glaze. This piece showcases a modern design with rustic charm, perfect for any home decor. Its minimalist and basic form measures 3 x 4, making it an ideal accent for your tabletop or a thoughtful gift for a loved one. Elevate your space with this unique ceramic container that blends style and function seamlessly. Add a touch of artistry to your collection today!",
+      "price": 15,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Home",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "cup",
+        "celadon",
+        "pencil_holder",
+        "kitchen",
+        "rustic",
+        "minimalist",
+        "handmade_ceramic",
+        "minimalist_ceramics",
+        "unique_pottery_piece",
+        "small_ceramic_jar",
+        "decorative_storage",
+        "rustic_modern_design",
+        "handcrafted_storage"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-01.jpg",
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-02.jpg",
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-03.jpg",
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-04.jpg",
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-05.jpg",
+        "product-images/wheel-thrown-handmade-celadon-container-modern-rustic-design-minimalist-3x4-inches-06.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SnlcjJzE98rb",
+      "stripePriceId": "price_1U3Ls8DTEEQD8p6Zp7YQDCZT"
     }
   ]
 }
