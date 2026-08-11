@@ -396,6 +396,53 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3SkEQNeRSMGR3",
       "stripePriceId": "price_1U3Lp5DTEEQD8p6Z1Gd7xSkp"
+    },
+    {
+      "id": "garden-watering-dish-for-bees-and-birds",
+      "name": "Garden watering dish for bees and birds",
+      "slug": "garden-watering-dish-for-bees-and-birds",
+      "description": "This is my handmade ceramic watering dish for birds and bees in your garden. This bowl is used to keep garden creatures well cared for and hydrated during the hot summer. Place it and enjoy watching Nature do her thing. Show care and empathy for those small creatures who are working so hard! 9-1/2-10\" approx dia. 2-1/2\" height.",
+      "price": 59,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Garden",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Watering_dish",
+        "feeding_birds",
+        "garden_designs",
+        "feeding_bees",
+        "pollinator_garden",
+        "gift_ideas",
+        "Environmental_gift",
+        "Planting_and_sowing",
+        "Garden_haven",
+        "Summer_garden",
+        "Watering_bowl",
+        "Garden_pottery"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/garden-watering-dish-for-bees-and-birds-01.jpg",
+        "product-images/garden-watering-dish-for-bees-and-birds-02.jpg",
+        "product-images/garden-watering-dish-for-bees-and-birds-03.jpg",
+        "product-images/garden-watering-dish-for-bees-and-birds-04.jpg",
+        "product-images/garden-watering-dish-for-bees-and-birds-05.jpg",
+        "product-images/garden-watering-dish-for-bees-and-birds-06.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SlePPQCpxvhf",
+      "stripePriceId": "price_1U3Lq3DTEEQD8p6ZFeEGmtKQ"
     }
   ]
 }
