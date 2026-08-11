@@ -521,6 +521,14 @@
       Create in Stripe
     </button>
 
+    <button
+  class="button"
+  id="create-live-stripe-button"
+  type="button"
+>
+  Create in Live Stripe
+</button>
+    
 <button
   class="button button-primary"
   id="publish-button"
@@ -587,6 +595,9 @@
     const STRIPE_CREATE_URL =
       "https://gsc-checkout.onrender.com/api/admin/create-stripe-product";
 
+    const STRIPE_LIVE_CREATE_URL =
+  "https://gsc-checkout.onrender.com/api/admin/create-live-stripe-product";
+    
     const form =
       document.getElementById("product-form");
 
@@ -596,6 +607,9 @@
     const createStripeButton =
       document.getElementById("create-stripe-button");
 
+    const createLiveStripeButton =
+  document.getElementById("create-live-stripe-button");
+    
     const publishButton =
       document.getElementById("publish-button");
 
@@ -1395,6 +1409,132 @@ renderEtsyReviewList(listings);
       }
     );
 
+createLiveStripeButton.addEventListener(
+  "click",
+  async () => {
+    const confirmed =
+  window.confirm(
+    "Create this product and price in LIVE Stripe? This will create real payment objects."
+  );
+
+if (!confirmed) {
+  return;
+}
+    if (!form.reportValidity()) {
+      return;
+}
+
+    const product =
+      buildProductRecord();
+
+    showPreview(product);
+
+    stripeResult.hidden = true;
+
+    createLiveStripeButton.disabled =
+      true;
+
+    createLiveStripeButton.textContent =
+      "Creating in Live Stripe...";
+
+    setStatus(
+      "Creating LIVE Stripe Product and Price..."
+    );
+
+    try {
+      const response =
+        await fetch(
+          STRIPE_LIVE_CREATE_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              name:
+                product.name,
+
+              description:
+                product.description,
+
+              price:
+                product.price,
+
+              currency:
+                product.currency,
+
+              slug:
+                product.slug
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to create live Stripe product."
+        );
+      }
+
+      product.stripeProductId =
+        data.productId || "";
+
+      product.stripePriceId =
+        data.priceId || "";
+
+      stripeProductIdInput.value =
+        product.stripeProductId;
+
+      stripePriceIdInput.value =
+        product.stripePriceId;
+
+      currentProduct =
+        product;
+
+      publishButton.disabled =
+        false;
+
+      showPreview(product);
+
+      stripeProductId.textContent =
+        product.stripeProductId;
+
+      stripePriceId.textContent =
+        product.stripePriceId;
+
+      stripeResult.hidden =
+        false;
+
+      setStatus(
+        "LIVE Stripe Product and Price created successfully.",
+        "success"
+      );
+    } catch (error) {
+      console.error(
+        "Unable to create live Stripe product:",
+        error
+      );
+
+      setStatus(
+        "Live Stripe creation failed. Check the Render logs for details.",
+        "error"
+      );
+    } finally {
+      createLiveStripeButton.disabled =
+        false;
+
+      createLiveStripeButton.textContent =
+        "Create in Live Stripe";
+    }
+  }
+);
+    
     publishButton.addEventListener(
       "click",
       async () => {
