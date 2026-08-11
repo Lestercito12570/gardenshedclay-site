@@ -922,8 +922,21 @@
       tags
         ? `Tags: ${tags}`
         : "Tags: none";
+    
+const importedPathsText =
+  document.createElement("p");
 
-    card.appendChild(heading);
+importedPathsText.style.whiteSpace =
+  "pre-line";
+
+importedPathsText.style.fontFamily =
+  "monospace";
+
+importedPathsText.style.fontSize =
+  "12px";
+
+importedPathsText.style.marginTop =
+  "12px";    card.appendChild(heading);
 card.appendChild(details);
 card.appendChild(tagText);
 
@@ -1028,6 +1041,14 @@ if (
         
         importAllImagesButton.textContent =
           `Imported ${imageUrls.length} images`;
+
+        importedPathsText.textContent =
+  `Imported image paths:\n${importedImagePaths.join("\n")}`;
+
+card.appendChild(
+  importedPathsText
+);
+        
       } catch (error) {
         console.error(
           "Unable to import Etsy images:",
