@@ -8,6 +8,7 @@ const app = express();
 
 const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY
+);
   
 const liveStripe = new Stripe(
   process.env.STRIPE_LIVE_SECRET_KEY  
