@@ -953,91 +953,97 @@ if (imageUrls.length) {
 
   card.appendChild(imageRow);
 }
-
 if (
   index === 0 &&
   imageUrls.length > 0
 ) {
-  const importFirstImageButton =
+  const importAllImagesButton =
     document.createElement("button");
 
-  importFirstImageButton.type =
+  importAllImagesButton.type =
     "button";
 
-  importFirstImageButton.className =
+  importAllImagesButton.className =
     "button";
 
-  importFirstImageButton.textContent =
-    "Import First Image";
+  importAllImagesButton.textContent =
+    "Import All Images";
 
-  importFirstImageButton.style.marginTop =
+  importAllImagesButton.style.marginTop =
     "12px";
 
-  importFirstImageButton.addEventListener(
+  importAllImagesButton.addEventListener(
     "click",
     async () => {
-      importFirstImageButton.disabled =
+      importAllImagesButton.disabled =
         true;
 
-      importFirstImageButton.textContent =
-        "Importing...";
-
       try {
-        const response =
-          await fetch(
-            "/api/admin/import-product-image",
-            {
-              method: "POST",
+        for (
+          let imageIndex = 0;
+          imageIndex < imageUrls.length;
+          imageIndex += 1
+        ) {
+          importAllImagesButton.textContent =
+            `Importing ${imageIndex + 1} of ${imageUrls.length}...`;
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+          const response =
+            await fetch(
+              "/api/admin/import-product-image",
+              {
+                method: "POST",
 
-              body: JSON.stringify({
-                imageUrl:
-                  imageUrls[0],
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
 
-                slug:
-                  makeSlug(title),
+                body: JSON.stringify({
+                  imageUrl:
+                    imageUrls[imageIndex],
 
-                imageIndex:
-                  1
-              })
-            }
-          );
+                  slug:
+                    makeSlug(title),
 
-        const data =
-          await response.json();
+                  imageIndex:
+                    imageIndex + 1
+                })
+              }
+            );
 
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Unable to import image."
-          );
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              `Unable to import image ${imageIndex + 1}.`
+            );
+          }
         }
 
-        importFirstImageButton.textContent =
-          `Imported: ${data.path}`;
+        importAllImagesButton.textContent =
+          `Imported ${imageUrls.length} images`;
       } catch (error) {
         console.error(
-          "Unable to import Etsy image:",
+          "Unable to import Etsy images:",
           error
         );
 
-        importFirstImageButton.disabled =
+        importAllImagesButton.disabled =
           false;
 
-        importFirstImageButton.textContent =
-          "Import First Image";
+        importAllImagesButton.textContent =
+          "Import All Images";
       }
     }
   );
 
   card.appendChild(
-    importFirstImageButton
+    importAllImagesButton
   );
-}    
+}
+        
 etsyReviewList.appendChild(card);  });
 }
     importEtsyButton.addEventListener(
