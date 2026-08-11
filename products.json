@@ -348,6 +348,54 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3Sjxa6JoeM0ri",
       "stripePriceId": "price_1U3LoSDTEEQD8p6ZlpBqHTZ4"
+    },
+    {
+      "id": "ceramic-pie-plate-in-cobalt-blue",
+      "name": "Ceramic Pie Plate in Cobalt Blue",
+      "slug": "ceramic-pie-plate-in-cobalt-blue",
+      "description": "A handmade, wheel thrown pie plate in stoneware and glazed in blue. This is perfect for baking pies and is both micro and dishwasher safe. Safe to use in the oven with care. 9\" diameter, 1.5\" height.",
+      "price": 65,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Pottery",
+        "Ceramic",
+        "Cobalt_Blue",
+        "Bakeware",
+        "Home_and_Kitchen",
+        "Baking",
+        "Pie",
+        "Cooking",
+        "Stoneware",
+        "Handmade",
+        "Pie_plate"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/ceramic-pie-plate-in-cobalt-blue-01.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-02.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-03.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-04.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-05.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-06.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-07.jpg",
+        "product-images/ceramic-pie-plate-in-cobalt-blue-08.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SkEQNeRSMGR3",
+      "stripePriceId": "price_1U3Lp5DTEEQD8p6Z1Gd7xSkp"
     }
   ]
 }
