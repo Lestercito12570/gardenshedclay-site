@@ -1116,12 +1116,21 @@ useListingButton.addEventListener(
     document.getElementById("images").value =
       importedImages.join("\n");
 
-    document.getElementById("etsy-listed").checked =
-      true;
+document.getElementById("etsy-listed").checked =
+  true;
 
-    document.getElementById("ready-to-ship").checked =
-      true;
+document.getElementById("dishwasher-safe").checked =
+  true;
 
+document.getElementById("microwave-safe").checked =
+  true;
+
+document.getElementById("ready-to-ship").checked =
+  Number(quantity) > 0;
+
+document.getElementById("lead-time").value =
+  "";
+    
     stripeProductIdInput.value =
       "";
 
