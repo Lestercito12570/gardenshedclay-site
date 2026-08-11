@@ -493,6 +493,54 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3SmQ2oxIHtO4w",
       "stripePriceId": "price_1U3LqrDTEEQD8p6ZSZt6P7Pa"
+    },
+    {
+      "id": "celadon-ceramic-container-elegant-rustic-modern-storage-solution",
+      "name": "Celadon Ceramic Container - Elegant Rustic Modern Storage Solution",
+      "slug": "celadon-ceramic-container-elegant-rustic-modern-storage-solution",
+      "description": "Discover our stunning wheel thrown, handmade ceramic container in a beautiful celadon glaze. This piece showcases a modern design with rustic charm, perfect for any home decor. Its minimalist and basic form measures 3 x 4, making it an ideal accent for your tabletop or a thoughtful gift for a loved one. Elevate your space with this unique ceramic container that blends style and function seamlessly. Add a touch of artistry to your collection today!",
+      "price": 15,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Home",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "celadon",
+        "pottery",
+        "pencil_holder",
+        "rustic",
+        "minimalist_ceramics",
+        "unique_pottery_piece",
+        "small_ceramic_jar",
+        "contemporary_pottery",
+        "rustic_modern_design",
+        "functional_art_piece",
+        "handcrafted_storage",
+        "handmade_home_gift",
+        "decorative_storage"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-01.jpg",
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-02.jpg",
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-03.jpg",
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-04.jpg",
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-05.jpg",
+        "product-images/celadon-ceramic-container-elegant-rustic-modern-storage-solution-06.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SnT7mfcnlbUQ",
+      "stripePriceId": "price_1U3LrVDTEEQD8p6ZXpB1Je8m"
     }
   ]
 }
