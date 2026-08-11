@@ -894,7 +894,8 @@
 
     const card =
       document.createElement("div");
-
+card.dataset.importedImages =
+  "[]";
     card.style.padding = "18px";
     card.style.border =
       "1px solid rgba(38, 35, 31, 0.16)";
@@ -1044,8 +1045,11 @@ if (
 
         importedPathsText.textContent =
   `Imported image paths:\n${importedImagePaths.join("\n")}`;
-
-card.appendChild(
+card.dataset.importedImages =
+  JSON.stringify(
+    importedImagePaths
+  );
+        card.appendChild(
   importedPathsText
 );
         
@@ -1067,9 +1071,88 @@ card.appendChild(
   card.appendChild(
     importAllImagesButton
   );
-}
-        
-etsyReviewList.appendChild(card);  });
+}const useListingButton =
+  document.createElement("button");
+
+useListingButton.type =
+  "button";
+
+useListingButton.className =
+  "button button-primary";
+
+useListingButton.textContent =
+  "Use This Listing";
+
+useListingButton.style.marginTop =
+  "12px";
+
+useListingButton.addEventListener(
+  "click",
+  () => {
+    const importedImages =
+      JSON.parse(
+        card.dataset.importedImages || "[]"
+      );
+
+    document.getElementById("name").value =
+      title;
+
+    document.getElementById("slug").value =
+      makeSlug(title);
+
+    document.getElementById("description").value =
+      listing.DESCRIPTION || "";
+
+    document.getElementById("price").value =
+      price;
+
+    document.getElementById("inventory").value =
+      quantity;
+
+    document.getElementById("tags").value =
+      tags;
+
+    document.getElementById("images").value =
+      importedImages.join("\n");
+
+    document.getElementById("etsy-listed").checked =
+      true;
+
+    document.getElementById("ready-to-ship").checked =
+      true;
+
+    stripeProductIdInput.value =
+      "";
+
+    stripePriceIdInput.value =
+      "";
+
+    currentProduct =
+      null;
+
+    publishButton.disabled =
+      true;
+
+    publishButton.textContent =
+      "Publish Product";
+
+    setStatus(
+      "Etsy listing loaded into Product Admin. Review before creating in Stripe.",
+      "success"
+    );
+
+    form.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+);
+
+card.appendChild(
+  useListingButton
+);        
+etsyReviewList.appendChild(card);  
+  });
 }
     importEtsyButton.addEventListener(
       "click",
