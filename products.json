@@ -130,6 +130,50 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3ScXdetfWZBFv",
       "stripePriceId": "price_1U3LhHDTEEQD8p6Z2Pe1udLI"
+    },
+    {
+      "id": "wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green",
+      "name": "Wheel-thrown handmade Stoneware Cake Stand in Spearmint Green",
+      "slug": "wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green",
+      "description": "A handmade stoneware cake stand in stoneware which I created on my potter's wheel. The homemade glaze is a spearmint green which has subtle bronze variations. Dishwasher safe.",
+      "price": 55,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Cake_stand",
+        "Handmade",
+        "Ceramic",
+        "Pottery",
+        "Green",
+        "Stoneware",
+        "Cake",
+        "Kitchen_decor"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-01.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-02.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-03.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-04.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-05.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-06.jpg",
+        "product-images/wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green-07.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SeUTOMtNwuAO",
+      "stripePriceId": "price_1U3LjcDTEEQD8p6ZsbeKS4Zi"
     }
   ]
 }
