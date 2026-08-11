@@ -589,6 +589,53 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3SnlcjJzE98rb",
       "stripePriceId": "price_1U3Ls8DTEEQD8p6Zp7YQDCZT"
+    },
+    {
+      "id": "ceramic-celadon-dish-for-jewelry-tiny-treasures",
+      "name": "Ceramic Celadon Dish for Jewelry & Tiny Treasures",
+      "slug": "ceramic-celadon-dish-for-jewelry-tiny-treasures",
+      "description": "Discover our exquisite Celadon Dish, perfect for holding jewelry or small keepsakes. This beautifully crafted dish features a stunning glaze that showcases the elegant green hues of celadon pottery. Ideal for your bedside table or as a chic accent in any room, it adds a touch of serenity and style to your decor. Gift it to a loved one or treat yourself to this functional art piece. Elevate your organization and display treasures with this charming Celadon Dish!",
+      "price": 23,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Home",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Ring_dish",
+        "Jewelry",
+        "dish",
+        "Ceramic",
+        "Pottery",
+        "Celadon",
+        "Beach",
+        "thoughtful_gift_idea",
+        "beach_themed_design",
+        "gift_ideas_for_her",
+        "daughter_gift_ideas",
+        "girly_gifts",
+        "quick_easy_cute_gift"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/ceramic-celadon-dish-for-jewelry-tiny-treasures-01.jpg",
+        "product-images/ceramic-celadon-dish-for-jewelry-tiny-treasures-02.jpg",
+        "product-images/ceramic-celadon-dish-for-jewelry-tiny-treasures-03.jpg",
+        "product-images/ceramic-celadon-dish-for-jewelry-tiny-treasures-04.jpg",
+        "product-images/ceramic-celadon-dish-for-jewelry-tiny-treasures-05.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SoQ9mVfsoBqr",
+      "stripePriceId": "price_1U3LshDTEEQD8p6ZFsnWuSoM"
     }
   ]
 }
