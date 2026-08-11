@@ -954,6 +954,90 @@ if (imageUrls.length) {
   card.appendChild(imageRow);
 }
 
+if (
+  index === 0 &&
+  imageUrls.length > 0
+) {
+  const importFirstImageButton =
+    document.createElement("button");
+
+  importFirstImageButton.type =
+    "button";
+
+  importFirstImageButton.className =
+    "button";
+
+  importFirstImageButton.textContent =
+    "Import First Image";
+
+  importFirstImageButton.style.marginTop =
+    "12px";
+
+  importFirstImageButton.addEventListener(
+    "click",
+    async () => {
+      importFirstImageButton.disabled =
+        true;
+
+      importFirstImageButton.textContent =
+        "Importing...";
+
+      try {
+        const response =
+          await fetch(
+            "/api/admin/import-product-image",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                imageUrl:
+                  imageUrls[0],
+
+                slug:
+                  makeSlug(title),
+
+                imageIndex:
+                  1
+              })
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Unable to import image."
+          );
+        }
+
+        importFirstImageButton.textContent =
+          `Imported: ${data.path}`;
+      } catch (error) {
+        console.error(
+          "Unable to import Etsy image:",
+          error
+        );
+
+        importFirstImageButton.disabled =
+          false;
+
+        importFirstImageButton.textContent =
+          "Import First Image";
+      }
+    }
+  );
+
+  card.appendChild(
+    importFirstImageButton
+  );
+}    
 etsyReviewList.appendChild(card);  });
 }
     importEtsyButton.addEventListener(
