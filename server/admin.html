@@ -924,11 +924,37 @@
         : "Tags: none";
 
     card.appendChild(heading);
-    card.appendChild(details);
-    card.appendChild(tagText);
+card.appendChild(details);
+card.appendChild(tagText);
 
-    etsyReviewList.appendChild(card);
+if (imageUrls.length) {
+  const imageRow =
+    document.createElement("div");
+
+  imageRow.style.display = "flex";
+  imageRow.style.flexWrap = "wrap";
+  imageRow.style.gap = "10px";
+  imageRow.style.marginTop = "12px";
+
+  imageUrls.forEach((imageUrl) => {
+    const image =
+      document.createElement("img");
+
+    image.src = imageUrl;
+    image.alt = title;
+
+    image.style.width = "110px";
+    image.style.height = "110px";
+    image.style.objectFit = "cover";
+    image.style.borderRadius = "4px";
+
+    imageRow.appendChild(image);
   });
+
+  card.appendChild(imageRow);
+}
+
+etsyReviewList.appendChild(card);  });
 }
     importEtsyButton.addEventListener(
       "click",
