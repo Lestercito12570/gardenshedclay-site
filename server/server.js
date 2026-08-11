@@ -8,6 +8,9 @@ const app = express();
 
 const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY
+  
+const liveStripe = new Stripe(
+  process.env.STRIPE_LIVE_SECRET_KEY  
 );
 
 const PORT = process.env.PORT || 3000;
@@ -387,6 +390,99 @@ app.post(
   }
 );
 
+app.post(
+  "/api/admin/create-live-stripe-product",
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const {
+        name,
+        description = "",
+        price,
+        currency = "USD",
+        slug = ""
+      } = req.body;
+
+      const numericPrice =
+        Number(price);
+
+      if (
+        !name ||
+        !name.trim()
+      ) {
+        return res.status(400).json({
+          error:
+            "Product name is required."
+        });
+      }
+
+      if (
+        !Number.isFinite(
+          numericPrice
+        ) ||
+        numericPrice <= 0
+      ) {
+        return res.status(400).json({
+          error:
+            "A valid product price is required."
+        });
+      }
+
+      const unitAmount =
+        Math.round(
+          numericPrice * 100
+        );
+
+      const stripeProduct =
+        await liveStripe.products.create({
+          name:
+            name.trim(),
+
+          description:
+            description.trim() ||
+            undefined,
+
+          metadata: {
+            source:
+              "garden-shed-clay-admin",
+
+            slug:
+              slug || ""
+          }
+        });
+
+      const stripePrice =
+        await liveStripe.prices.create({
+          product:
+            stripeProduct.id,
+
+          unit_amount:
+            unitAmount,
+
+          currency:
+            currency.toLowerCase()
+        });
+
+      return res.json({
+        productId:
+          stripeProduct.id,
+
+        priceId:
+          stripePrice.id
+      });
+    } catch (error) {
+      console.error(
+        "Unable to create Stripe product:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to create Stripe product."
+      });
+    }
+  }
+);
 /*
  * Protected catalog publishing
  *
