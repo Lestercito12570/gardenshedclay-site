@@ -671,7 +671,252 @@ app.post(
     }
   }
 );
+/*
+ * Protected product image import
+ *
+ * Downloads one remote product image and
+ * commits it to the Garden Shed Clay GitHub
+ * repository under images/products/.
+ */
+app.post(
+  "/api/admin/import-product-image",
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
 
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "GitHub image importing is not configured."
+        });
+      }
+
+      const {
+        imageUrl,
+        slug,
+        imageIndex
+      } = req.body;
+
+      if (
+        !imageUrl ||
+        !slug ||
+        !Number.isInteger(Number(imageIndex))
+      ) {
+        return res.status(400).json({
+          error:
+            "Image URL, product slug, and image index are required."
+        });
+      }
+
+      /*
+       * Only accept HTTPS image URLs.
+       */
+      let parsedImageUrl;
+
+      try {
+        parsedImageUrl =
+          new URL(imageUrl);
+      } catch {
+        return res.status(400).json({
+          error:
+            "The image URL is invalid."
+        });
+      }
+
+      if (parsedImageUrl.protocol !== "https:") {
+        return res.status(400).json({
+          error:
+            "Only HTTPS image URLs are allowed."
+        });
+      }
+
+      /*
+       * Download the remote image.
+       */
+      const imageResponse =
+        await fetch(imageUrl);
+
+      if (!imageResponse.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to download the product image."
+        });
+      }
+
+      const contentType =
+        imageResponse.headers.get(
+          "content-type"
+        ) || "";
+
+      if (!contentType.startsWith("image/")) {
+        return res.status(400).json({
+          error:
+            "The remote URL did not return an image."
+        });
+      }
+
+      /*
+       * Determine a safe extension.
+       */
+      let extension = "jpg";
+
+      if (contentType.includes("png")) {
+        extension = "png";
+      } else if (
+        contentType.includes("webp")
+      ) {
+        extension = "webp";
+      } else if (
+        contentType.includes("gif")
+      ) {
+        extension = "gif";
+      }
+
+      const safeSlug =
+        String(slug)
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      if (!safeSlug) {
+        return res.status(400).json({
+          error:
+            "The product slug is invalid."
+        });
+      }
+
+      const paddedIndex =
+        String(Number(imageIndex))
+          .padStart(2, "0");
+
+      const fileName =
+        `${safeSlug}-${paddedIndex}.${extension}`;
+
+      const repositoryPath =
+        `images/products/${fileName}`;
+
+      const imageBuffer =
+        Buffer.from(
+          await imageResponse.arrayBuffer()
+        );
+
+      /*
+       * Keep accidental giant downloads out
+       * of the repository.
+       */
+      const MAX_IMAGE_BYTES =
+        15 * 1024 * 1024;
+
+      if (
+        imageBuffer.length >
+        MAX_IMAGE_BYTES
+      ) {
+        return res.status(413).json({
+          error:
+            "The product image is too large."
+        });
+      }
+
+      const githubUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repositoryPath}`;
+
+      const githubResponse =
+        await fetch(
+          githubUrl,
+          {
+            method: "PUT",
+
+            headers: {
+              Accept:
+                "application/vnd.github+json",
+
+              Authorization:
+                `Bearer ${githubToken}`,
+
+              "X-GitHub-Api-Version":
+                "2022-11-28",
+
+              "User-Agent":
+                "garden-shed-clay-admin",
+
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              message:
+                `Import product image: ${fileName}`,
+
+              content:
+                imageBuffer.toString(
+                  "base64"
+                ),
+
+              branch:
+                GITHUB_BRANCH
+            })
+          }
+        );
+
+      if (!githubResponse.ok) {
+        const errorText =
+          await githubResponse.text();
+
+        console.error(
+          "Unable to import product image to GitHub:",
+          githubResponse.status,
+          errorText
+        );
+
+        return res.status(502).json({
+          error:
+            "Unable to save the product image to GitHub."
+        });
+      }
+
+      const githubData =
+        await githubResponse.json();
+
+      console.log(
+        "Garden Shed Clay product image imported:",
+        {
+          path:
+            repositoryPath,
+
+          commit:
+            githubData.commit?.sha ||
+            null
+        }
+      );
+
+      return res.json({
+        success: true,
+
+        path:
+          repositoryPath,
+
+        fileName,
+
+        commitSha:
+          githubData.commit?.sha ||
+          null
+      });
+    } catch (error) {
+      console.error(
+        "Unable to import product image:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to import product image."
+      });
+    }
+  }
+);
 /*
  * Public customer checkout
  */
