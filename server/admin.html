@@ -978,6 +978,8 @@ if (
         true;
 
       try {
+        const importedImagePaths = [];
+        
         for (
           let imageIndex = 0;
           imageIndex < imageUrls.length;
@@ -1019,8 +1021,11 @@ if (
               `Unable to import image ${imageIndex + 1}.`
             );
           }
+           importedImagePaths.push(
+  data.path
+        );
         }
-
+        
         importAllImagesButton.textContent =
           `Imported ${imageUrls.length} images`;
       } catch (error) {
