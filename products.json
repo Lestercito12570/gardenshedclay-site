@@ -443,6 +443,56 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3SlePPQCpxvhf",
       "stripePriceId": "price_1U3Lq3DTEEQD8p6ZFeEGmtKQ"
+    },
+    {
+      "id": "multicolored-wavy-mug",
+      "name": "Multicolored Wavy Mug",
+      "slug": "multicolored-wavy-mug",
+      "description": "Make your coffee or tea an extra treat in this multicolored and wavy designed mug. Tall for larger drinks, one of a kind and artisa - this mug will make your beverage a little more special. Handmade on my potter's wheel. Microwave and dishwasher safe.",
+      "price": 24,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Ceramic_mug",
+        "Artisan_drinkware",
+        "Handmade_pottery",
+        "Studio_pottery",
+        "Stoneware_mug",
+        "Wheel_thrown_clay",
+        "Lead_free_glaze",
+        "Handmade_kitchenware",
+        "Pottery_gift_idea",
+        "Wavy",
+        "Multicolored",
+        "Gift_ideas",
+        "One_of_a_kind"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/multicolored-wavy-mug-01.jpg",
+        "product-images/multicolored-wavy-mug-02.jpg",
+        "product-images/multicolored-wavy-mug-03.jpg",
+        "product-images/multicolored-wavy-mug-04.jpg",
+        "product-images/multicolored-wavy-mug-05.jpg",
+        "product-images/multicolored-wavy-mug-06.jpg",
+        "product-images/multicolored-wavy-mug-07.jpg",
+        "product-images/multicolored-wavy-mug-08.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3SmQ2oxIHtO4w",
+      "stripePriceId": "price_1U3LqrDTEEQD8p6ZSZt6P7Pa"
     }
   ]
 }
