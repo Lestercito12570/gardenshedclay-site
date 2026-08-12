@@ -180,7 +180,7 @@ app.post(
       req.headers["stripe-signature"];
 
     const webhookSecret =
-      process.env.STRIPE_WEBHOOK_SECRET;
+      process.env.STRIPE_LIVE_WEBHOOK_SECRET;
 
     if (!signature) {
       console.error(
@@ -206,7 +206,7 @@ app.post(
 
     try {
       event =
-        stripe.webhooks.constructEvent(
+        liveStripe.webhooks.constructEvent(
           req.body,
           signature,
           webhookSecret
@@ -1126,7 +1126,7 @@ app.post(
         });
 
       const session =
-        await stripe
+        await liveStripe
           .checkout
           .sessions
           .create({
