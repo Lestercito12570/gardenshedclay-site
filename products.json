@@ -1,3 +1,51 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "moravian-lovefeast-mug",
+      "name": "Moravian Lovefeast Mug",
+      "slug": "moravian-lovefeast-mug",
+      "description": "Make your coffee or tea an extra treat in this Moravian Lovefeast design mug. The traditional shape and color of the mug has been replicated in my wheel-thrown and handmade drinkware.",
+      "price": 24,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Moravian_Lovefeast",
+        "White_gloss_mug",
+        "Ceramic_mug",
+        "Artisan_drinkware",
+        "Handmade_pottery",
+        "Studio_pottery",
+        "Moravian_Coffee_Mug",
+        "Stoneware_mug",
+        "Wheel_thrown_clay",
+        "Lead_free_glaze",
+        "Glossy_White_Pottery",
+        "Handmade_kitchenware",
+        "Pottery_gift_idea"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/moravian-lovefeast-mug-01.jpg",
+        "product-images/moravian-lovefeast-mug-02.jpg",
+        "product-images/moravian-lovefeast-mug-03.jpg",
+        "product-images/moravian-lovefeast-mug-04.jpg",
+        "product-images/moravian-lovefeast-mug-05.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3jtdnBVtdIp8j",
+      "stripePriceId": "price_1U3cPvDTEEQD8p6Z3pDhM3P1"
+    }
+  ]
 }
