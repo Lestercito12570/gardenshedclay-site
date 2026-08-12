@@ -90,6 +90,53 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lMW9HCmDbqtO",
       "stripePriceId": "price_1U3dq5DTEEQD8p6ZtYcBqE4c"
+    },
+    {
+      "id": "rustic-pottery-pie-plate-in-black-with-snowy-spots1",
+      "name": "Rustic Pottery Pie Plate in Black with snowy spots",
+      "slug": "rustic-pottery-pie-plate-in-black-with-snowy-spots1",
+      "description": "A handmade, wheel thrown pie plate in stoneware and glazed in black with snowy spots. This is perfect for baking pies and is both micro and dishwasher safe. A BEAUTIFUL glaze and rustic design. Safe to use in the oven with care. 9-1/2\" diameter, 2\" height.",
+      "price": 65,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Pottery",
+        "Ceramic",
+        "Cobalt_Blue",
+        "Bakeware",
+        "Home_and_Kitchen",
+        "Baking",
+        "Pie",
+        "Cooking",
+        "Stoneware",
+        "Handmade",
+        "Pie_plate"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-01.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-02.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-03.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-04.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-05.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-06.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-07.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lOtAn96xeHH2",
+      "stripePriceId": "price_1U3drHDTEEQD8p6ZrKlDgj8z"
     }
   ]
 }
