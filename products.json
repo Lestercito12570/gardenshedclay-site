@@ -274,6 +274,43 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lQxAqnj4WFrF",
       "stripePriceId": "price_1U3dtgDTEEQD8p6Z85PpFJMe"
+    },
+    {
+      "id": "handmade-terra-cotta-planter",
+      "name": "Handmade terra cotta planter",
+      "slug": "handmade-terra-cotta-planter",
+      "description": "A wheel thrown pottery planter. Terra cotta (earthenware) natural clay, which is suitable for indoors or outdoors use.",
+      "price": 45,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Garden",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Terra_cotta",
+        "gardening",
+        "planter",
+        "pottery",
+        "ceramic",
+        "pots",
+        "Handmade_pottery"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/handmade-terra-cotta-planter-01.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lRfI0fZdVUk1",
+      "stripePriceId": "price_1U3duCDTEEQD8p6ZCwmDAjBD"
     }
   ]
 }
