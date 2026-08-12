@@ -775,6 +775,51 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lYiMqZzvuvqN",
       "stripePriceId": "price_1U3e0yDTEEQD8p6ZeigmCygS"
+    },
+    {
+      "id": "handmade-ceramic-brown-sugar-keeper-with-moravian-star-design",
+      "name": "Handmade Ceramic Brown Sugar Keeper with Moravian Star Design",
+      "slug": "handmade-ceramic-brown-sugar-keeper-with-moravian-star-design",
+      "description": "Keep your brown sugar soft and scoop-ready with our handcrafted ceramic brown sugar keeper! Each charming piece is designed to maintain the perfect moisture level, ensuring your sugar stays fresh and easy to use. Features the iconic Moravian Star. Perfect for any kitchen décor, these keepers make a thoughtful gift for bakers and home chefs alike. Elevate your baking experience with this stylish and functional storage solution! Price includes shipping.",
+      "price": 7,
+      "currency": "USD",
+      "inventory": 21,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Brown_sugar_keeper",
+        "small_gift_ideas",
+        "baking",
+        "liberty_bell",
+        "moravian_star",
+        "pantry_storage",
+        "brown_sugar",
+        "gifts_for_cooks",
+        "gifts_for_bakers",
+        "handmade_kitchenware",
+        "foodie_gift_ideas",
+        "home_baking_supplies",
+        "interesting_gift"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/handmade-ceramic-brown-sugar-keeper-with-moravian-star-design-01.jpg",
+        "product-images/handmade-ceramic-brown-sugar-keeper-with-moravian-star-design-02.jpg",
+        "product-images/handmade-ceramic-brown-sugar-keeper-with-moravian-star-design-03.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lYLqu5ONfPhw",
+      "stripePriceId": "price_1U3e1XDTEEQD8p6ZMR6PoLue"
     }
   ]
 }
