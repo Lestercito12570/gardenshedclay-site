@@ -820,6 +820,52 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lYLqu5ONfPhw",
       "stripePriceId": "price_1U3e1XDTEEQD8p6ZMR6PoLue"
+    },
+    {
+      "id": "handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage",
+      "name": "Handcrafted Ceramic Brown Sugar Keeper – Liberty Bell Design, Food-Safe Storage",
+      "slug": "handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage",
+      "description": "Keep brown sugar soft and scoop-ready with this handcrafted ceramic brown sugar keeper, available with a Liberty Bell design. Each piece is made by hand and and is durable, food-safe; both functional and decorative. The tight-fitting lid with a small notch accommodates a spoon while sealing in moisture to prevent your sugar from becoming a hard brick. Instructions are included and shipping is included in price.",
+      "price": 7,
+      "currency": "USD",
+      "inventory": 12,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Brown_sugar_keeper",
+        "small_gift_ideas",
+        "baking",
+        "cooking_tools",
+        "liberty_bell",
+        "pantry_storage",
+        "gifts_for_cooks",
+        "gifts_for_bakers",
+        "unique_gift_ideas",
+        "handmade_kitchenware",
+        "rustic_kitchen_decor",
+        "foodie_gift_ideas",
+        "kitchen_gift_ideas"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage-01.jpg",
+        "product-images/handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage-02.jpg",
+        "product-images/handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage-03.jpg",
+        "product-images/handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage-04.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lZ2hRGIWajBU",
+      "stripePriceId": "price_1U3e21DTEEQD8p6ZMSDS3zjF"
     }
   ]
 }
