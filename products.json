@@ -726,6 +726,55 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lXVTC1BVtOl0",
       "stripePriceId": "price_1U3e0NDTEEQD8p6ZXYGw3kOd"
+    },
+    {
+      "id": "baking-casserole-in-spearmint-green-and-cobalt-blue",
+      "name": "Baking Casserole in \"Spearmint\" Green and Cobalt Blue",
+      "slug": "baking-casserole-in-spearmint-green-and-cobalt-blue",
+      "description": "This is a substantial, baking casserole, dish, glazed, and spearmint, green and cobalt blue. I made this on my Potter's wheel and attached solid, deliberate handles for easy in and out of the oven. Dishwasher and microwave safe, this casserole will be something that you will prize and use for years to come. Approx 7-3/8\" dia and 4\" in height.",
+      "price": 40,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "stoneware",
+        "gardenshedclay",
+        "studiopottery",
+        "handmade",
+        "wheelthrown",
+        "spearmint",
+        "Rustic_bakeware",
+        "Handmade_pottery",
+        "Gift_ideas_for_her",
+        "Gift_ideas_for_him",
+        "Bakers",
+        "Heirloom_pottery",
+        "Unique_gift_ideas"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-01.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-02.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-03.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-04.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-05.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-06.jpg",
+        "product-images/baking-casserole-in-spearmint-green-and-cobalt-blue-07.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lYiMqZzvuvqN",
+      "stripePriceId": "price_1U3e0yDTEEQD8p6ZeigmCygS"
     }
   ]
 }
