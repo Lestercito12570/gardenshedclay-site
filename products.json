@@ -231,6 +231,49 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lPIlHlLL1uU1",
       "stripePriceId": "price_1U3dt0DTEEQD8p6ZjvSQuT2K"
+    },
+    {
+      "id": "spoon-rest-in-multicolored-glazes",
+      "name": "Spoon Rest in multicolored glazes.",
+      "slug": "spoon-rest-in-multicolored-glazes",
+      "description": "This is a stoneware spoon rest in various dipped and overlapping glazes, creating beautiful effects. This is handmade and dishwasher safe.",
+      "price": 17,
+      "currency": "USD",
+      "inventory": 1,
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "spoon_rest",
+        "stoneware",
+        "ceramic",
+        "pottery",
+        "studio_pottery",
+        "handmade_pottery",
+        "blue",
+        "green",
+        "blue_green"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/spoon-rest-in-multicolored-glazes-01.jpg",
+        "product-images/spoon-rest-in-multicolored-glazes-02.jpg",
+        "product-images/spoon-rest-in-multicolored-glazes-03.jpg",
+        "product-images/spoon-rest-in-multicolored-glazes-04.jpg",
+        "product-images/spoon-rest-in-multicolored-glazes-05.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_V3lQxAqnj4WFrF",
+      "stripePriceId": "price_1U3dtgDTEEQD8p6Z85PpFJMe"
     }
   ]
 }
