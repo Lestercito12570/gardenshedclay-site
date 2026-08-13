@@ -1476,9 +1476,104 @@ loadProductsButton.addEventListener(
           publishToggleButton
         );
 
+        const editButton =
+          document.createElement("button");
+
+        editButton.type =
+          "button";
+
+        editButton.className =
+          "button";
+
+        editButton.textContent =
+          "Edit Product";
+
+        editButton.style.marginLeft =
+          "10px";
+
+        editButton.addEventListener(
+          "click",
+          () => {
+            document.getElementById("name").value =
+              product.name || "";
+
+            document.getElementById("slug").value =
+              product.slug || product.id || "";
+
+            document.getElementById("description").value =
+              product.description || "";
+
+            document.getElementById("price").value =
+              product.price ?? "";
+
+            document.getElementById("inventory").value =
+              product.inventory ?? 0;
+
+            document.getElementById("collection").value =
+              product.collection || "";
+
+            document.getElementById("sort-order").value =
+              product.sortOrder ?? 10;
+
+            document.getElementById("colors").value =
+              Array.isArray(product.colors)
+                ? product.colors.join(", ")
+                : "";
+
+            document.getElementById("tags").value =
+              Array.isArray(product.tags)
+                ? product.tags.join(", ")
+                : "";
+
+            document.getElementById("images").value =
+              Array.isArray(product.images)
+                ? product.images.join("\n")
+                : "";
+
+            document.getElementById("dishwasher-safe").checked =
+              Boolean(product.dishwasherSafe);
+
+            document.getElementById("microwave-safe").checked =
+              Boolean(product.microwaveSafe);
+
+            document.getElementById("ready-to-ship").checked =
+              Boolean(product.readyToShip);
+
+            document.getElementById("featured").checked =
+              Boolean(product.featured);
+
+            document.getElementById("published").checked =
+              Boolean(product.published);
+
+            document.getElementById("etsy-listed").checked =
+              Boolean(product.etsyListed);
+
+            document.getElementById("lead-time").value =
+              product.leadTime || "";
+
+            document.getElementById("shipping-type").value =
+              product.shipping?.type ||
+              "flat-rate";
+
+            document.getElementById("shipping-price").value =
+              product.shipping?.price ?? 0;
+
+            stripeProductIdInput.value =
+              product.stripeProductId || "";
+
+            stripePriceIdInput.value =
+              product.stripePriceId || "";
+
+            currentProduct =
+              { ...product };
+
+ .appendChild(
+          editButton
+        );
+
         manageProductsList.appendChild(card);
       });
-      
+
     } catch (error) {
       console.error(
         "Unable to load products:",
@@ -1493,7 +1588,8 @@ loadProductsButton.addEventListener(
     }
   }
 );
-    previewButton.addEventListener(
+
+previewButton.addEventListener(    
       "click",
       () => {
         if (!form.reportValidity()) {
