@@ -1357,11 +1357,128 @@ loadProductsButton.addEventListener(
         details.textContent =
           `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
 
-        card.appendChild(title);
+          card.appendChild(title);
         card.appendChild(details);
+
+        const publishToggleButton =
+          document.createElement("button");
+
+        publishToggleButton.type =
+          "button";
+
+        publishToggleButton.className =
+          product.published
+            ? "button"
+            : "button button-primary";
+
+        publishToggleButton.textContent =
+          product.published
+            ? "Unpublish"
+            : "Republish";
+
+        publishToggleButton.addEventListener(
+          "click",
+          async () => {
+            const newPublishedStatus =
+              !product.published;
+
+            const actionName =
+              newPublishedStatus
+                ? "republish"
+                : "unpublish";
+
+            const confirmed =
+              window.confirm(
+                `${actionName === "unpublish" ? "Unpublish" : "Republish"} ${product.name || product.id}?`
+              );
+
+            if (!confirmed) {
+              return;
+            }
+
+            publishToggleButton.disabled =
+              true;
+
+            publishToggleButton.textContent =
+              newPublishedStatus
+                ? "Republishing..."
+                : "Unpublishing...";
+
+            try {
+              const response =
+                await fetch(
+                  `/api/admin/products/${encodeURIComponent(product.id)}/published`,
+                  {
+                    method: "PATCH",
+
+                    headers: {
+                      "Content-Type":
+                        "application/json"
+                    },
+
+                    body: JSON.stringify({
+                      published:
+                        newPublishedStatus
+                    })
+                  }
+                );
+
+              const data =
+                await response.json();
+
+              if (!response.ok) {
+                throw new Error(
+                  data.error ||
+                  "Unable to update product."
+                );
+              }
+
+              product.published =
+                newPublishedStatus;
+
+              details.textContent =
+                `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
+
+              publishToggleButton.textContent =
+                product.published
+                  ? "Unpublish"
+                  : "Republish";
+
+              publishToggleButton.className =
+                product.published
+                  ? "button"
+                  : "button button-primary";
+
+              manageProductsStatus.textContent =
+                `${product.name || product.id} ${product.published ? "republished" : "unpublished"} successfully.`;
+            } catch (error) {
+              console.error(
+                "Unable to update product:",
+                error
+              );
+
+              manageProductsStatus.textContent =
+                error.message ||
+                "Unable to update product.";
+
+              publishToggleButton.textContent =
+                product.published
+                  ? "Unpublish"
+                  : "Republish";
+            } finally {
+              publishToggleButton.disabled =
+                false;
+            }
+          }
+        );
+
+        card.appendChild(
+          publishToggleButton
+        );
 
         manageProductsList.appendChild(card);
       });
+      
     } catch (error) {
       console.error(
         "Unable to load products:",
