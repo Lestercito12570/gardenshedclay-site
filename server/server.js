@@ -384,9 +384,183 @@ app.get(
       });
     }
   }
-);/*
+);
+
+
+app.patch(
+  "/api/admin/products/:id/published",
+  requireAdmin,
+  async (req, res) => {
+  
+        try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
+
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "GitHub catalog access is not configured."
+        });
+      }
+
+      const productId =
+        String(req.params.id || "").trim();
+
+      const { published } = req.body;
+
+      if (
+        !productId ||
+        typeof published !== "boolean"
+      ) {
+        return res.status(400).json({
+          error:
+            "Product ID and published status are required."
+        });
+      }
+
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}`;
+
+      const headers = {
+        Accept:
+          "application/vnd.github+json",
+        Authorization:
+          `Bearer ${githubToken}`,
+        "X-GitHub-Api-Version":
+          "2022-11-28",
+        "User-Agent":
+          "garden-shed-clay-admin"
+      };
+
+      const fileResponse =
+        await fetch(
+          `${githubFileUrl}?ref=${GITHUB_BRANCH}`,
+          {
+            method: "GET",
+            headers
+          }
+        );
+
+      if (!fileResponse.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to read the product catalog."
+        });
+      }
+
+      const fileData =
+        await fileResponse.json();
+
+      const decodedContent =
+        Buffer
+          .from(fileData.content, "base64")
+          .toString("utf8");
+
+      const catalog =
+        JSON.parse(decodedContent);
+
+      const products =
+        Array.isArray(catalog)
+          ? catalog
+          : catalog.products;
+
+      if (!Array.isArray(products)) {
+        return res.status(500).json({
+          error:
+            "The product catalog has an unsupported structure."
+        });
+      }
+
+      const product =
+        products.find(
+          (item) =>
+            item &&
+            item.id === productId
+        );
+
+      if (!product) {
+        return res.status(404).json({
+          error:
+            "Product not found."
+        });
+      }
+
+      product.published = published;
+
+      const updatedCatalog =
+        JSON.stringify(catalog, null, 2) +
+        "\n";
+
+      const encodedCatalog =
+        Buffer
+          .from(updatedCatalog, "utf8")
+          .toString("base64");
+
+      const updateResponse =
+        await fetch(
+          githubFileUrl,
+          {
+            method: "PUT",
+            headers: {
+              ...headers,
+              "Content-Type":
+                "application/json"
+            },
+            body: JSON.stringify({
+              message:
+                `${published ? "Publish" : "Unpublish"} product: ${product.name}`,
+              content: encodedCatalog,
+              sha: fileData.sha,
+              branch: GITHUB_BRANCH
+            })
+          }
+        );
+
+      if (!updateResponse.ok) {
+        const errorText =
+          await updateResponse.text();
+
+        console.error(
+          "Unable to update product published status:",
+          updateResponse.status,
+          errorText
+        );
+
+        return res.status(502).json({
+          error:
+            "Unable to update the product catalog."
+        });
+      }
+
+      return res.json({
+        success: true,
+        product
+      });
+    } catch (error) {
+      console.error(
+        "Unable to update product published status:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to update product published status."
+      });
+    }  
+  }
+);
+
+/*
  * Protected Stripe product creation
  */
+
+
+
+
+
+
+
+
 app.post(
   "/api/admin/create-stripe-product",
   requireAdmin,
