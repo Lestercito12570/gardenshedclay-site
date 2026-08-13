@@ -235,6 +235,37 @@
   class="etsy-review-list"
 ></div>  
 </section>    
+<section class="product-card-form">
+  <div>
+    <p class="eyebrow">Catalog</p>
+    <h2>Manage Products</h2>
+
+    <p class="admin-note">
+      View the products currently published in the
+      Garden Shed Clay catalog.
+    </p>
+  </div>
+
+  <div class="admin-actions">
+    <button
+      class="button button-primary"
+      id="load-products-button"
+      type="button"
+    >
+      Load Products
+    </button>
+  </div>
+
+  <p
+    id="manage-products-status"
+    class="admin-status"
+    aria-live="polite"
+  ></p>
+
+  <div
+    id="manage-products-list"
+  ></div>
+</section>    
     <form id="product-form" class="product-card-form">
 
   <div class="form-grid">
@@ -627,6 +658,15 @@
 
     const etsyReviewList =
   document.getElementById("etsy-review-list");
+
+const loadProductsButton =
+  document.getElementById("load-products-button");
+
+const manageProductsStatus =
+  document.getElementById("manage-products-status");
+
+const manageProductsList =
+  document.getElementById("manage-products-list");
     
     const preview =
       document.getElementById("preview");
@@ -1260,7 +1300,82 @@ renderEtsyReviewList(listings);
         }
       }
     );
+loadProductsButton.addEventListener(
+  "click",
+  async () => {
+    loadProductsButton.disabled = true;
+    manageProductsStatus.textContent =
+      "Loading products...";
 
+    manageProductsList.innerHTML = "";
+
+    try {
+      const response =
+        await fetch(
+          "/api/admin/products"
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to load products."
+        );
+      }
+
+      const products =
+        Array.isArray(data.products)
+          ? data.products
+          : [];
+
+      manageProductsStatus.textContent =
+        `${products.length} products loaded.`;
+
+      products.forEach((product) => {
+        const card =
+          document.createElement("div");
+
+        card.style.padding = "16px";
+        card.style.marginTop = "12px";
+        card.style.border =
+          "1px solid rgba(38, 35, 31, 0.16)";
+        card.style.background = "#fff";
+
+        const title =
+          document.createElement("h3");
+
+        title.textContent =
+          product.name || product.id;
+
+        title.style.marginTop = "0";
+
+        const details =
+          document.createElement("p");
+
+        details.textContent =
+          `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
+
+        card.appendChild(title);
+        card.appendChild(details);
+
+        manageProductsList.appendChild(card);
+      });
+    } catch (error) {
+      console.error(
+        "Unable to load products:",
+        error
+      );
+
+      manageProductsStatus.textContent =
+        error.message ||
+        "Unable to load products.";
+    } finally {
+      loadProductsButton.disabled = false;
+    }
+  }
+);
     previewButton.addEventListener(
       "click",
       () => {
