@@ -1564,16 +1564,28 @@ loadProductsButton.addEventListener(
             stripePriceIdInput.value =
               product.stripePriceId || "";
 
-            currentProduct =
-              { ...product };
+currentProduct =
+  { ...product };
 
- .appendChild(
-          editButton
-        );
+setStatus(
+  `${product.name || product.id} loaded for editing.`,
+  "success"
+);
 
-        manageProductsList.appendChild(card);
-      });
+form.scrollIntoView({
+  behavior: "smooth",
+  block: "start"
+});
+      }
+    );
 
+card.appendChild(
+  editButton
+);
+
+manageProductsList.appendChild(card);
+});
+      
     } catch (error) {
       console.error(
         "Unable to load products:",
