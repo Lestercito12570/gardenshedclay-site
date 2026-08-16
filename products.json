@@ -5,7 +5,7 @@
       "name": "Moravian Lovefeast Mug",
       "slug": "moravian-lovefeast-mug",
       "description": "Make your coffee or tea an extra treat in this Moravian Lovefeast design mug. The traditional shape and color of the mug has been replicated in my wheel-thrown and handmade drinkware.",
-      "price": 24,
+      "price": 21,
       "currency": "USD",
       "inventory": 1,
       "collection": "Kitchen",
@@ -32,7 +32,7 @@
       "leadTime": "",
       "shipping": {
         "type": "flat-rate",
-        "price": 0
+        "price": 12
       },
       "images": [
         "product-images/moravian-lovefeast-mug-01.jpg",
@@ -45,7 +45,7 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3jtdnBVtdIp8j",
-      "stripePriceId": "price_1U3cPvDTEEQD8p6Z3pDhM3P1"
+      "stripePriceId": "price_1U56NeDTEEQD8p6ZSF3YBgqu"
     },
     {
       "id": "wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green",
