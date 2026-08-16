@@ -569,6 +569,15 @@
   Publish Product
 </button>
 
+<button
+  class="button button-primary"
+  id="save-changes-button"
+  type="button"
+  disabled
+>
+  Save Changes
+</button>
+    
     <button
       class="button"
       id="clear-form"
@@ -644,6 +653,9 @@
     const publishButton =
       document.getElementById("publish-button");
 
+const saveChangesButton =
+  document.getElementById("save-changes-button");
+    
     const clearButton =
       document.getElementById("clear-form");
 
@@ -1567,6 +1579,9 @@ loadProductsButton.addEventListener(
 currentProduct =
   { ...product };
 
+saveChangesButton.disabled =
+  false;
+
 setStatus(
   `${product.name || product.id} loaded for editing.`,
   "success"
@@ -1874,6 +1889,134 @@ if (!confirmed) {
     }
   }
 );
+
+saveChangesButton.addEventListener(
+  "click",
+  async () => {
+    if (!currentProduct?.id) {
+      setStatus(
+        "Load an existing product with Edit Product before saving changes.",
+        "error"
+      );
+      return;
+    }
+
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const originalProductId =
+      currentProduct.id;
+
+    const originalPrice =
+      Number(currentProduct.price || 0);
+
+    const updatedProduct =
+      buildProductRecord();
+
+    const newPrice =
+      Number(updatedProduct.price || 0);
+
+    const priceChanged =
+      Math.round(originalPrice * 100) !==
+      Math.round(newPrice * 100);
+
+    const confirmed =
+      window.confirm(
+        priceChanged
+          ? `Save changes to ${updatedProduct.name}? The price will change from $${originalPrice.toFixed(2)} to $${newPrice.toFixed(2)} and a new Live Stripe Price will be created.`
+          : `Save changes to ${updatedProduct.name}?`
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    saveChangesButton.disabled =
+      true;
+
+    saveChangesButton.textContent =
+      "Saving Changes...";
+
+    setStatus(
+      priceChanged
+        ? "Saving product changes and updating Live Stripe price..."
+        : "Saving product changes..."
+    );
+
+    try {
+      const response =
+        await fetch(
+          `/api/admin/products/${encodeURIComponent(originalProductId)}`,
+          {
+            method: "PATCH",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              product:
+                updatedProduct
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to save product changes."
+        );
+      }
+
+      currentProduct =
+        { ...data.product };
+
+      stripeProductIdInput.value =
+        currentProduct.stripeProductId ||
+        "";
+
+      stripePriceIdInput.value =
+        currentProduct.stripePriceId ||
+        "";
+
+      showPreview(
+        currentProduct
+      );
+
+      setStatus(
+        data.priceChanged
+          ? `${currentProduct.name} saved successfully. Live Stripe price updated to $${Number(currentProduct.price).toFixed(2)}.`
+          : `${currentProduct.name} saved successfully.`,
+        "success"
+      );
+
+      saveChangesButton.textContent =
+        "Changes Saved";
+    } catch (error) {
+      console.error(
+        "Unable to save product changes:",
+        error
+      );
+
+      setStatus(
+        error.message ||
+        "Unable to save product changes.",
+        "error"
+      );
+
+      saveChangesButton.textContent =
+        "Save Changes";
+    } finally {
+      saveChangesButton.disabled =
+        false;
+    }
+  }
+);
     
     publishButton.addEventListener(
       "click",
@@ -1990,6 +2133,9 @@ document.getElementById("published").checked =
         currentProduct =
           null;
 
+saveChangesButton.disabled =
+  true;
+        
         publishButton.disabled =
           true;
 
