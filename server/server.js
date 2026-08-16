@@ -1726,6 +1726,12 @@ body: JSON.stringify({
 );
 /*
  * Public customer checkout
+ *
+ * Shipping rules:
+ * - $150+ merchandise subtotal = free shipping
+ * - Otherwise, highest flat-rate shipping amount
+ *   + $5 for each additional flat-rate item
+ * - Products marked free shipping contribute $0
  */
 app.post(
   "/api/create-checkout-session",
@@ -1744,46 +1750,256 @@ app.post(
         });
       }
 
-      const lineItems =
-        items.map((item) => {
-          if (
-            !item.stripePriceId
-          ) {
-            throw new Error(
-              `Missing Stripe Price ID for ${
-                item.name ||
-                "a cart item"
-              }.`
-            );
-          }
+      /*
+       * Read the authoritative product catalog.
+       * Do not trust price or shipping values
+       * supplied by the customer's browser.
+       */
+      const githubToken =
+        process.env.GITHUB_TOKEN;
 
-          const quantity =
-            Number(
-              item.quantity || 1
-            );
-
-          if (
-            !Number.isInteger(
-              quantity
-            ) ||
-            quantity < 1
-          ) {
-            throw new Error(
-              `Invalid quantity for ${
-                item.name ||
-                "a cart item"
-              }.`
-            );
-          }
-
-          return {
-            price:
-              item.stripePriceId,
-
-            quantity
-          };
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "Product catalog access is not configured."
         });
+      }
 
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+      const catalogResponse =
+        await fetch(
+          githubFileUrl,
+          {
+            headers: {
+              Accept:
+                "application/vnd.github+json",
+
+              Authorization:
+                `Bearer ${githubToken}`,
+
+              "X-GitHub-Api-Version":
+                "2022-11-28",
+
+              "User-Agent":
+                "garden-shed-clay-checkout"
+            }
+          }
+        );
+
+      if (!catalogResponse.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to read the product catalog."
+        });
+      }
+
+      const fileData =
+        await catalogResponse.json();
+
+      const decodedContent =
+        Buffer
+          .from(
+            fileData.content,
+            "base64"
+          )
+          .toString("utf8");
+
+      const catalog =
+        JSON.parse(
+          decodedContent
+        );
+
+      const products =
+        Array.isArray(catalog)
+          ? catalog
+          : catalog.products;
+
+      if (!Array.isArray(products)) {
+        return res.status(500).json({
+          error:
+            "The product catalog has an unsupported structure."
+        });
+      }
+
+      /*
+       * Build Stripe line items and calculate
+       * merchandise subtotal + shipping from
+       * authoritative catalog records.
+       */
+      const lineItems = [];
+
+      let merchandiseSubtotalCents =
+        0;
+
+      let highestFlatRateCents =
+        0;
+
+      let flatRateItemCount =
+        0;
+
+      for (const item of items) {
+        if (!item.stripePriceId) {
+          throw new Error(
+            `Missing Stripe Price ID for ${
+              item.name ||
+              "a cart item"
+            }.`
+          );
+        }
+
+        const quantity =
+          Number(
+            item.quantity || 1
+          );
+
+        if (
+          !Number.isInteger(quantity) ||
+          quantity < 1
+        ) {
+          throw new Error(
+            `Invalid quantity for ${
+              item.name ||
+              "a cart item"
+            }.`
+          );
+        }
+
+        const catalogProduct =
+          products.find(
+            (product) =>
+              product &&
+              product.stripePriceId ===
+                item.stripePriceId
+          );
+
+        if (!catalogProduct) {
+          return res.status(400).json({
+            error:
+              `A cart item is no longer available at its current price. Please refresh your cart and try again.`
+          });
+        }
+
+        if (
+          catalogProduct.published === false
+        ) {
+          return res.status(400).json({
+            error:
+              `${catalogProduct.name} is no longer available.`
+          });
+        }
+
+        const productPrice =
+          Number(
+            catalogProduct.price
+          );
+
+        if (
+          !Number.isFinite(productPrice) ||
+          productPrice <= 0
+        ) {
+          return res.status(500).json({
+            error:
+              `Invalid catalog price for ${catalogProduct.name}.`
+          });
+        }
+
+        merchandiseSubtotalCents +=
+          Math.round(
+            productPrice * 100
+          ) * quantity;
+
+        const shippingType =
+          catalogProduct.shipping?.type ||
+          "flat-rate";
+
+        const shippingPrice =
+          Number(
+            catalogProduct.shipping?.price ||
+            0
+          );
+
+        if (
+          shippingType ===
+          "calculated"
+        ) {
+          return res.status(400).json({
+            error:
+              `${catalogProduct.name} uses calculated shipping, which is not yet supported at checkout.`
+          });
+        }
+
+        if (
+          shippingType ===
+          "flat-rate"
+        ) {
+          const shippingCents =
+            Math.max(
+              0,
+              Math.round(
+                shippingPrice * 100
+              )
+            );
+
+          highestFlatRateCents =
+            Math.max(
+              highestFlatRateCents,
+              shippingCents
+            );
+
+          flatRateItemCount +=
+            quantity;
+        }
+
+        lineItems.push({
+          price:
+            catalogProduct.stripePriceId,
+
+          quantity
+        });
+      }
+
+      /*
+       * Combined-order shipping.
+       */
+      const FREE_SHIPPING_THRESHOLD_CENTS =
+        15000;
+
+      const ADDITIONAL_ITEM_SHIPPING_CENTS =
+        500;
+
+      let shippingAmountCents =
+        0;
+
+      if (
+        merchandiseSubtotalCents >=
+        FREE_SHIPPING_THRESHOLD_CENTS
+      ) {
+        shippingAmountCents =
+          0;
+      } else if (
+        flatRateItemCount > 0
+      ) {
+        shippingAmountCents =
+          highestFlatRateCents +
+          (
+            Math.max(
+              0,
+              flatRateItemCount - 1
+            ) *
+            ADDITIONAL_ITEM_SHIPPING_CENTS
+          );
+      }
+
+      const shippingDisplayName =
+        shippingAmountCents === 0
+          ? "Free Shipping"
+          : "Standard Shipping";
+
+      /*
+       * Create Live Stripe Checkout Session.
+       */
       const session =
         await liveStripe
           .checkout
@@ -1808,8 +2024,54 @@ app.post(
               allowed_countries: [
                 "US"
               ]
+            },
+
+            shipping_options: [
+              {
+                shipping_rate_data: {
+                  type:
+                    "fixed_amount",
+
+                  fixed_amount: {
+                    amount:
+                      shippingAmountCents,
+
+                    currency:
+                      "usd"
+                  },
+
+                  display_name:
+                    shippingDisplayName
+                }
+              }
+            ],
+
+            metadata: {
+              merchandiseSubtotalCents:
+                String(
+                  merchandiseSubtotalCents
+                ),
+
+              shippingAmountCents:
+                String(
+                  shippingAmountCents
+                )
             }
           });
+
+      console.log(
+        "Garden Shed Clay checkout created:",
+        {
+          checkoutSessionId:
+            session.id,
+
+          merchandiseSubtotalCents,
+
+          shippingAmountCents,
+
+          flatRateItemCount
+        }
+      );
 
       return res.json({
         url:
