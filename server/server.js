@@ -549,8 +549,403 @@ app.patch(
     }  
   }
 );
-
 /*
+ * Protected existing product update
+ *
+ * Updates an existing products.json record.
+ * If the price changes, creates a new LIVE Stripe
+ * Price for the existing Stripe Product and archives
+ * the old Price after the catalog update succeeds.
+ */
+app.patch(
+  "/api/admin/products/:id",
+  requireAdmin,
+  async (req, res) => {
+    let newStripePrice = null;
+
+    try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
+
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "GitHub catalog access is not configured."
+        });
+      }
+
+      const productId =
+        String(req.params.id || "").trim();
+
+      const { product: submittedProduct } =
+        req.body;
+
+      if (
+        !productId ||
+        !submittedProduct ||
+        typeof submittedProduct !== "object"
+      ) {
+        return res.status(400).json({
+          error:
+            "Product ID and product record are required."
+        });
+      }
+
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}`;
+
+      const headers = {
+        Accept:
+          "application/vnd.github+json",
+
+        Authorization:
+          `Bearer ${githubToken}`,
+
+        "X-GitHub-Api-Version":
+          "2022-11-28",
+
+        "User-Agent":
+          "garden-shed-clay-admin"
+      };
+
+      /*
+       * Read current catalog.
+       */
+      const fileResponse =
+        await fetch(
+          `${githubFileUrl}?ref=${GITHUB_BRANCH}`,
+          {
+            method: "GET",
+            headers
+          }
+        );
+
+      if (!fileResponse.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to read the product catalog."
+        });
+      }
+
+      const fileData =
+        await fileResponse.json();
+
+      const decodedContent =
+        Buffer
+          .from(
+            fileData.content,
+            "base64"
+          )
+          .toString("utf8");
+
+      const catalog =
+        JSON.parse(decodedContent);
+
+      const products =
+        Array.isArray(catalog)
+          ? catalog
+          : catalog.products;
+
+      if (!Array.isArray(products)) {
+        return res.status(500).json({
+          error:
+            "The product catalog has an unsupported structure."
+        });
+      }
+
+      const productIndex =
+        products.findIndex(
+          (item) =>
+            item &&
+            item.id === productId
+        );
+
+      if (productIndex === -1) {
+        return res.status(404).json({
+          error:
+            "Product not found."
+        });
+      }
+
+      const existingProduct =
+        products[productIndex];
+
+      const numericPrice =
+        Number(submittedProduct.price);
+
+      if (
+        !Number.isFinite(numericPrice) ||
+        numericPrice <= 0
+      ) {
+        return res.status(400).json({
+          error:
+            "A valid product price is required."
+        });
+      }
+
+      const oldPrice =
+        Number(existingProduct.price);
+
+      const priceChanged =
+        Math.round(numericPrice * 100) !==
+        Math.round(oldPrice * 100);
+
+      let stripePriceId =
+        existingProduct.stripePriceId;
+
+      /*
+       * Price changed:
+       * create a replacement LIVE Stripe Price
+       * attached to the existing Stripe Product.
+       */
+      if (priceChanged) {
+        if (!existingProduct.stripeProductId) {
+          return res.status(400).json({
+            error:
+              "The existing product does not have a Stripe Product ID."
+          });
+        }
+
+        if (!existingProduct.stripePriceId) {
+          return res.status(400).json({
+            error:
+              "The existing product does not have a Stripe Price ID."
+          });
+        }
+
+        const unitAmount =
+          Math.round(
+            numericPrice * 100
+          );
+
+        newStripePrice =
+          await liveStripe.prices.create({
+            product:
+              existingProduct.stripeProductId,
+
+            unit_amount:
+              unitAmount,
+
+            currency:
+              String(
+                submittedProduct.currency ||
+                existingProduct.currency ||
+                "USD"
+              ).toLowerCase(),
+
+            metadata: {
+              source:
+                "garden-shed-clay-admin",
+
+              productId:
+                existingProduct.id
+            }
+          });
+
+        stripePriceId =
+          newStripePrice.id;
+      }
+
+      /*
+       * Preserve identity and Stripe Product.
+       * Replace editable catalog values.
+       */
+      const updatedProduct = {
+        ...existingProduct,
+        ...submittedProduct,
+
+        id:
+          existingProduct.id,
+
+        stripeProductId:
+          existingProduct.stripeProductId,
+
+        stripePriceId,
+
+        price:
+          numericPrice
+      };
+
+      products[productIndex] =
+        updatedProduct;
+
+      const updatedCatalog =
+        JSON.stringify(
+          catalog,
+          null,
+          2
+        ) + "\n";
+
+      const encodedCatalog =
+        Buffer
+          .from(
+            updatedCatalog,
+            "utf8"
+          )
+          .toString("base64");
+
+      /*
+       * Commit updated catalog.
+       */
+      const updateResponse =
+        await fetch(
+          githubFileUrl,
+          {
+            method: "PUT",
+
+            headers: {
+              ...headers,
+
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              message:
+                `Update product: ${updatedProduct.name}`,
+
+              content:
+                encodedCatalog,
+
+              sha:
+                fileData.sha,
+
+              branch:
+                GITHUB_BRANCH
+            })
+          }
+        );
+
+      if (!updateResponse.ok) {
+        const errorText =
+          await updateResponse.text();
+
+        console.error(
+          "Unable to update products.json:",
+          updateResponse.status,
+          errorText
+        );
+
+        /*
+         * If we created a new Stripe Price but
+         * GitHub failed, deactivate the new Price
+         * so checkout cannot accidentally use it.
+         */
+        if (newStripePrice) {
+          try {
+            await liveStripe.prices.update(
+              newStripePrice.id,
+              {
+                active: false
+              }
+            );
+          } catch (rollbackError) {
+            console.error(
+              "Unable to archive replacement Stripe Price after catalog failure:",
+              rollbackError
+            );
+          }
+        }
+
+        return res.status(502).json({
+          error:
+            "Unable to save the product catalog."
+        });
+      }
+
+      /*
+       * Catalog now points at the new Price,
+       * so archive the previous Price.
+       */
+      if (
+        priceChanged &&
+        existingProduct.stripePriceId
+      ) {
+        await liveStripe.prices.update(
+          existingProduct.stripePriceId,
+          {
+            active: false
+          }
+        );
+      }
+
+      const updateData =
+        await updateResponse.json();
+
+      console.log(
+        "Garden Shed Clay product updated:",
+        {
+          id:
+            updatedProduct.id,
+
+          name:
+            updatedProduct.name,
+
+          priceChanged,
+
+          stripePriceId:
+            updatedProduct.stripePriceId,
+
+          commit:
+            updateData.commit?.sha ||
+            null
+        }
+      );
+
+      return res.json({
+        success: true,
+
+        product:
+          updatedProduct,
+
+        priceChanged,
+
+        oldStripePriceId:
+          existingProduct.stripePriceId ||
+          null,
+
+        newStripePriceId:
+          priceChanged
+            ? stripePriceId
+            : null,
+
+        commitSha:
+          updateData.commit?.sha ||
+          null
+      });
+    } catch (error) {
+      console.error(
+        "Unable to update Garden Shed Clay product:",
+        error
+      );
+
+      /*
+       * Best-effort cleanup if a replacement
+       * Stripe Price was created before failure.
+       */
+      if (newStripePrice) {
+        try {
+          await liveStripe.prices.update(
+            newStripePrice.id,
+            {
+              active: false
+            }
+          );
+        } catch (rollbackError) {
+          console.error(
+            "Unable to archive replacement Stripe Price after error:",
+            rollbackError
+          );
+        }
+      }
+
+      return res.status(500).json({
+        error:
+          "Unable to save product changes."
+      });
+    }
+  }
+);/*
  * Protected Stripe product creation
  */
 
