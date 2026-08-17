@@ -3,13 +3,15 @@
 
   const CART_STORAGE_KEY = "gardenShedClayCart";
 
-  const elements = {
-    cartItems: document.getElementById("cart-items"),
-    cartSubtotal: document.getElementById("cart-subtotal"),
-    cartCount: document.getElementById("cart-count"),
-    checkoutButton: document.getElementById("checkout-button")
-  };
-
+const elements = {
+  cartItems: document.getElementById("cart-items"),
+  cartSubtotal: document.getElementById("cart-subtotal"),
+  cartCount: document.getElementById("cart-count"),
+  freeShippingMessage:
+    document.getElementById("free-shipping-message"),
+  checkoutButton: document.getElementById("checkout-button")
+};
+  
   function loadCart() {
     try {
       const savedCart = localStorage.getItem(CART_STORAGE_KEY);
@@ -62,6 +64,27 @@
     }, 0);
   }
 
+function updateFreeShippingMessage(subtotal) {
+  if (!elements.freeShippingMessage) {
+    return;
+  }
+
+  const FREE_SHIPPING_THRESHOLD =
+    150;
+
+  const amountRemaining =
+    FREE_SHIPPING_THRESHOLD - subtotal;
+
+  if (amountRemaining <= 0) {
+    elements.freeShippingMessage.textContent =
+      "You qualify for free shipping!";
+    return;
+  }
+
+  elements.freeShippingMessage.textContent =
+    `You’re ${formatPrice(amountRemaining)} away from free shipping.`;
+}
+  
   function updateCartCount(cart) {
     if (!elements.cartCount) {
       return;
@@ -210,6 +233,9 @@
     elements.cartItems.append(message, shopLink);
 
     elements.cartSubtotal.textContent = "$0.00";
+
+updateFreeShippingMessage(0);
+    
     elements.checkoutButton.disabled = true;
   }
 
@@ -234,6 +260,8 @@
     elements.cartSubtotal.textContent =
       formatPrice(subtotal);
 
+    updateFreeShippingMessage(subtotal);
+    
     elements.checkoutButton.disabled = false;
     elements.checkoutButton.textContent =
       "Proceed to Checkout";
