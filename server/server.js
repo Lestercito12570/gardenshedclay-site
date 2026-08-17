@@ -175,7 +175,7 @@ app.post(
   express.raw({
     type: "application/json"
   }),
-  (req, res) => {
+  async (req, res) => {
     const signature =
       req.headers["stripe-signature"];
 
@@ -250,6 +250,77 @@ app.post(
           }
         );
 
+if (
+  session.payment_status === "paid" &&
+  session.metadata
+    ?.newsletterFreeShippingApplied ===
+    "yes"
+) {
+  const mailerLiteToken =
+    process.env.MAILERLITE_API_TOKEN;
+
+  const subscriberId =
+    String(
+      session.metadata
+        ?.newsletterSubscriberId ||
+      ""
+    ).trim();
+
+  if (
+    mailerLiteToken &&
+    subscriberId
+  ) {
+    const updateResponse =
+      await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
+          subscriberId
+        )}`,
+        {
+          method: "PUT",
+
+          headers: {
+            Accept:
+              "application/json",
+
+            Authorization:
+              `Bearer ${mailerLiteToken}`,
+
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              fields: {
+                free_shipping_used:
+                  "yes"
+              }
+            })
+        }
+      );
+
+    if (!updateResponse.ok) {
+      const errorText =
+        await updateResponse.text();
+
+      console.error(
+        "Unable to mark newsletter free-shipping code as used:",
+        updateResponse.status,
+        errorText
+      );
+    } else {
+      console.log(
+        "Newsletter free-shipping code marked as used:",
+        {
+          subscriberId,
+          checkoutSessionId:
+            session.id
+        }
+      );
+    }
+  }
+}
+        
         break;
       }
 
@@ -761,7 +832,9 @@ app.post(
       });
     }
   }
-);app.get("/", (req, res) => {
+);
+
+app.get("/", (req, res) => {
   res.json({
     status: "ok",
     service:
