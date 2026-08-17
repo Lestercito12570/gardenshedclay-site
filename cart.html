@@ -62,6 +62,53 @@
   You’re $150.00 away from free shipping.        
       </p>
 
+<div class="newsletter-shipping">
+
+  <h3>Newsletter Free Shipping</h3>
+
+  <p>
+    Have a one-time free shipping code?
+    Enter the email address you subscribed with
+    and your code below.
+  </p>
+
+  <label for="free-shipping-email">
+    Subscriber Email
+  </label>
+
+  <input
+    id="free-shipping-email"
+    type="email"
+    autocomplete="email"
+    placeholder="you@example.com"
+  >
+
+  <label for="free-shipping-code">
+    Free Shipping Code
+  </label>
+
+  <input
+    id="free-shipping-code"
+    type="text"
+    autocomplete="off"
+    placeholder="GSC-XXXXXXXX"
+  >
+
+  <button
+    id="apply-free-shipping-button"
+    class="button"
+    type="button"
+  >
+    Apply Free Shipping
+  </button>
+
+  <p
+    id="free-shipping-code-status"
+    aria-live="polite"
+  ></p>
+
+</div>
+      
       <button
         id="checkout-button"
         class="button button-primary"
