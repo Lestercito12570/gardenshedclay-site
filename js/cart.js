@@ -897,6 +897,8 @@ if (
     );    
   }
 
+  }  
+
   document.addEventListener(
     "DOMContentLoaded",
     initializeCart
