@@ -19,17 +19,43 @@
     cartCount:
       document.getElementById("cart-count"),
 
-    freeShippingMessage:
-      document.getElementById(
-        "free-shipping-message"
-      ),
+ freeShippingMessage:
+  document.getElementById(
+    "free-shipping-message"
+  ),
 
-    checkoutButton:
-      document.getElementById(
-        "checkout-button"
-      )
-  };
+freeShippingEmail:
+  document.getElementById(
+    "free-shipping-email"
+  ),
 
+freeShippingCode:
+  document.getElementById(
+    "free-shipping-code"
+  ),
+
+applyFreeShippingButton:
+  document.getElementById(
+    "apply-free-shipping-button"
+  ),
+
+freeShippingCodeStatus:
+  document.getElementById(
+    "free-shipping-code-status"
+  ),
+
+checkoutButton:
+  document.getElementById(
+    "checkout-button"
+  )
+};
+
+let appliedFreeShippingEmail =
+  "";
+
+let appliedFreeShippingCode =
+  "";
+  
   function loadCart() {
     try {
       const savedCart =
@@ -215,6 +241,107 @@
       )} away from free shipping.`;
   }
 
+async function applyFreeShippingCode() {
+  if (
+    !elements.freeShippingEmail ||
+    !elements.freeShippingCode ||
+    !elements.freeShippingCodeStatus ||
+    !elements.applyFreeShippingButton
+  ) {
+    return;
+  }
+
+  const email =
+    elements.freeShippingEmail.value
+      .trim()
+      .toLowerCase();
+
+  const code =
+    elements.freeShippingCode.value
+      .trim()
+      .toUpperCase();
+
+  if (!email || !code) {
+    elements.freeShippingCodeStatus.textContent =
+      "Enter the email address you subscribed with and your free shipping code.";
+
+    return;
+  }
+
+  elements.applyFreeShippingButton.disabled =
+    true;
+
+  elements.applyFreeShippingButton.textContent =
+    "Checking Code...";
+
+  elements.freeShippingCodeStatus.textContent =
+    "Checking your free shipping code...";
+
+  try {
+    const response =
+      await fetch(
+        "https://gsc-checkout.onrender.com/api/validate-free-shipping-code",
+        {
+          method:
+            "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              email,
+              code
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        "Unable to validate free shipping code."
+      );
+    }
+
+    appliedFreeShippingEmail =
+      email;
+
+    appliedFreeShippingCode =
+      code;
+
+    elements.freeShippingCodeStatus.textContent =
+      "Free shipping code applied! Your shipping will be $0 at checkout.";
+
+    elements.applyFreeShippingButton.textContent =
+      "Free Shipping Applied";
+  } catch (error) {
+    appliedFreeShippingEmail =
+      "";
+
+    appliedFreeShippingCode =
+      "";
+
+    console.error(
+      "Free shipping code validation error:",
+      error
+    );
+
+    elements.freeShippingCodeStatus.textContent =
+      error.message ||
+      "That free shipping code could not be applied.";
+
+    elements.applyFreeShippingButton.textContent =
+      "Apply Free Shipping";
+  } finally {
+    elements.applyFreeShippingButton.disabled =
+      false;
+  }
+}  
   function updateCartCount(cart) {
     if (!elements.cartCount) {
       return;
@@ -695,7 +822,12 @@
                           )
                       };
                     }
-                  )
+                  ),
+                freeShippingEmail:
+  appliedFreeShippingEmail,
+
+freeShippingCode:
+  appliedFreeShippingCode
               })
           }
         );
@@ -754,6 +886,15 @@
           beginCheckout
         );
     }
+if (
+  elements.applyFreeShippingButton
+) {
+  elements
+    .applyFreeShippingButton
+    .addEventListener(
+      "click",
+      applyFreeShippingCode
+    );    
   }
 
   document.addEventListener(
