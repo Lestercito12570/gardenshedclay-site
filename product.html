@@ -292,6 +292,27 @@
       opacity: 0.52;
     }
 
+.continue-shopping-button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 18px;
+  border: 1px solid var(--accent-dark);
+  color: var(--accent-dark);
+  background: transparent;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.continue-shopping-button:hover {
+  background: var(--paper-deep);
+}
+    
     .checkout-note {
       margin: 10px 0 0;
       color: var(--muted);
@@ -463,6 +484,14 @@
         <button id="buy-button" class="buy-button" type="button" disabled>
           Checkout coming soon
         </button>
+
+<a
+  href="/shop.html"
+  class="continue-shopping-button"
+>
+  Continue Shopping
+</a>
+        
         <p id="checkout-note" class="checkout-note">
           Secure checkout will be provided by Stripe.
         </p>
