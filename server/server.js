@@ -626,7 +626,142 @@ app.post(
 );
 app.use(express.json());
 
-app.get("/", (req, res) => {
+/*
+ * Validate one-time newsletter free-shipping code.
+ *
+ * The browser supplies the subscriber email
+ * and code. MailerLite remains authoritative.
+ */
+app.post(
+  "/api/validate-free-shipping-code",
+  async (req, res) => {
+    try {
+      const mailerLiteToken =
+        process.env.MAILERLITE_API_TOKEN;
+
+      if (!mailerLiteToken) {
+        return res.status(500).json({
+          error:
+            "Newsletter free shipping is not configured."
+        });
+      }
+
+      const email =
+        String(
+          req.body.email || ""
+        )
+          .trim()
+          .toLowerCase();
+
+      const code =
+        String(
+          req.body.code || ""
+        )
+          .trim()
+          .toUpperCase();
+
+      if (!email || !code) {
+        return res.status(400).json({
+          error:
+            "Email address and free shipping code are required."
+        });
+      }
+
+      const subscriberResponse =
+        await fetch(
+          `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
+            email
+          )}`,
+          {
+            method: "GET",
+
+            headers: {
+              Accept:
+                "application/json",
+
+              Authorization:
+                `Bearer ${mailerLiteToken}`
+            }
+          }
+        );
+
+      if (!subscriberResponse.ok) {
+        return res.status(400).json({
+          error:
+            "That free shipping code could not be verified."
+        });
+      }
+
+      const subscriberData =
+        await subscriberResponse.json();
+
+      const subscriber =
+        subscriberData.data;
+
+      if (!subscriber) {
+        return res.status(400).json({
+          error:
+            "That free shipping code could not be verified."
+        });
+      }
+
+      const storedCode =
+        String(
+          subscriber
+            ?.fields
+            ?.free_shipping_code ||
+          ""
+        )
+          .trim()
+          .toUpperCase();
+
+      const used =
+        String(
+          subscriber
+            ?.fields
+            ?.free_shipping_used ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+      if (
+        !storedCode ||
+        !safeCompare(
+          code,
+          storedCode
+        )
+      ) {
+        return res.status(400).json({
+          error:
+            "That free shipping code does not match this subscriber."
+        });
+      }
+
+      if (used === "yes") {
+        return res.status(400).json({
+          error:
+            "This free shipping code has already been used."
+        });
+      }
+
+      return res.json({
+        success: true,
+        valid: true
+      });
+    } catch (error) {
+      console.error(
+        "Unable to validate free shipping code:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to validate free shipping code."
+      });
+    }
+  }
+);app.get("/", (req, res) => {
   res.json({
     status: "ok",
     service:
@@ -2096,9 +2231,12 @@ app.post(
   "/api/create-checkout-session",
   async (req, res) => {
     try {
-      const { items } =
-        req.body;
-
+    const {
+  items,
+  freeShippingEmail = "",
+  freeShippingCode = ""
+} = req.body;
+      
       if (
         !Array.isArray(items) ||
         items.length === 0
@@ -2109,6 +2247,115 @@ app.post(
         });
       }
 
+let newsletterFreeShippingValid =
+  false;
+
+let newsletterSubscriberId =
+  "";
+
+const normalizedFreeShippingEmail =
+  String(freeShippingEmail)
+    .trim()
+    .toLowerCase();
+
+const normalizedFreeShippingCode =
+  String(freeShippingCode)
+    .trim()
+    .toUpperCase();
+
+if (
+  normalizedFreeShippingEmail &&
+  normalizedFreeShippingCode
+) {
+  const mailerLiteToken =
+    process.env.MAILERLITE_API_TOKEN;
+
+  if (!mailerLiteToken) {
+    return res.status(500).json({
+      error:
+        "Newsletter free shipping is not configured."
+    });
+  }
+
+  const subscriberResponse =
+    await fetch(
+      `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
+        normalizedFreeShippingEmail
+      )}`,
+      {
+        method: "GET",
+
+        headers: {
+          Accept:
+            "application/json",
+
+          Authorization:
+            `Bearer ${mailerLiteToken}`
+        }
+      }
+    );
+
+  if (!subscriberResponse.ok) {
+    return res.status(400).json({
+      error:
+        "That free shipping code could not be verified."
+    });
+  }
+
+  const subscriberData =
+    await subscriberResponse.json();
+
+  const subscriber =
+    subscriberData.data;
+
+  const storedCode =
+    String(
+      subscriber
+        ?.fields
+        ?.free_shipping_code ||
+      ""
+    )
+      .trim()
+      .toUpperCase();
+
+  const used =
+    String(
+      subscriber
+        ?.fields
+        ?.free_shipping_used ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+  if (
+    !storedCode ||
+    !safeCompare(
+      normalizedFreeShippingCode,
+      storedCode
+    )
+  ) {
+    return res.status(400).json({
+      error:
+        "That free shipping code does not match this subscriber."
+    });
+  }
+
+  if (used === "yes") {
+    return res.status(400).json({
+      error:
+        "This free shipping code has already been used."
+    });
+  }
+
+  newsletterFreeShippingValid =
+    true;
+
+  newsletterSubscriberId =
+    String(
+      subscriber.id || ""
+    );
+}      
       /*
        * Read the authoritative product catalog.
        * Do not trust price or shipping values
@@ -2331,31 +2578,44 @@ app.post(
       let shippingAmountCents =
         0;
 
-      if (
-        merchandiseSubtotalCents >=
-        FREE_SHIPPING_THRESHOLD_CENTS
-      ) {
-        shippingAmountCents =
-          0;
-      } else if (
-        flatRateItemCount > 0
-      ) {
-        shippingAmountCents =
-          highestFlatRateCents +
-          (
-            Math.max(
-              0,
-              flatRateItemCount - 1
-            ) *
-            ADDITIONAL_ITEM_SHIPPING_CENTS
-          );
-      }
+let newsletterFreeShippingApplied =
+  false;
 
-      const shippingDisplayName =
-        shippingAmountCents === 0
-          ? "Free Shipping"
-          : "Standard Shipping";
+if (
+  merchandiseSubtotalCents >=
+  FREE_SHIPPING_THRESHOLD_CENTS
+) {
+  shippingAmountCents =
+    0;
+} else if (
+  newsletterFreeShippingValid
+) {
+  shippingAmountCents =
+    0;
 
+  newsletterFreeShippingApplied =
+    true;
+} else if (
+  flatRateItemCount > 0
+) {
+  shippingAmountCents =
+    highestFlatRateCents +
+    (
+      Math.max(
+        0,
+        flatRateItemCount - 1
+      ) *
+      ADDITIONAL_ITEM_SHIPPING_CENTS
+    );
+}
+      
+const shippingDisplayName =
+  newsletterFreeShippingApplied
+    ? "Newsletter Free Shipping"
+    : shippingAmountCents === 0
+      ? "Free Shipping"
+      : "Standard Shipping";
+      
       /*
        * Create Live Stripe Checkout Session.
        */
@@ -2405,18 +2665,34 @@ app.post(
               }
             ],
 
-            metadata: {
-              merchandiseSubtotalCents:
-                String(
-                  merchandiseSubtotalCents
-                ),
+metadata: {
+  merchandiseSubtotalCents:
+    String(
+      merchandiseSubtotalCents
+    ),
 
-              shippingAmountCents:
-                String(
-                  shippingAmountCents
-                )
-            }
-          });
+  shippingAmountCents:
+    String(
+      shippingAmountCents
+    ),
+
+  newsletterFreeShippingApplied:
+    newsletterFreeShippingApplied
+      ? "yes"
+      : "no",
+
+  newsletterSubscriberId:
+    newsletterFreeShippingApplied
+      ? newsletterSubscriberId
+      : "",
+
+  newsletterFreeShippingCode:
+    newsletterFreeShippingApplied
+      ? normalizedFreeShippingCode
+      : ""
+}
+          }
+                 );
 
       console.log(
         "Garden Shed Clay checkout created:",
