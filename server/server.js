@@ -2518,6 +2518,12 @@ if (
       let flatRateItemCount =
         0;
 
+let smallPotteryPieceCount =
+  0;
+
+let regularFlatRateItemCount =
+  0;
+      
       for (const item of items) {
         if (!item.stripePriceId) {
           throw new Error(
@@ -2609,6 +2615,11 @@ if (
           });
         }
 
+const isSmallPotteryPiece =
+  catalogProduct.shipping
+    ?.category ===
+  "small-pottery-piece";
+        
         if (
           shippingType ===
           "flat-rate"
@@ -2627,8 +2638,16 @@ if (
               shippingCents
             );
 
-          flatRateItemCount +=
-            quantity;
+  if (isSmallPotteryPiece) {
+  smallPotteryPieceCount +=
+    quantity;
+} else {
+  regularFlatRateItemCount +=
+    quantity;
+}
+
+flatRateItemCount +=
+  quantity;
         }
 
         lineItems.push({
@@ -2669,8 +2688,12 @@ if (
   newsletterFreeShippingApplied =
     true;
 } else if (
-  flatRateItemCount > 0
+  regularFlatRateItemCount > 0
 ) {
+  /*
+   * Mixed cart or regular pottery:
+   * use the normal combined-order rule.
+   */
   shippingAmountCents =
     highestFlatRateCents +
     (
@@ -2679,6 +2702,24 @@ if (
         flatRateItemCount - 1
       ) *
       ADDITIONAL_ITEM_SHIPPING_CENTS
+    );
+  
+} else if (
+  smallPotteryPieceCount > 0
+) {
+  /*
+   * Cart contains only small pottery pieces:
+   * $6 for the first piece,
+   * plus $1 for each additional piece.
+   */
+  shippingAmountCents =
+    600 +
+    (
+      Math.max(
+        0,
+        smallPotteryPieceCount - 1
+      ) *
+      100
     );
 }
       
