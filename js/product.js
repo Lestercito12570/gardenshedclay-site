@@ -66,8 +66,8 @@
 
     if (quantity <= 0) {
       return {
-        text: "Sold out",
-        className: "sold"
+        text: "Made to Order",
+        className: "low"
       };
     }
 
@@ -446,18 +446,22 @@
     const inventory =
       Number(product.inventory ?? 0);
 
-    if (inventory <= 0) {
-      elements.buyButton.textContent =
-        "Sold out";
+if (inventory <= 0) {
+  elements.buyButton.textContent =
+    "Add to cart";
 
-      elements.buyButton.disabled = true;
+  elements.buyButton.disabled =
+    false;
 
-      elements.checkoutNote.textContent =
-        "This piece is currently unavailable.";
+  elements.checkoutNote.textContent =
+    "Made to Order. We’ll contact you with an estimated ship date after your order is placed.";
 
-      return;
-    }
+  elements.buyButton.onclick = () => {
+    addProductToCart(product);
+  };
 
+  return;
+}
     elements.buyButton.textContent =
       "Add to cart";
 
