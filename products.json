@@ -282,7 +282,7 @@
       "description": "A wheel thrown pottery planter. Terra cotta (earthenware) natural clay, which is suitable for indoors or outdoors use.",
       "price": 45,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Garden",
       "sortOrder": 10,
       "colors": [],
