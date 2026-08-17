@@ -265,6 +265,365 @@ app.post(
   }
 );
 
+/*
+ * MailerLite newsletter free-shipping webhook
+ *
+ * Receives newsletter subscriber data from
+ * MailerLite, verifies the webhook signature,
+ * creates a unique free-shipping code, and
+ * stores it in the subscriber's custom fields.
+ */
+app.post(
+  "/api/mailerlite/free-shipping-code",
+  express.raw({
+    type: "application/json"
+  }),
+  async (req, res) => {
+    try {
+      const mailerLiteToken =
+        process.env.MAILERLITE_API_TOKEN;
+
+      const webhookSecret =
+        process.env.MAILERLITE_WEBHOOK_SECRET;
+
+      if (
+        !mailerLiteToken ||
+        !webhookSecret
+      ) {
+        console.error(
+          "MailerLite integration is not configured."
+        );
+
+        return res.status(500).json({
+          error:
+            "MailerLite integration is not configured."
+        });
+      }
+
+      /*
+       * Verify that the request really came
+       * from MailerLite.
+       */
+      const signature =
+        req.headers.signature;
+
+      if (!signature) {
+        console.error(
+          "MailerLite webhook received without a signature."
+        );
+
+        return res.status(400).json({
+          error:
+            "Missing MailerLite signature."
+        });
+      }
+
+      const rawBody =
+        req.body;
+
+      const expectedSignature =
+        crypto
+          .createHmac(
+            "sha256",
+            webhookSecret
+          )
+          .update(rawBody)
+          .digest("hex");
+
+      if (
+        !safeCompare(
+          signature,
+          expectedSignature
+        )
+      ) {
+        console.error(
+          "MailerLite webhook signature verification failed."
+        );
+
+        return res.status(400).json({
+          error:
+            "Invalid MailerLite signature."
+        });
+      }
+
+      const payload =
+        JSON.parse(
+          rawBody.toString("utf8")
+        );
+
+      /*
+       * MailerLite may deliver one event or
+       * a batch containing multiple events.
+       */
+      const incomingEvents =
+        Array.isArray(payload.events)
+          ? payload.events
+          : [payload];
+
+      const mailerLiteHeaders = {
+        Accept:
+          "application/json",
+
+        Authorization:
+          `Bearer ${mailerLiteToken}`,
+
+        "Content-Type":
+          "application/json"
+      };
+
+      const results = [];
+
+      for (
+        const event of incomingEvents
+      ) {
+        /*
+         * Depending on the event format,
+         * subscriber information may either
+         * be nested or be the event itself.
+         */
+        const subscriber =
+          event.subscriber ||
+          event.data?.subscriber ||
+          event.data ||
+          event;
+
+        const subscriberId =
+          String(
+            subscriber?.id || ""
+          ).trim();
+
+        const subscriberEmail =
+          String(
+            subscriber?.email || ""
+          ).trim();
+
+        if (
+          !subscriberId &&
+          !subscriberEmail
+        ) {
+          console.error(
+            "MailerLite event did not include subscriber information:",
+            event
+          );
+
+          results.push({
+            success: false,
+            reason:
+              "missing_subscriber"
+          });
+
+          continue;
+        }
+
+        const subscriberLookupValue =
+          encodeURIComponent(
+            subscriberId ||
+            subscriberEmail
+          );
+
+        /*
+         * Fetch the authoritative subscriber
+         * record from MailerLite.
+         */
+        const subscriberResponse =
+          await fetch(
+            `https://connect.mailerlite.com/api/subscribers/${subscriberLookupValue}`,
+            {
+              method: "GET",
+              headers:
+                mailerLiteHeaders
+            }
+          );
+
+        if (
+          !subscriberResponse.ok
+        ) {
+          const errorText =
+            await subscriberResponse.text();
+
+          console.error(
+            "Unable to fetch MailerLite subscriber:",
+            subscriberResponse.status,
+            errorText
+          );
+
+          results.push({
+            success: false,
+            subscriberId:
+              subscriberId || null,
+            email:
+              subscriberEmail || null,
+            reason:
+              "subscriber_lookup_failed"
+          });
+
+          continue;
+        }
+
+        const subscriberData =
+          await subscriberResponse.json();
+
+        const currentSubscriber =
+          subscriberData.data;
+
+        if (!currentSubscriber) {
+          results.push({
+            success: false,
+            subscriberId:
+              subscriberId || null,
+            email:
+              subscriberEmail || null,
+            reason:
+              "subscriber_not_found"
+          });
+
+          continue;
+        }
+
+        const existingCode =
+          String(
+            currentSubscriber
+              ?.fields
+              ?.free_shipping_code ||
+            ""
+          ).trim();
+
+        /*
+         * If a code already exists, keep it.
+         * This prevents retries or repeat
+         * webhook deliveries from generating
+         * multiple codes for one subscriber.
+         */
+        if (existingCode) {
+          console.log(
+            "MailerLite subscriber already has a free-shipping code:",
+            {
+              subscriberId:
+                currentSubscriber.id,
+
+              email:
+                currentSubscriber.email
+            }
+          );
+
+          results.push({
+            success: true,
+            subscriberId:
+              currentSubscriber.id,
+            existing: true
+          });
+
+          continue;
+        }
+
+        /*
+         * Generate a customer-friendly,
+         * difficult-to-guess unique code.
+         *
+         * Example:
+         * GSC-7A3F91C2
+         */
+        const freeShippingCode =
+          `GSC-${crypto
+            .randomBytes(4)
+            .toString("hex")
+            .toUpperCase()}`;
+
+        /*
+         * Store the code and mark it unused.
+         */
+        const updateResponse =
+          await fetch(
+            `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(
+              currentSubscriber.id
+            )}`,
+            {
+              method: "PUT",
+
+              headers:
+                mailerLiteHeaders,
+
+              body:
+                JSON.stringify({
+                  fields: {
+                    free_shipping_code:
+                      freeShippingCode,
+
+                    free_shipping_used:
+                      "no"
+                  }
+                })
+            }
+          );
+
+        if (!updateResponse.ok) {
+          const errorText =
+            await updateResponse.text();
+
+          console.error(
+            "Unable to save MailerLite free-shipping code:",
+            updateResponse.status,
+            errorText
+          );
+
+          results.push({
+            success: false,
+            subscriberId:
+              currentSubscriber.id,
+            email:
+              currentSubscriber.email,
+            reason:
+              "code_save_failed"
+          });
+
+          continue;
+        }
+
+        console.log(
+          "Garden Shed Clay free-shipping code created:",
+          {
+            subscriberId:
+              currentSubscriber.id,
+
+            email:
+              currentSubscriber.email,
+
+            code:
+              freeShippingCode
+          }
+        );
+
+        results.push({
+          success: true,
+          subscriberId:
+            currentSubscriber.id,
+          existing: false
+        });
+      }
+
+      /*
+       * Return a successful webhook response
+       * after processing the received events.
+       */
+      return res.status(200).json({
+        received: true,
+        processed:
+          results.length,
+        results
+      });
+    } catch (error) {
+      console.error(
+        "Unable to process MailerLite free-shipping webhook:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to generate free-shipping code."
+      });
+    }
+  }
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
