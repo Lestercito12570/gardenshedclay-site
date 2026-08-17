@@ -30,10 +30,11 @@
       ],
       "readyToShip": true,
       "leadTime": "",
-      "shipping": {
-        "type": "flat-rate",
-        "price": 12
-      },
+"shipping": {
+  "type": "flat-rate",
+  "price": 6,
+  "category": "small-pottery-piece"
+},
       "images": [
         "product-images/moravian-lovefeast-mug-01.jpg",
         "product-images/moravian-lovefeast-mug-02.jpg",
