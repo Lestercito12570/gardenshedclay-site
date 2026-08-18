@@ -30,11 +30,11 @@
       ],
       "readyToShip": true,
       "leadTime": "",
-"shipping": {
-  "type": "flat-rate",
-  "price": 6,
-  "category": "small-pottery-piece"
-},
+      "shipping": {
+        "type": "flat-rate",
+        "price": 6,
+        "category": "small-pottery-piece"
+      },
       "images": [
         "product-images/moravian-lovefeast-mug-01.jpg",
         "product-images/moravian-lovefeast-mug-02.jpg",
@@ -368,7 +368,7 @@
       "description": "This is my handmade ceramic watering dish for birds and bees in your garden. This bowl is used to keep garden creatures well cared for and hydrated during the hot summer. Place it and enjoy watching Nature do her thing. Show care and empathy for those small creatures who are working so hard! 9-1/2-10\" approx dia. 2-1/2\" height.",
       "price": 50,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Garden",
       "sortOrder": 10,
       "colors": [],
