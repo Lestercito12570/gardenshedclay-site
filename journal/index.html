@@ -549,12 +549,71 @@
     </div>
   </footer>
 
-  <script>
-    const yearElement = document.getElementById("year");
+<script>
+  const yearElement = document.getElementById("year");
 
-    if (yearElement) {
-      yearElement.textContent = new Date().getFullYear();
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  const postsContainer = document.getElementById("journal-posts");
+  const emptyState = document.querySelector(".journal-empty");
+
+  async function loadJournalPosts() {
+    try {
+      const response = await fetch("/journal/posts.json");
+
+      if (!response.ok) {
+        throw new Error("Unable to load journal posts.");
+      }
+
+      const posts = await response.json();
+
+      if (!Array.isArray(posts) || posts.length === 0) {
+        return;
+      }
+
+      if (emptyState) {
+        emptyState.style.display = "none";
+      }
+
+      postsContainer.innerHTML = posts.map(post => `
+        <article class="journal-card">
+          <a class="journal-card-link" href="${post.url}">
+            <div class="journal-image-shell">
+              <img
+                class="journal-image"
+                src="${post.image}"
+                alt="${post.title}"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="journal-card-info">
+              <p class="journal-date">${post.date}</p>
+
+              <h3 class="journal-card-title">
+                ${post.title}
+              </h3>
+
+              <p class="journal-excerpt">
+                ${post.excerpt}
+              </p>
+
+              <span class="read-story">
+                Read Story
+              </span>
+            </div>
+          </a>
+        </article>
+      `).join("");
+
+    } catch (error) {
+      console.error("Journal could not be loaded:", error);
     }
-  </script>
+  }
+
+  loadJournalPosts();
+</script>
 </body>
 </html>
