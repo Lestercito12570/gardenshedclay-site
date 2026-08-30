@@ -317,7 +317,58 @@
     Responsive
     ----------------------------------------
     */
+.journal-subscribe {
+  max-width: 760px;
+  margin: 20px auto 60px;
+  padding: 46px 32px;
+  background: var(--paper-deep);
+  text-align: center;
+}
 
+.journal-subscribe-label {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.journal-subscribe h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 46px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.journal-subscribe > p:not(.journal-subscribe-label) {
+  max-width: 580px;
+  margin: 18px auto 0;
+  color: #504a42;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.journal-subscribe-link {
+  display: inline-block;
+  margin-top: 24px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.journal-subscribe-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+    
     @media (max-width: 900px) {
       .header-inner {
         align-items: flex-start;
