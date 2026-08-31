@@ -1,0 +1,28 @@
+{
+  "keyword": "AI stock recommendations",
+  "brand": "Investing Copilot",
+  "target_site": "investingcopilot.gardenshedclay.com",
+  "generated_at": "2026-08-19T14:12:31.365Z",
+  "on_page": {
+    "title": "AI stock recommendations | Investing Copilot",
+    "meta_description": "Discover AI stock recommendations with Investing Copilot. Expert insights, curated resources, and fresh content updated regularly.",
+    "h1": "AI stock recommendations",
+    "canonical": "https://investingcopilot.gardenshedclay.com/ai-stock-recommendations"
+  },
+  "recommended_changes": [
+    "Add target keyword to the page title and H1",
+    "Write a 150-160 character meta description containing the keyword",
+    "Ensure the keyword appears in the first 100 words of body copy",
+    "Add internal links from related pages using the keyword as anchor text",
+    "Add descriptive alt text to relevant images containing the keyword"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI stock recommendations",
+    "author": {
+      "@type": "Organization",
+      "name": "Investing Copilot"
+    }
+  }
+}
