@@ -278,6 +278,22 @@
     </p>
   </div>
 
+<div class="admin-actions">
+  <button
+    class="button button-primary"
+    id="load-customers-button"
+    type="button"
+  >
+    Load Customers
+  </button>
+</div>
+
+<p
+  id="manage-customers-status"
+  class="admin-status"
+  aria-live="polite"
+></p>
+  
   <div
     id="customer-list"
     class="etsy-review-list"
@@ -712,6 +728,15 @@ const manageProductsStatus =
 
 const manageProductsList =
   document.getElementById("manage-products-list");
+
+const loadCustomersButton =
+  document.getElementById("load-customers-button");
+
+const manageCustomersStatus =
+  document.getElementById("manage-customers-status");
+
+const customerList =
+  document.getElementById("customer-list");
     
     const preview =
       document.getElementById("preview");
@@ -1725,6 +1750,102 @@ manageProductsList.appendChild(card);
   }
 );
 
+loadCustomersButton.addEventListener(
+  "click",
+  async () => {
+    loadCustomersButton.disabled = true;
+
+    manageCustomersStatus.textContent =
+      "Loading customers...";
+
+    customerList.innerHTML = "";
+
+    try {
+      const response =
+        await fetch(
+          "/api/admin/customers"
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to load customers."
+        );
+      }
+
+      const customers =
+        Array.isArray(data.customers)
+          ? data.customers
+          : [];
+
+      manageCustomersStatus.textContent =
+        `${customers.length} customers loaded.`;
+
+      customers.forEach((customer) => {
+        const card =
+          document.createElement("div");
+
+        card.style.padding = "16px";
+        card.style.marginTop = "12px";
+        card.style.border =
+          "1px solid rgba(38, 35, 31, 0.16)";
+        card.style.background = "#fff";
+
+        const title =
+          document.createElement("h3");
+
+        title.textContent =
+          customer.name ||
+          customer.customerId;
+
+        title.style.marginTop = "0";
+
+        const details =
+          document.createElement("p");
+
+        const city =
+          customer.shippingAddress?.city || "";
+
+        const state =
+          customer.shippingAddress?.state || "";
+
+        const location =
+          [city, state]
+            .filter(Boolean)
+            .join(", ");
+
+        const sources =
+          Array.isArray(customer.sources)
+            ? customer.sources.join(", ")
+            : "";
+
+        details.textContent =
+          `${location || "No location"} · ${sources || "No source"}`;
+
+        card.appendChild(title);
+        card.appendChild(details);
+
+        customerList.appendChild(card);
+      });
+    } catch (error) {
+      console.error(
+        "Unable to load customers:",
+        error
+      );
+
+      manageCustomersStatus.textContent =
+        error.message ||
+        "Unable to load customers.";
+    } finally {
+      loadCustomersButton.disabled =
+        false;
+    }
+  }
+);
+    
 previewButton.addEventListener(    
       "click",
       () => {
