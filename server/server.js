@@ -2575,6 +2575,18 @@ let regularFlatRateItemCount =
           });
         }
 
+if (
+  catalogProduct.fulfillmentStatus ===
+    "pending-shipment" ||
+  catalogProduct.fulfillmentStatus ===
+    "shipped"
+) {
+  return res.status(400).json({
+    error:
+      `${catalogProduct.name} is no longer available.`
+  });
+}
+        
         const productPrice =
           Number(
             catalogProduct.price
