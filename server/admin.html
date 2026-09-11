@@ -2174,20 +2174,16 @@ const originalPrice =
   );
 }
 
-currentProduct.published =
-  true;
-
+currentProduct =
+  { ...data.product };
+          
 document.getElementById("published").checked =
   true;
 
 showPreview(
   currentProduct
 );
-          
-          showPreview(
-            currentProduct
-          );
-
+   
           setStatus(
             "Product published successfully.",
             "success"
