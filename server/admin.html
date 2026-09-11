@@ -2162,13 +2162,23 @@ const originalPrice =
           const data =
             await response.json();
 
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Unable to publish product."
-            );
-          }
+         if (!response.ok) {
+  throw new Error(
+    data.error ||
+    "Unable to publish product."
+  );
+}
 
+currentProduct.published =
+  true;
+
+document.getElementById("published").checked =
+  true;
+
+showPreview(
+  currentProduct
+);
+          
           showPreview(
             currentProduct
           );
