@@ -27,6 +27,7 @@ const GITHUB_OWNER = "Lestercito12570";
 const GITHUB_REPO = "gardenshedclay-site";
 const GITHUB_BRANCH = "main";
 const PRODUCTS_FILE_PATH = "products.json";
+const CUSTOMERS_FILE_PATH = "customers.json";
 
 app.use(cors());
 
@@ -877,7 +878,96 @@ app.get(
             "GitHub catalog access is not configured."
         });
       }
+app.get(
+  "/api/admin/customers",
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
 
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "GitHub customer access is not configured."
+        });
+      }
+
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${CUSTOMERS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+      const response =
+        await fetch(
+          githubFileUrl,
+          {
+            headers: {
+              Accept:
+                "application/vnd.github+json",
+
+              Authorization:
+                `Bearer ${githubToken}`,
+
+              "X-GitHub-Api-Version":
+                "2022-11-28",
+
+              "User-Agent":
+                "garden-shed-clay-admin"
+            }
+          }
+        );
+
+      if (!response.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to read the customer database."
+        });
+      }
+
+      const fileData =
+        await response.json();
+
+      const decodedContent =
+        Buffer
+          .from(
+            fileData.content,
+            "base64"
+          )
+          .toString("utf8");
+
+      const customerData =
+        JSON.parse(
+          decodedContent
+        );
+
+      const customers =
+        Array.isArray(customerData)
+          ? customerData
+          : customerData.customers;
+
+      if (!Array.isArray(customers)) {
+        return res.status(500).json({
+          error:
+            "The customer database has an unsupported structure."
+        });
+      }
+
+      return res.json({
+        customers
+      });
+    } catch (error) {
+      console.error(
+        "Unable to load customer database:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to load customer database."
+      });
+    }
+  }
+);      
+      
       const githubFileUrl =
         `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
 
