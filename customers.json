@@ -1,0 +1,3632 @@
+{
+  "schemaVersion": 1,
+  "currency": "USD",
+  "customers": [
+    {
+      "customerId": "cust-0001",
+      "name": "Toni Shaw",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "PO Box 405",
+        "address2": "",
+        "city": "Kotzebue",
+        "state": "AK",
+        "postalCode": "99752",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0002",
+      "name": "Caleb Carter",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4 Glen Iris Park South",
+        "address2": "",
+        "city": "Birmingham",
+        "state": "AL",
+        "postalCode": "35205",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0003",
+      "name": "Melanie Morris",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "856 Fishers Way",
+        "address2": "",
+        "city": "Vincent",
+        "state": "AL",
+        "postalCode": "35178",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0004",
+      "name": "Colleen Lungo",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "20091 W. San Miguel Ave",
+        "address2": "",
+        "city": "Litchfield Park",
+        "state": "AZ",
+        "postalCode": "85340",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0005",
+      "name": "Sandra Cantu",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "17297 Elgin ave.",
+        "address2": "",
+        "city": "Dos Palos",
+        "state": "CA",
+        "postalCode": "93620",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0006",
+      "name": "Lauren Howley",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4700 Mascot St",
+        "address2": "",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90019-5707",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0007",
+      "name": "Bradley H Mears",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1619 Dolores Street",
+        "address2": "",
+        "city": "San Francisco",
+        "state": "CA",
+        "postalCode": "94110-4906",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0008",
+      "name": "Jack DeTate",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1401 El Norte Parkway",
+        "address2": "SP 81",
+        "city": "San Marcos",
+        "state": "CA",
+        "postalCode": "92069",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0009",
+      "name": "Logan Fox",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1340 HOMESTEAD RD APT 3",
+        "address2": "",
+        "city": "Santa Clara",
+        "state": "CA",
+        "postalCode": "95050",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0010",
+      "name": "Dimitrios Varvoglis",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4597 N. Xenia St., 1-307",
+        "address2": "",
+        "city": "Denver",
+        "state": "CO",
+        "postalCode": "80238",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0011",
+      "name": "Donna Feldman",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "340 Arrowhead Ln",
+        "address2": "",
+        "city": "Wilmington",
+        "state": "DE",
+        "postalCode": "19808",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0012",
+      "name": "Dawn Dewater",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "27175 Popiel Rd",
+        "address2": "",
+        "city": "Brooksville",
+        "state": "FL",
+        "postalCode": "34602",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0013",
+      "name": "Tony Campo",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2616 Grant St",
+        "address2": "",
+        "city": "Hollywood",
+        "state": "FL",
+        "postalCode": "33020",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0014",
+      "name": "Lisa Morris",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4831 Saxon Dr",
+        "address2": "Apt 222",
+        "city": "New Smyrna Beach",
+        "state": "FL",
+        "postalCode": "32169-4486",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0015",
+      "name": "Michael Swindal",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "53 Adalia Ave.",
+        "address2": "",
+        "city": "Tampa",
+        "state": "FL",
+        "postalCode": "33606",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0016",
+      "name": "Ann Watson",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1397 Harvard Rd",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "30306",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0017",
+      "name": "Cindy Humphries",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "28306 Plantation Dr Ne",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "30324-2951",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0018",
+      "name": "Hillery McNeill",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "20 Stratford Place, N. E.",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "30342",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0019",
+      "name": "Sanda Means",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1071 McLynn Avenue NE",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "30306",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0020",
+      "name": "Susan Oder",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1334 Old Johnson Ferry Rd NE",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "30319",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0021",
+      "name": "Curt Barrett",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "88 Lake Haven Dr",
+        "address2": "",
+        "city": "Cartersville",
+        "state": "GA",
+        "postalCode": "30120",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0022",
+      "name": "Martin Dunlap",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "201 W Ponce De Leon Ave",
+        "address2": "Unit 421",
+        "city": "Decatur",
+        "state": "GA",
+        "postalCode": "30030-3262",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0023",
+      "name": "Martin Dunlap",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "201 W Ponce de Leon Ave. Unit 421",
+        "address2": "",
+        "city": "Decatur",
+        "state": "GA",
+        "postalCode": "30030",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0024",
+      "name": "Carol Carithers",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2843 Thornbriar Rd",
+        "address2": "",
+        "city": "Doraville",
+        "state": "GA",
+        "postalCode": "30340",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0025",
+      "name": "Michael Little",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1606 Bishop Hollow Run",
+        "address2": "",
+        "city": "Dunwoody",
+        "state": "GA",
+        "postalCode": "30338",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0026",
+      "name": "Lindsey Enright",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "650 Crescent Ridge Trail",
+        "address2": "",
+        "city": "Mableton",
+        "state": "GA",
+        "postalCode": "30126",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0027",
+      "name": "RACHEL REED",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1903 Haven Park Cir SE",
+        "address2": "",
+        "city": "Smyrna",
+        "state": "GA",
+        "postalCode": "30080-6387",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2026",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0028",
+      "name": "Elisabeth Copeland",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "698 Rollingwood Dr",
+        "address2": "",
+        "city": "Stone Mountain",
+        "state": "GA",
+        "postalCode": "30087",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0029",
+      "name": "Colleen Olmstead",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2603 Willoughby Rd",
+        "address2": "",
+        "city": "Champaign",
+        "state": "IL",
+        "postalCode": "61822",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0030",
+      "name": "Emily Pierson-Moonan",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2251 W Saint Paul Ave",
+        "address2": "Apt 3b",
+        "city": "Chicago",
+        "state": "IL",
+        "postalCode": "60647-5600",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0031",
+      "name": "Marcy Petricig Braasch",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "3113 Curry Ln",
+        "address2": "",
+        "city": "Carmel",
+        "state": "IN",
+        "postalCode": "46033",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0032",
+      "name": "Jami Milburn",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "249 Brannon Road",
+        "address2": "",
+        "city": "Nicholasville",
+        "state": "KY",
+        "postalCode": "40356",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0033",
+      "name": "Amanda Evans",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "755 Caddo St",
+        "address2": "",
+        "city": "Baton Rouge",
+        "state": "LA",
+        "postalCode": "70806",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0034",
+      "name": "Marlo Trotta",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1321 Salonica Pl",
+        "address2": "",
+        "city": "Bel Air",
+        "state": "MD",
+        "postalCode": "21014-6850",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0035",
+      "name": "Krishna Kundu",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "14303 Notley Rd",
+        "address2": "",
+        "city": "Silver Spring",
+        "state": "MD",
+        "postalCode": "20904",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0036",
+      "name": "Robbye Fox",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "37780 Grantland St",
+        "address2": "",
+        "city": "Livonia",
+        "state": "MI",
+        "postalCode": "48150-1024",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0037",
+      "name": "Kim Buckallew",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "18663 Moore Rd",
+        "address2": "",
+        "city": "Thompsonville",
+        "state": "MI",
+        "postalCode": "49683",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0038",
+      "name": "Barbie Morgan",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "408 N Apache",
+        "address2": "",
+        "city": "Clever",
+        "state": "MO",
+        "postalCode": "65631-6737",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0039",
+      "name": "Amber Bieser",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4883 Theiss Road",
+        "address2": "",
+        "city": "Saint Louis",
+        "state": "MO",
+        "postalCode": "63128",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0040",
+      "name": "Mike Gaddy",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "251 Foggy Ln",
+        "address2": "",
+        "city": "Boone",
+        "state": "NC",
+        "postalCode": "28207",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0041",
+      "name": "Kym Lynn Estes",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "344 Stoney Creek Church Rd",
+        "address2": "",
+        "city": "Burlington",
+        "state": "NC",
+        "postalCode": "27217",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0042",
+      "name": "John Nance",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "728 E 9th St",
+        "address2": "",
+        "city": "Charlotte",
+        "state": "NC",
+        "postalCode": "28202",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0043",
+      "name": "Kim Potts",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "6509 Red Maple dr",
+        "address2": "",
+        "city": "Charlotte",
+        "state": "NC",
+        "postalCode": "28277",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0044",
+      "name": "Mary Martin",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "14213 Tudor Rose Ln",
+        "address2": "",
+        "city": "Charlotte",
+        "state": "NC",
+        "postalCode": "28278-7897",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0045",
+      "name": "Ursula Hood",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "900 Bedrock Rd",
+        "address2": "",
+        "city": "Charlotte",
+        "state": "NC",
+        "postalCode": "28270",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0046",
+      "name": "COURTNEY A COGHILL",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2100 ROSSMORE RE",
+        "address2": "",
+        "city": "Clemmons",
+        "state": "NC",
+        "postalCode": "27012",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0047",
+      "name": "Courtney Coghill",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2100 Rossmore Rd",
+        "address2": "",
+        "city": "Clemmons",
+        "state": "NC",
+        "postalCode": "27012-7913",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "Etsy 2026",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0048",
+      "name": "Jon Hayes",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "566 Drumheller Rd",
+        "address2": "",
+        "city": "Clemmons",
+        "state": "NC",
+        "postalCode": "27012",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0049",
+      "name": "Harry Munson",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4709 Erwin Road",
+        "address2": "",
+        "city": "Durham",
+        "state": "NC",
+        "postalCode": "27705",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0050",
+      "name": "Margaret Keeton",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2309 Princess Ann St.",
+        "address2": "",
+        "city": "Greensboro",
+        "state": "NC",
+        "postalCode": "27408",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0051",
+      "name": "Lee Wilson",
+      "companyAttention": "Lee Wilson",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1624 12st St NE",
+        "address2": "",
+        "city": "Hickory",
+        "state": "NC",
+        "postalCode": "28601",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0052",
+      "name": "Austin Davis",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "343 Apple Mountain Cir",
+        "address2": "",
+        "city": "Highlands",
+        "state": "NC",
+        "postalCode": "28741",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0053",
+      "name": "Nathan Newsome",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "206 Sonata Dr",
+        "address2": "",
+        "city": "Lewisville",
+        "state": "NC",
+        "postalCode": "27023",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0054",
+      "name": "Rachel Joyce",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2960 Barnhardt Rd.",
+        "address2": "",
+        "city": "Mount Pleasant",
+        "state": "NC",
+        "postalCode": "28124",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0055",
+      "name": "Julie Tomberlin",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1644 Finwick Dr",
+        "address2": "",
+        "city": "Pfafftown",
+        "state": "NC",
+        "postalCode": "27040",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0056",
+      "name": "Oliver Helsabeck",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "6065 Showell Circle",
+        "address2": "",
+        "city": "Pfafftown",
+        "state": "NC",
+        "postalCode": "27040",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0057",
+      "name": "Samantha Sundberg",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "616 Oberlin road",
+        "address2": "Unit 508",
+        "city": "Raleigh",
+        "state": "NC",
+        "postalCode": "27605",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0058",
+      "name": "Dottie Nixa",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "202 Willis Dr",
+        "address2": "",
+        "city": "Southport",
+        "state": "NC",
+        "postalCode": "28461",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0059",
+      "name": "Ashleigh Beard",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "3911 King Arthur Ct.",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27104",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0060",
+      "name": "Elizabeth R Bombick",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "260 Staffordshire Rd",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27104-2718",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0061",
+      "name": "Kathryn Barnes",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2209 King George Ct",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27103",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2026",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0062",
+      "name": "Paul Knouse",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "4281 Bower Ln",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27104-2812",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0063",
+      "name": "Susan Cox Starbuck",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2225 Westfield Ave",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27103",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0064",
+      "name": "Tamara Reavis",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "409 Lawndale Dr",
+        "address2": "",
+        "city": "Winston Salem",
+        "state": "NC",
+        "postalCode": "27104",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0065",
+      "name": "Joan Lide Salemtowne",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "5425 Covenant Lane",
+        "address2": "",
+        "city": "Winston-Salem",
+        "state": "NC",
+        "postalCode": "27106",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0066",
+      "name": "Stephanie Nixa",
+      "companyAttention": "ste",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2670 Tantelon Place",
+        "address2": "",
+        "city": "Winston-Salem",
+        "state": "NC",
+        "postalCode": "27127",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0067",
+      "name": "Trinity Moravian Church",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "220 East Sprague St",
+        "address2": "",
+        "city": "Winston-Salem",
+        "state": "NC",
+        "postalCode": "27127",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0068",
+      "name": "Unity Womens Desk of the Moravian Church",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "459 South Church St",
+        "address2": "",
+        "city": "Winston-Salem",
+        "state": "NC",
+        "postalCode": "27101",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0069",
+      "name": "Wilkerson Bakery",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "593 S Stratford Rd",
+        "address2": "",
+        "city": "Winston-Salem",
+        "state": "NC",
+        "postalCode": "27104",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0070",
+      "name": "Keri Gasseling",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2804 Omalley Dr",
+        "address2": "",
+        "city": "Lincoln",
+        "state": "NE",
+        "postalCode": "68516",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0071",
+      "name": "Ericson Harris",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "605 State Route 244",
+        "address2": "PO Box 231",
+        "city": "Alfred Station",
+        "state": "NY",
+        "postalCode": "14803",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0072",
+      "name": "Levi Raines",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "423 Court St",
+        "address2": "Apt 1",
+        "city": "Brooklyn",
+        "state": "NY",
+        "postalCode": "11231",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0073",
+      "name": "Sheyda Foroudi",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "281 Nassau ave",
+        "address2": "Apt 2",
+        "city": "Brooklyn",
+        "state": "NY",
+        "postalCode": "11222",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0074",
+      "name": "Emily Zhang",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "45 West 60th Street Apartment 21H",
+        "address2": "",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": "10023-7945",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0075",
+      "name": "Elizabeth Black",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "7855 Sarbury Dr",
+        "address2": "",
+        "city": "Dublin",
+        "state": "OH",
+        "postalCode": "43016",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0076",
+      "name": "Lauren Cail",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1411 Oakwood Trl",
+        "address2": "",
+        "city": "Painesville",
+        "state": "OH",
+        "postalCode": "44077-7616",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0077",
+      "name": "Dana Sigmon",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "19075 S Prairie Bell Rd",
+        "address2": "",
+        "city": "Morris",
+        "state": "OK",
+        "postalCode": "74445",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0078",
+      "name": "Carol Lewallen",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "62671 Big Sage Way",
+        "address2": "",
+        "city": "Bend",
+        "state": "OR",
+        "postalCode": "97703",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0079",
+      "name": "Cynthia Jarvis",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1201 Meissen Court",
+        "address2": "",
+        "city": "Ambler",
+        "state": "PA",
+        "postalCode": "19002",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0080",
+      "name": "Dr Katherine M Faull Ph D",
+      "companyAttention": "Center for Moravian Studies/ Moravian University",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1200 Main St",
+        "address2": "",
+        "city": "Bethlehem",
+        "state": "PA",
+        "postalCode": "18018",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0081",
+      "name": "Moravian Archives",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "41 West Locust St",
+        "address2": "",
+        "city": "Bethlehem",
+        "state": "PA",
+        "postalCode": "18018",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0082",
+      "name": "Rebecca Lepore",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "443 East Washington Ave",
+        "address2": "",
+        "city": "Bethlehem",
+        "state": "PA",
+        "postalCode": "18017",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0083",
+      "name": "Valerie Houser",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "7900 OLD YORK RD",
+        "address2": "APT 802B",
+        "city": "Elkins Park",
+        "state": "PA",
+        "postalCode": "19027-2349",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0084",
+      "name": "Jennifer Johnson",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "13 Locksley Rd",
+        "address2": "",
+        "city": "Glen Mills",
+        "state": "PA",
+        "postalCode": "19342-1624",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0085",
+      "name": "Ally Allison",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "26 Pfautz Dr",
+        "address2": "",
+        "city": "Lititz",
+        "state": "PA",
+        "postalCode": "17543",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0086",
+      "name": "Moravian Historical Society",
+      "companyAttention": "Attn: Susan Ellis",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "214 E Center St",
+        "address2": "",
+        "city": "Nazareth",
+        "state": "PA",
+        "postalCode": "18064",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0087",
+      "name": "Anita McLarin",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "250 S 13th Street Apt 8C",
+        "address2": "",
+        "city": "Philadelphia",
+        "state": "PA",
+        "postalCode": "19107",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0088",
+      "name": "Laurel Hill Gardens",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "8125 Germantown Ave.",
+        "address2": "",
+        "city": "Philadelphia",
+        "state": "PA",
+        "postalCode": "19118",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0089",
+      "name": "Rebekah Horowitz",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "730 S 15th St",
+        "address2": "",
+        "city": "Philadelphia",
+        "state": "PA",
+        "postalCode": "19146",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0090",
+      "name": "Sue Riemann",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "201 S 21st St",
+        "address2": "",
+        "city": "Philadelphia",
+        "state": "PA",
+        "postalCode": "19103",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0091",
+      "name": "Rev Ryan Balsan",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "Wayne Presbyterian Church, 125 Lancaster Ave.",
+        "address2": "",
+        "city": "Wayne",
+        "state": "PA",
+        "postalCode": "19087",
+        "country": "United States"
+      },
+      "sources": [
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0092",
+      "name": "Julie Stevens",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "110 Waterton Way",
+        "address2": "",
+        "city": "Columbia",
+        "state": "SC",
+        "postalCode": "29229",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0093",
+      "name": "Kathie Stephens",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2018 Cedarbrook Court",
+        "address2": "",
+        "city": "Columbia",
+        "state": "SC",
+        "postalCode": "29212",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0094",
+      "name": "Lisa Sherman",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "6016 Lanai Lane",
+        "address2": "",
+        "city": "Fort Mill",
+        "state": "SC",
+        "postalCode": "29708",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0095",
+      "name": "Daniel P Johnson",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "2310 Plumbridge Lane",
+        "address2": "",
+        "city": "North Myrtle Beach",
+        "state": "SC",
+        "postalCode": "29582-5963",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024",
+        "Etsy 2025",
+        "QuickBooks"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0096",
+      "name": "Tammy Fowler",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1252 Calderwood Hwy",
+        "address2": "",
+        "city": "Maryville",
+        "state": "TN",
+        "postalCode": "37801",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0097",
+      "name": "Tricia Scott",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "224 Cherokee Road",
+        "address2": "",
+        "city": "Nashville",
+        "state": "TN",
+        "postalCode": "37205",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0098",
+      "name": "Ashlea Rapp",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "402 Skyhill Rd",
+        "address2": "",
+        "city": "Alexandria",
+        "state": "VA",
+        "postalCode": "22314-4920",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0099",
+      "name": "Kathleen Capshaw",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "6882 Birmingham Dr",
+        "address2": "",
+        "city": "Crozet",
+        "state": "VA",
+        "postalCode": "22932-3257",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2024"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0100",
+      "name": "Ann Brammer-Johnson",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1500 Miss Elton Ln",
+        "address2": "",
+        "city": "Keezletown",
+        "state": "VA",
+        "postalCode": "22832-2055",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0101",
+      "name": "Ellen Stockstill",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "8524 Culfor Crescent",
+        "address2": "",
+        "city": "Norfolk",
+        "state": "VA",
+        "postalCode": "23503-4709",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2025"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0102",
+      "name": "Jody Shumway",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "1861 SE Oak Rd",
+        "address2": "WA",
+        "city": "Port Orchard",
+        "state": "WA",
+        "postalCode": "98367",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "cust-0103",
+      "name": "PAMELA MARTELL",
+      "companyAttention": "",
+      "email": null,
+      "phone": null,
+      "shippingAddress": {
+        "address1": "5040 W Slope Ln",
+        "address2": "",
+        "city": "Oconto",
+        "state": "WI",
+        "postalCode": "54153-9486",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy 2026"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": {
+        "subscriberId": null,
+        "status": null
+      },
+      "sales": {
+        "orderCount": 0,
+        "lifetimeSales": 0.0,
+        "averageOrderValue": 0.0,
+        "firstPurchaseDate": null,
+        "lastPurchaseDate": null,
+        "lastOrderId": null,
+        "historicalSalesComplete": false
+      },
+      "notes": "",
+      "createdAt": "2026-09-11",
+      "updatedAt": "2026-09-11"
+    }
+  ]
+}
