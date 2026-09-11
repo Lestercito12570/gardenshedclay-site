@@ -1663,6 +1663,7 @@ app.post(
   "/api/admin/create-live-stripe-product",
   requireAdmin,
   async (req, res) => {
+let stripeProduct = null;
     try {
       const {
         name,
@@ -1702,8 +1703,8 @@ app.post(
           numericPrice * 100
         );
 
-      const stripeProduct =
-        await liveStripe.products.create({
+     stripeProduct =
+       await liveStripe.products.create({
           name:
             name.trim(),
 
@@ -1739,7 +1740,24 @@ app.post(
         priceId:
           stripePrice.id
       });
-    } catch (error) {
+ 
+} catch (error) {
+  if (stripeProduct) {
+    try {
+      await liveStripe.products.update(
+        stripeProduct.id,
+        {
+          active: false
+        }
+      );
+    } catch (cleanupError) {
+      console.error(
+        "Unable to deactivate orphaned Stripe product:",
+        cleanupError
+      );
+    }
+  }
+      
       console.error(
         "Unable to create Stripe product:",
         error
@@ -1937,8 +1955,11 @@ app.post(
         });
       }
 
-      products.push(product);
+      product.published =
+  true;
 
+products.push(product);
+      
       const updatedCatalog =
         JSON.stringify(
           catalog,
