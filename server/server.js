@@ -1235,6 +1235,32 @@ app.patch(
         });
       }
 
+const submittedSlug =
+  String(
+    req.body?.product?.slug || ""
+  ).trim();
+
+if (!submittedSlug) {
+  return res.status(400).json({
+    error:
+      "Product slug is required."
+  });
+}
+
+      const slugConflict =
+  products.some(
+    (item, index) =>
+      index !== productIndex &&
+      item?.slug === submittedSlug
+  );
+
+if (slugConflict) {
+  return res.status(409).json({
+    error:
+      "Another product already uses that slug."
+  });
+}
+      
       const existingProduct =
         products[productIndex];
 
