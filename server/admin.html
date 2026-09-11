@@ -1788,10 +1788,45 @@ customers.forEach((customer) => {
   const card =
     document.createElement("div");
 
-  card.textContent =
+  card.style.padding = "16px";
+  card.style.marginTop = "12px";
+  card.style.border =
+    "1px solid rgba(38, 35, 31, 0.16)";
+  card.style.background = "#fff";
+
+  const title =
+    document.createElement("h3");
+
+  title.textContent =
     customer.name ||
-    customer.customerId ||
-    "Unnamed customer";
+    customer.customerId;
+
+  title.style.marginTop = "0";
+
+  const details =
+    document.createElement("p");
+
+  const city =
+    customer.shippingAddress?.city || "";
+
+  const state =
+    customer.shippingAddress?.state || "";
+
+  const location =
+    [city, state]
+      .filter(Boolean)
+      .join(", ");
+
+  const sources =
+    Array.isArray(customer.sources)
+      ? customer.sources.join(", ")
+      : "";
+
+  details.textContent =
+    `${location || "No location"} · ${sources || "No source"}`;
+
+  card.appendChild(title);
+  card.appendChild(details);
 
   customerList.appendChild(card);
 });
