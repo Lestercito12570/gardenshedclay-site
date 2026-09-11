@@ -335,6 +335,22 @@
         min="0"
       >
     </div>
+
+    <div class="form-group">
+  <label class="form-label" for="fulfillment-status">
+    Fulfillment Status
+  </label>
+
+  <select
+    class="form-select"
+    id="fulfillment-status"
+    name="fulfillment-status"
+  >
+    <option value="available">Available</option>
+    <option value="pending-shipment">Sold / Pending Shipment</option>
+    <option value="shipped">Shipped</option>
+  </select>
+</div>
     
     <div class="form-group">
   <label class="form-label" for="collection">
@@ -768,9 +784,12 @@ const manageProductsList =
             document.getElementById("inventory").value || 0
           ),
 
-collection:
-  document.getElementById("collection").value,
+fulfillmentStatus:
+  document.getElementById("fulfillment-status").value,
 
+collection:
+  document.getElementById("collection").value,        
+ 
 sortOrder:
   Number(
     document.getElementById("sort-order").value || 0
@@ -797,15 +816,22 @@ sortOrder:
         leadTime:
           document.getElementById("lead-time").value.trim(),
 
-        shipping: {
-          type: shippingType,
+    shipping: {
+  type: shippingType,
 
-          price:
-            shippingType === "flat-rate"
-              ? shippingPrice
-              : 0
-        },
+  price:
+    shippingType === "flat-rate"
+      ? shippingPrice
+      : 0,
 
+  ...(currentProduct?.shipping?.category
+    ? {
+        category:
+          currentProduct.shipping.category
+      }
+    : {})
+},
+        
         images:
           splitLineList(
             document.getElementById("images").value
@@ -1215,6 +1241,42 @@ useListingButton.addEventListener(
     document.getElementById("inventory").value =
       quantity;
 
+    document.getElementById("fulfillment-status").value =
+  "available";
+
+document.getElementById("collection").value =
+  "";
+
+document.getElementById("sort-order").value =
+  "10";
+
+document.getElementById("colors").value =
+  "";
+
+document.getElementById("shipping-type").value =
+  "flat-rate";
+
+document.getElementById("shipping-price").value =
+  "";
+
+saveChangesButton.disabled =
+  true;
+
+saveChangesButton.textContent =
+  "Save Changes";
+
+preview.hidden =
+  true;
+
+stripeResult.hidden =
+  true;
+
+document.getElementById("featured").checked =
+  false;
+
+document.getElementById("published").checked =
+  false;
+    
     document.getElementById("tags").value =
       tags;
 
@@ -1366,9 +1428,17 @@ loadProductsButton.addEventListener(
         const details =
           document.createElement("p");
 
-        details.textContent =
-          `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
+const fulfillmentLabel =
+  product.fulfillmentStatus === "pending-shipment"
+    ? "SOLD / PENDING SHIPMENT"
+    : product.fulfillmentStatus === "shipped"
+      ? "SHIPPED"
+      : "AVAILABLE";
 
+        
+        details.textContent =
+  `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${fulfillmentLabel} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
+        
           card.appendChild(title);
         card.appendChild(details);
 
@@ -1451,6 +1521,16 @@ loadProductsButton.addEventListener(
               details.textContent =
                 `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
 
+const updatedFulfillmentLabel =
+  product.fulfillmentStatus === "pending-shipment"
+    ? "SOLD / PENDING SHIPMENT"
+    : product.fulfillmentStatus === "shipped"
+      ? "SHIPPED"
+      : "AVAILABLE";
+
+              details.textContent =
+  `$${Number(product.price || 0).toFixed(2)} · Inventory ${product.inventory ?? 0} · ${updatedFulfillmentLabel} · ${product.collection || "No collection"} · ${product.published ? "Published" : "Unpublished"}`;
+              
               publishToggleButton.textContent =
                 product.published
                   ? "Unpublish"
@@ -1521,6 +1601,9 @@ loadProductsButton.addEventListener(
             document.getElementById("inventory").value =
               product.inventory ?? 0;
 
+document.getElementById("fulfillment-status").value =
+  product.fulfillmentStatus || "available";
+            
             document.getElementById("collection").value =
               product.collection || "";
 
@@ -2115,6 +2198,9 @@ document.getElementById("published").checked =
       () => {
         form.reset();
 
+        document.getElementById("fulfillment-status").value =
+  "available";
+        
         preview.hidden =
           true;
 
