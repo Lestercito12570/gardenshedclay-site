@@ -1129,7 +1129,8 @@ app.patch(
   requireAdmin,
   async (req, res) => {
     let newStripePrice = null;
-
+    let catalogUpdated = false;
+    
     try {
       const githubToken =
         process.env.GITHUB_TOKEN;
@@ -1420,22 +1421,32 @@ app.patch(
         });
       }
 
+      catalogUpdated = true;
+      
       /*
        * Catalog now points at the new Price,
        * so archive the previous Price.
        */
-      if (
-        priceChanged &&
-        existingProduct.stripePriceId
-      ) {
-        await liveStripe.prices.update(
-          existingProduct.stripePriceId,
-          {
-            active: false
-          }
-        );
+      
+     if (
+  priceChanged &&
+  existingProduct.stripePriceId
+) {
+  try {
+    await liveStripe.prices.update(
+      existingProduct.stripePriceId,
+      {
+        active: false
       }
-
+    );
+  } catch (archiveError) {
+    console.error(
+      "Catalog updated, but unable to archive previous Stripe Price:",
+      archiveError
+    );
+  }
+}
+      
       const updateData =
         await updateResponse.json();
 
@@ -1490,7 +1501,11 @@ app.patch(
        * Best-effort cleanup if a replacement
        * Stripe Price was created before failure.
        */
-      if (newStripePrice) {
+      
+      if (
+  newStripePrice &&
+  !catalogUpdated
+) {        
         try {
           await liveStripe.prices.update(
             newStripePrice.id,
@@ -1498,6 +1513,7 @@ app.patch(
               active: false
             }
           );
+          
         } catch (rollbackError) {
           console.error(
             "Unable to archive replacement Stripe Price after error:",
