@@ -278,6 +278,18 @@
     </p>
   </div>
 
+  <div class="form-field">
+  <label for="customer-search">
+    Search Customers
+  </label>
+
+  <input
+    id="customer-search"
+    type="search"
+    placeholder="Search by name, city, state, or source"
+  >
+</div>
+  
 <div class="admin-actions">
   <button
     class="button button-primary"
@@ -729,6 +741,9 @@ const manageProductsStatus =
 const manageProductsList =
   document.getElementById("manage-products-list");
 
+const customerSearch =
+  document.getElementById("customer-search");
+    
 const loadCustomersButton =
   document.getElementById("load-customers-button");
 
@@ -1750,6 +1765,8 @@ manageProductsList.appendChild(card);
   }
 );
 
+let loadedCustomers = [];
+    
 loadCustomersButton.addEventListener(
   "click",
   async () => {
@@ -1781,6 +1798,8 @@ loadCustomersButton.addEventListener(
           ? data.customers
           : [];
 
+loadedCustomers = customers;
+      
       manageCustomersStatus.textContent =
         `${customers.length} customers loaded.`;
 
@@ -1837,6 +1856,40 @@ customers.forEach((customer) => {
       loadCustomersButton.disabled =
         false;
     }
+  }
+);
+
+customerSearch.addEventListener(
+  "input",
+  () => {
+    const searchTerm =
+      customerSearch.value
+        .trim()
+        .toLowerCase();
+
+    const cards =
+      customerList.children;
+
+    loadedCustomers.forEach(
+      (customer, index) => {
+        const searchableText = [
+          customer.name,
+          customer.shippingAddress?.city,
+          customer.shippingAddress?.state,
+          ...(Array.isArray(customer.sources)
+            ? customer.sources
+            : [])
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        cards[index].hidden =
+          !searchableText.includes(
+            searchTerm
+          );
+      }
+    );
   }
 );
     
