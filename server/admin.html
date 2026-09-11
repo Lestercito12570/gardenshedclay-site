@@ -764,12 +764,14 @@ const manageProductsList =
         );
 
       return {
-        id: slug,
+  id:
+    originalProduct?.id ||
+    slug,
 
-        name,
+  name,
 
-        slug,
-
+  slug,
+        
         description:
           document.getElementById("description").value.trim(),
 
@@ -1980,7 +1982,7 @@ if (!confirmed) {
 saveChangesButton.addEventListener(
   "click",
   async () => {
-    if (!currentProduct?.id) {
+    if (!originalProduct?.id) {
       setStatus(
         "Load an existing product with Edit Product before saving changes.",
         "error"
