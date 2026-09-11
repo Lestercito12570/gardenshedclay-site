@@ -721,7 +721,8 @@ const manageProductsList =
       document.getElementById("stripe-price-id-input");
 
     let currentProduct = null;
-
+    let originalProduct = null;
+    
     function splitCommaList(value) {
       return value
         .split(",")
@@ -1306,7 +1307,7 @@ document.getElementById("lead-time").value =
 
     currentProduct =
       null;
-
+    
     publishButton.disabled =
       true;
 
@@ -1662,6 +1663,9 @@ document.getElementById("fulfillment-status").value =
 currentProduct =
   { ...product };
 
+originalProduct =
+  { ...product };
+            
 saveChangesButton.disabled =
   false;
 
@@ -1987,13 +1991,18 @@ saveChangesButton.addEventListener(
     if (!form.reportValidity()) {
       return;
     }
+    
+const originalProductId =
+  originalProduct?.id ||
+  currentProduct.id;
 
-    const originalProductId =
-      currentProduct.id;
-
-    const originalPrice =
-      Number(currentProduct.price || 0);
-
+const originalPrice =
+  Number(
+    originalProduct?.price ??
+    currentProduct.price ??
+    0
+  );
+    
     const updatedProduct =
       buildProductRecord();
 
@@ -2059,6 +2068,9 @@ saveChangesButton.addEventListener(
       currentProduct =
         { ...data.product };
 
+      originalProduct =
+  { ...data.product };
+      
       stripeProductIdInput.value =
         currentProduct.stripeProductId ||
         "";
@@ -2128,11 +2140,7 @@ saveChangesButton.addEventListener(
         );
 
         try {
-          currentProduct.published =
-  true;
-
-document.getElementById("published").checked =
-  true;          
+     
           const response =
             await fetch(
               "/api/admin/publish-product",
@@ -2219,6 +2227,9 @@ document.getElementById("published").checked =
         currentProduct =
           null;
 
+originalProduct =
+  null;
+        
 saveChangesButton.disabled =
   true;
         
