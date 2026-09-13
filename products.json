@@ -917,7 +917,7 @@
       "currency": "USD",
       "inventory": 1,
       "fulfillmentStatus": "available",
-      "collection": "",
+      "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [],
       "dishwasherSafe": true,
