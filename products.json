@@ -1002,6 +1002,55 @@
       "etsyListed": true,
       "stripeProductId": "prod_VFpSK8sb8hP2ZD",
       "stripePriceId": "price_1UFJnwDTEEQD8p6Zqhegj1Fw"
+    },
+    {
+      "id": "rustic-pottery-pie-plate-with-multicolored-speckles-2",
+      "name": "Rustic Pottery Pie Plate with multicolored Speckles",
+      "slug": "rustic-pottery-pie-plate-with-multicolored-speckles-2",
+      "description": "A handmade, wheel thrown pie plate in stoneware and glazed in multicolored \"candy\" speckles. This is perfect for baking pies and is both micro and dishwasher safe. A BEAUTIFUL glaze and design. Safe to use in the oven with care. 9\" diameter, 2\" height.",
+      "price": 55,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Pottery",
+        "Ceramic",
+        "Cobalt_Blue",
+        "Bakeware",
+        "Home_and_Kitchen",
+        "Baking",
+        "Pie",
+        "Cooking",
+        "Stoneware",
+        "Handmade",
+        "Pie_plate"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-01.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-02.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-03.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-04.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-05.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-06.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-07.jpg",
+        "product-images/rustic-pottery-pie-plate-with-multicolored-speckles-08.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VFpTFz0p9AtXS5",
+      "stripePriceId": "price_1UFJoRDTEEQD8p6ZBCd3Wmz5"
     }
   ]
 }
