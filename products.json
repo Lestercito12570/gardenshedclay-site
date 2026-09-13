@@ -907,6 +907,52 @@
       "etsyListed": true,
       "stripeProductId": "prod_VFpMjrtWW1fYaQ",
       "stripePriceId": "price_1UFJiFDTEEQD8p6Z0JAWQj7d"
+    },
+    {
+      "id": "spoon-rest-in-yellow-glaze",
+      "name": "Spoon Rest in Yellow glaze",
+      "slug": "spoon-rest-in-yellow-glaze",
+      "description": "This is a stoneware spoon rest in my bright sunshine yellow glaze. Some cheerfulness and fun in the kitchen!\n\nthis spoon rest is handmade and dishwasher safe.",
+      "price": 12.5,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "spoon_rest",
+        "stoneware",
+        "ceramic",
+        "pottery",
+        "studio_pottery",
+        "handmade_pottery",
+        "yellow",
+        "sunshine",
+        "kitchenware"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/spoon-rest-in-yellow-glaze-01.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-02.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-03.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-04.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-05.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-06.jpg",
+        "product-images/spoon-rest-in-yellow-glaze-07.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VFpOFEaGVKNQW9",
+      "stripePriceId": "price_1UFJk2DTEEQD8p6ZJLjNY8oy"
     }
   ]
 }
