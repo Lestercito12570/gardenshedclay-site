@@ -867,6 +867,46 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lZ2hRGIWajBU",
       "stripePriceId": "price_1U3e21DTEEQD8p6ZMSDS3zjF"
+    },
+    {
+      "id": "rustic-pottery-pie-plate-with-multicolored-speckles",
+      "name": "Rustic Pottery Pie Plate with multicolored Speckles",
+      "slug": "rustic-pottery-pie-plate-with-multicolored-speckles",
+      "description": "A handmade, wheel thrown pie plate in stoneware and glazed in multicolored \"candy\" speckles. This is perfect for baking pies and is both micro and dishwasher safe. A BEAUTIFUL glaze and design. Safe to use in the oven with care. 9\" diameter, 2\" height.",
+      "price": 55,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Pottery",
+        "Ceramic",
+        "Cobalt_Blue",
+        "Bakeware",
+        "Home_and_Kitchen",
+        "Baking",
+        "Pie",
+        "Cooking",
+        "Stoneware",
+        "Handmade",
+        "Pie_plate"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VFpMjrtWW1fYaQ",
+      "stripePriceId": "price_1UFJiFDTEEQD8p6Z0JAWQj7d"
     }
   ]
 }
