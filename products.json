@@ -1061,7 +1061,7 @@
       "currency": "USD",
       "inventory": 1,
       "fulfillmentStatus": "available",
-      "collection": "",
+      "collection": "Garden",
       "sortOrder": 10,
       "colors": [],
       "dishwasherSafe": true,
