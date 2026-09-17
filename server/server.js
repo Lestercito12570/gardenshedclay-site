@@ -28,6 +28,7 @@ const GITHUB_REPO = "gardenshedclay-site";
 const GITHUB_BRANCH = "main";
 const PRODUCTS_FILE_PATH = "products.json";
 const CUSTOMERS_FILE_PATH = "customers.json";
+const ORDERS_FILE_PATH = "orders.json";
 
 app.use(cors());
 
@@ -1041,6 +1042,96 @@ app.get(
       return res.status(500).json({
         error:
           "Unable to load customer database."
+      });
+    }
+  }
+);
+
+app.get(
+  "/api/admin/orders",
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const githubToken =
+        process.env.GITHUB_TOKEN;
+
+      if (!githubToken) {
+        return res.status(500).json({
+          error:
+            "GitHub order access is not configured."
+        });
+      }
+
+      const githubFileUrl =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+      const response =
+        await fetch(
+          githubFileUrl,
+          {
+            headers: {
+              Accept:
+                "application/vnd.github+json",
+
+              Authorization:
+                `Bearer ${githubToken}`,
+
+              "X-GitHub-Api-Version":
+                "2022-11-28",
+
+              "User-Agent":
+                "garden-shed-clay-admin"
+            }
+          }
+        );
+
+      if (!response.ok) {
+        return res.status(502).json({
+          error:
+            "Unable to read the order database."
+        });
+      }
+
+      const fileData =
+        await response.json();
+
+      const decodedContent =
+        Buffer
+          .from(
+            fileData.content,
+            "base64"
+          )
+          .toString("utf8");
+
+      const orderData =
+        JSON.parse(
+          decodedContent
+        );
+
+      const orders =
+        Array.isArray(orderData)
+          ? orderData
+          : orderData.orders;
+
+      if (!Array.isArray(orders)) {
+        return res.status(500).json({
+          error:
+            "The order database has an unsupported structure."
+        });
+      }
+
+      return res.json({
+        orders
+      });
+    } catch (error) {
+      console.error(
+        "Unable to load order database:",
+        error
+      );
+
+      return res.status(500).json({
+        error:
+          "Unable to load order database."
       });
     }
   }
