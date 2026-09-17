@@ -322,6 +322,90 @@ if (
     }
   }
 }
+
+        /*
+         * Load the Garden Shed Clay order ledger
+         * after a successful Stripe payment.
+         */
+        if (
+          session.payment_status === "paid"
+        ) {
+          const githubToken =
+            process.env.GITHUB_TOKEN;
+
+          if (!githubToken) {
+            throw new Error(
+              "GITHUB_TOKEN is not configured for order recording."
+            );
+          }
+
+          const ordersFileUrl =
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+          const ordersResponse =
+            await fetch(
+              ordersFileUrl,
+              {
+                method: "GET",
+
+                headers: {
+                  Accept:
+                    "application/vnd.github+json",
+
+                  Authorization:
+                    `Bearer ${githubToken}`,
+
+                  "X-GitHub-Api-Version":
+                    "2022-11-28",
+
+                  "User-Agent":
+                    "garden-shed-clay-checkout"
+                }
+              }
+            );
+
+          if (!ordersResponse.ok) {
+            throw new Error(
+              `Unable to read orders.json from GitHub: ${ordersResponse.status}`
+            );
+          }
+
+          const ordersFileData =
+            await ordersResponse.json();
+
+          const ordersContent =
+            Buffer
+              .from(
+                ordersFileData.content,
+                "base64"
+              )
+              .toString("utf8");
+
+          const orderData =
+            JSON.parse(
+              ordersContent
+            );
+
+          if (
+            !orderData ||
+            !Array.isArray(orderData.orders)
+          ) {
+            throw new Error(
+              "orders.json has an unsupported structure."
+            );
+          }
+
+          console.log(
+            "Garden Shed Clay order ledger loaded:",
+            {
+              existingOrders:
+                orderData.orders.length,
+
+              checkoutSessionId:
+                session.id
+            }
+          );
+        }
         
         break;
       }
