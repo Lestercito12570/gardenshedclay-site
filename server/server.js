@@ -1438,8 +1438,6 @@ app.patch(
           "Unsupported order status."
       });
     }
-  }
-);
 
     const githubToken =
       process.env.GITHUB_TOKEN;
