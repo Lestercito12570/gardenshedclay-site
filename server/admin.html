@@ -863,10 +863,10 @@ function renderPrimaryImageSelector() {
     const image =
       document.createElement("img");
 
-  image.src =
+image.src =
   imagePath.startsWith("http")
     ? imagePath
-    : `/${imagePath}`;
+    : `https://gardenshedclay.com/${imagePath}`;
     
     image.alt =
       `Product image ${index + 1}`;
