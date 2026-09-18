@@ -310,9 +310,43 @@
     id="customer-list"
     class="etsy-review-list"
   ></div>
-</section>    
-    <form id="product-form" class="product-card-form">
+</section>
 
+<section class="product-card-form">
+  <div>
+    <p class="eyebrow">Orders</p>
+    <h2>Manage Orders</h2>
+
+    <p class="admin-note">
+      View website orders and fulfillment status for
+      Garden Shed Clay.
+    </p>
+  </div>
+
+  <div class="admin-actions">
+    <button
+      class="button button-primary"
+      id="load-orders-button"
+      type="button"
+    >
+      Load Orders
+    </button>
+  </div>
+
+  <p
+    id="manage-orders-status"
+    class="admin-status"
+    aria-live="polite"
+  ></p>
+
+  <div
+    id="order-list"
+    class="etsy-review-list"
+  ></div>
+</section>
+
+<form id="product-form" class="product-card-form">
+  
   <div class="form-grid">
 
     <div class="form-group">
@@ -752,6 +786,15 @@ const manageCustomersStatus =
 
 const customerList =
   document.getElementById("customer-list");
+
+    const loadOrdersButton =
+  document.getElementById("load-orders-button");
+
+const manageOrdersStatus =
+  document.getElementById("manage-orders-status");
+
+const orderList =
+  document.getElementById("order-list");
     
     const preview =
       document.getElementById("preview");
@@ -1849,6 +1892,7 @@ customers.forEach((customer) => {
 
   customerList.appendChild(card);
 });
+      } catch (error) {
       manageCustomersStatus.textContent =
         error.message ||
         "Unable to load customers.";
