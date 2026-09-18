@@ -81,13 +81,20 @@
   function getAvailability(product) {
     const inventory = Number(product.inventory ?? 0);
 
+    if (inventory <= 0 && product.leadTime) {
+      return {
+      label: product.leadTime,
+      className: ""
+    };
+  }
+
     if (inventory <= 0) {
       return {
-        label: "Sold out",
-        className: "sold-out"
-      };
-    }
-
+      label: "Sold out",
+      className: "sold-out"
+    };
+  }
+    
     if (product.readyToShip === true) {
       return {
         label: "Ready to ship",
@@ -276,18 +283,21 @@ function renderCatalog(products) {
     return (
       product &&
       product.published === true &&
-      Number(product.inventory ?? 0) > 0
+      (
+        Number(product.inventory ?? 0) > 0 ||
+        Boolean(product.leadTime)
+      )
     );
   });
-  
-    if (publishedProducts.length === 0) {
-      elements.loading.hidden = true;
-      elements.catalog.hidden = true;
-      elements.error.hidden = true;
-      elements.empty.hidden = false;
-      return;
-    }
 
+  if (publishedProducts.length === 0) {
+    elements.loading.hidden = true;
+    elements.catalog.hidden = true;
+    elements.error.hidden = true;
+    elements.empty.hidden = false;
+    return;
+  }
+  
     const groupedProducts = groupProducts(publishedProducts);
     const collectionNames = sortCollections(
       Object.keys(groupedProducts)
