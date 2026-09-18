@@ -1407,6 +1407,203 @@ app.get(
 );
 
 app.patch(
+  "/api/admin/orders/:orderId/status",
+  requireAdmin,
+  async (req, res) => {
+    const orderId =
+      String(
+        req.params.orderId || ""
+      ).trim();
+
+    const status =
+      String(
+        req.body?.status || ""
+      ).trim();
+
+    if (!orderId) {
+      return res.status(400).json({
+        error:
+          "Order ID is required."
+      });
+    }
+
+    if (
+      ![
+        "pending-shipment",
+        "shipped"
+      ].includes(status)
+    ) {
+      return res.status(400).json({
+        error:
+          "Unsupported order status."
+      });
+    }
+  }
+);
+
+    const githubToken =
+      process.env.GITHUB_TOKEN;
+
+    if (!githubToken) {
+      return res.status(500).json({
+        error:
+          "GitHub order access is not configured."
+      });
+    }
+
+    const githubFileUrl =
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}?ref=${GITHUB_BRANCH}`;
+
+    const response =
+      await fetch(
+        githubFileUrl,
+        {
+          headers: {
+            Accept:
+              "application/vnd.github+json",
+
+            Authorization:
+              `Bearer ${githubToken}`,
+
+            "X-GitHub-Api-Version":
+              "2022-11-28",
+
+            "User-Agent":
+              "garden-shed-clay-admin"
+          }
+        }
+      );
+
+    if (!response.ok) {
+      return res.status(502).json({
+        error:
+          "Unable to read the order database."
+      });
+    }
+
+    const fileData =
+      await response.json();
+
+    const decodedContent =
+      Buffer
+        .from(
+          fileData.content,
+          "base64"
+        )
+        .toString("utf8");
+
+    const orderData =
+      JSON.parse(
+        decodedContent
+      );
+
+    const orders =
+      Array.isArray(orderData)
+        ? orderData
+        : orderData.orders;
+
+    if (!Array.isArray(orders)) {
+      return res.status(500).json({
+        error:
+          "The order database has an unsupported structure."
+      });
+    }
+
+    const order =
+      orders.find(
+        (item) =>
+          item &&
+          item.orderId === orderId
+      );
+
+    if (!order) {
+      return res.status(404).json({
+        error:
+          "Order not found."
+      });
+    }
+
+    order.status =
+      status;
+
+    const updatedOrders =
+      JSON.stringify(
+        orderData,
+        null,
+        2
+      ) + "\n";
+
+    const encodedOrders =
+      Buffer
+        .from(
+          updatedOrders,
+          "utf8"
+        )
+        .toString("base64");
+
+    const ordersWriteUrl =
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}`;
+
+    const writeResponse =
+      await fetch(
+        ordersWriteUrl,
+        {
+          method: "PUT",
+
+          headers: {
+            Accept:
+              "application/vnd.github+json",
+
+            Authorization:
+              `Bearer ${githubToken}`,
+
+            "X-GitHub-Api-Version":
+              "2022-11-28",
+
+            "Content-Type":
+              "application/json",
+
+            "User-Agent":
+              "garden-shed-clay-admin"
+          },
+
+          body: JSON.stringify({
+            message:
+              `Update Garden Shed Clay order ${orderId} to ${status}`,
+
+            content:
+              encodedOrders,
+
+            sha:
+              fileData.sha,
+
+            branch:
+              GITHUB_BRANCH
+          })
+        }
+      );
+
+    if (!writeResponse.ok) {
+      const writeError =
+        await writeResponse.text();
+
+      console.error(
+        "Unable to update order:",
+        writeError
+      );
+      
+      return res.status(502).json({
+        error:
+          "Unable to update the order."
+      });
+    }
+
+    return res.json({
+      success: true,
+      order
+    });
+
+app.patch(
   "/api/admin/products/:id/published",
   requireAdmin,
   async (req, res) => {
