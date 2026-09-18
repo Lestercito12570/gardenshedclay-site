@@ -1937,6 +1937,41 @@ loadOrdersButton.addEventListener(
       manageOrdersStatus.textContent =
         `${orders.length} orders loaded.`;
 
+            orders.forEach((order) => {
+        const card =
+          document.createElement("div");
+
+        card.style.padding = "16px";
+        card.style.marginTop = "12px";
+        card.style.border =
+          "1px solid rgba(38, 35, 31, 0.16)";
+        card.style.background = "#fff";
+
+        const title =
+          document.createElement("h3");
+
+        title.textContent =
+          order.customer?.name ||
+          order.orderId ||
+          "Website Order";
+
+        title.style.marginTop = "0";
+
+        const details =
+          document.createElement("p");
+
+        const total =
+          Number(order.total || 0) / 100;
+
+        details.textContent =
+          `${order.orderId || "No order ID"} · $${total.toFixed(2)} · ${order.status || "No status"}`;
+
+        card.appendChild(title);
+        card.appendChild(details);
+
+        orderList.appendChild(card);
+      });
+      
     } catch (error) {
       manageOrdersStatus.textContent =
         error.message ||
