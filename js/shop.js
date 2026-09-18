@@ -271,11 +271,15 @@
     return section;
   }
 
-  function renderCatalog(products) {
-    const publishedProducts = products.filter((product) => {
-      return product && product.published === true;
-    });
-
+function renderCatalog(products) {
+  const publishedProducts = products.filter((product) => {
+    return (
+      product &&
+      product.published === true &&
+      Number(product.inventory ?? 0) > 0
+    );
+  });
+  
     if (publishedProducts.length === 0) {
       elements.loading.hidden = true;
       elements.catalog.hidden = true;
