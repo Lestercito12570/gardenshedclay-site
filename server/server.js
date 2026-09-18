@@ -527,6 +527,57 @@ if (
 
             const ordersWriteUrl =
               `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}`;            
+
+            const ordersWriteResponse =
+              await fetch(
+                ordersWriteUrl,
+                {
+                  method: "PUT",
+                  headers: {
+                    Accept:
+                      "application/vnd.github+json",
+                    Authorization:
+                      `Bearer ${githubToken}`,
+                    "X-GitHub-Api-Version":
+                      "2022-11-28",
+                    "Content-Type":
+                      "application/json",
+                    "User-Agent":
+                      "garden-shed-clay-checkout"
+                  },
+                  body: JSON.stringify({
+                    message:
+                      `Record Garden Shed Clay order ${newOrder.orderId}`,
+                    content:
+                      encodedOrders,
+                    sha:
+                      ordersFileData.sha,
+                    branch:
+                      GITHUB_BRANCH
+                  })
+                }
+              );
+
+            if (!ordersWriteResponse.ok) {
+              const ordersWriteError =
+                await ordersWriteResponse.text();
+
+              throw new Error(
+                `Unable to write orders.json to GitHub: ${ordersWriteResponse.status} ${ordersWriteError}`
+              );
+            }            
+
+            console.log(
+              "Garden Shed Clay order recorded:",
+              {
+                orderId:
+                  newOrder.orderId,
+
+                checkoutSessionId:
+                  session.id
+              }
+            );
+            
           }
           
           console.log(
