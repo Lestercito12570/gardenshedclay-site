@@ -1602,6 +1602,8 @@ app.patch(
       success: true,
       order
     });
+  }
+);
 
 app.patch(
   "/api/admin/products/:id/published",
