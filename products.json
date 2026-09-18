@@ -220,10 +220,10 @@
         "price": 0
       },
       "images": [
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-04.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-01.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-02.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-03.jpg",
-        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-04.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-05.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-06.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-07.jpg"
@@ -232,7 +232,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lPIlHlLL1uU1",
-      "stripePriceId": "price_1U5E0EDTEEQD8p6Z03iYaD5j"
+      "stripePriceId": "price_1U5E0EDTEEQD8p6Z03iYaD5j",
+      "fulfillmentStatus": "available"
     },
     {
       "id": "spoon-rest-in-multicolored-glazes",
