@@ -508,6 +508,11 @@
           ></textarea>
         </div>
 
+<div
+  id="image-primary-selector"
+  class="form-group full"
+></div>
+    
     <div class="form-group">
       <label class="form-label" for="colors">
         Colors / glazes
@@ -820,6 +825,12 @@ const orderList =
     const stripePriceIdInput =
       document.getElementById("stripe-price-id-input");
 
+    const imagesInput =
+  document.getElementById("images");
+
+const imagePrimarySelector =
+  document.getElementById("image-primary-selector");
+    
     let currentProduct = null;
     let originalProduct = null;
     
@@ -830,6 +841,94 @@ const orderList =
         .filter(Boolean);
     }
 
+function renderPrimaryImageSelector() {
+  const images =
+    splitLineList(imagesInput.value);
+
+  imagePrimarySelector.innerHTML = "";
+
+  if (images.length === 0) {
+    return;
+  }
+
+  const heading =
+    document.createElement("div");
+
+  heading.className = "form-label";
+  heading.textContent = "Primary Shop Image";
+
+  imagePrimarySelector.appendChild(heading);
+
+  images.forEach((imagePath, index) => {
+    const image =
+      document.createElement("img");
+
+    image.src =
+      imagePath.startsWith("http")
+        ? imagePath
+        : `/images/products/${imagePath}`;
+
+    image.alt =
+      `Product image ${index + 1}`;
+
+    image.style.width = "110px";
+    image.style.height = "110px";
+    image.style.objectFit = "cover";
+    image.style.marginRight = "10px";
+    image.style.marginTop = "10px";
+
+if (index === 0) {
+  image.style.outline =
+    "3px solid #3f684d";
+
+  image.title =
+    "Current primary Shop image";
+}
+    
+    imagePrimarySelector.appendChild(image);
+
+
+if (index > 0) {
+  const makePrimaryButton =
+    document.createElement("button");
+
+  makePrimaryButton.type =
+    "button";
+
+  makePrimaryButton.className =
+    "button";
+
+  makePrimaryButton.textContent =
+    "Make Primary";
+
+  makePrimaryButton.style.marginRight =
+    "16px";
+
+  makePrimaryButton.addEventListener(
+    "click",
+    () => {
+      const reorderedImages = [
+        imagePath,
+        ...images.filter(
+          (_, imageIndex) =>
+            imageIndex !== index
+        )
+      ];
+
+      imagesInput.value =
+        reorderedImages.join("\n");
+
+      renderPrimaryImageSelector();
+    }
+  );
+
+  imagePrimarySelector.appendChild(
+    makePrimaryButton
+  );
+}
+  });
+}
+    
     function splitLineList(value) {
       return value
         .split(/\r?\n/)
@@ -1731,6 +1830,8 @@ document.getElementById("fulfillment-status").value =
                 ? product.images.join("\n")
                 : "";
 
+            renderPrimaryImageSelector();
+            
             document.getElementById("dishwasher-safe").checked =
               Boolean(product.dishwasherSafe);
 
