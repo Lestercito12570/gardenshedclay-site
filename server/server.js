@@ -330,6 +330,35 @@ if (
         if (
           session.payment_status === "paid"
         ) {
+
+          const stripeLineItems =
+            await liveStripe.checkout.sessions.listLineItems(
+              session.id,
+              {
+                limit: 100
+              }
+            );
+
+          const purchasedItems =
+            stripeLineItems.data.map(
+              (item) => ({
+                stripePriceId:
+                  item.price?.id || null,
+
+                name:
+                  item.description || null,
+
+                quantity:
+                  item.quantity || 0,
+
+                unitAmount:
+                  item.price?.unit_amount || 0,
+
+                amountTotal:
+                  item.amount_total || 0
+              })
+            );
+          
           const githubToken =
             process.env.GITHUB_TOKEN;
 
@@ -395,6 +424,111 @@ if (
             );
           }
 
+          const existingOrder =
+            orderData.orders.find(
+              (order) =>
+                order &&
+                order.stripeCheckoutSessionId ===
+                  session.id
+            );
+
+          if (existingOrder) {
+            console.log(
+              "Garden Shed Clay order already recorded:",
+              {
+                checkoutSessionId:
+                  session.id,
+
+                orderId:
+                  existingOrder.orderId ||
+                  null
+              }
+            );
+          }
+
+          if (!existingOrder) {
+            const newOrder = {
+              orderId:
+                `gsc-${session.id}`,
+
+              stripeCheckoutSessionId:
+                session.id,
+
+              stripePaymentIntentId:
+                session.payment_intent ||
+                null,
+
+              orderDate:
+                new Date(
+                  session.created * 1000
+                ).toISOString(),
+
+              status:
+                "pending-shipment",
+
+              customer: {
+                name:
+                  session.customer_details
+                    ?.name || null,
+
+                email:
+                  session.customer_details
+                    ?.email || null
+              },
+
+              items:
+                purchasedItems,
+
+              subtotal:
+                session.metadata
+                  ?.merchandiseSubtotalCents
+                  ? Number(
+                      session.metadata
+                        .merchandiseSubtotalCents
+                    )
+                  : 0,
+
+              shipping:
+                session.metadata
+                  ?.shippingAmountCents
+                  ? Number(
+                      session.metadata
+                        .shippingAmountCents
+                    )
+                  : 0,
+
+              total:
+                session.amount_total || 0,
+
+              currency:
+                String(
+                  session.currency || "usd"
+                ).toUpperCase()
+            };
+        
+            orderData.orders.push(
+              newOrder
+            );
+
+            const updatedOrders =
+              JSON.stringify(
+                orderData,
+                null,
+                2
+              ) + "\n";
+
+            const encodedOrders =
+              Buffer
+                .from(
+                  updatedOrders,
+                  "utf8"
+                )
+                .toString("base64");     
+
+            const ordersWriteUrl =
+              `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${ORDERS_FILE_PATH}`;            
+          }
+          
           console.log(
             "Garden Shed Clay order ledger loaded:",
             {
