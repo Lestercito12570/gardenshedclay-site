@@ -1903,6 +1903,51 @@ customers.forEach((customer) => {
   }
 );
 
+loadOrdersButton.addEventListener(
+  "click",
+  async () => {
+    loadOrdersButton.disabled = true;
+
+    manageOrdersStatus.textContent =
+      "Loading orders...";
+
+    orderList.innerHTML = "";
+
+    try {
+      const response =
+        await fetch(
+          "/api/admin/orders"
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to load orders."
+        );
+      }
+
+      const orders =
+        Array.isArray(data.orders)
+          ? data.orders
+          : [];
+
+      manageOrdersStatus.textContent =
+        `${orders.length} orders loaded.`;
+
+    } catch (error) {
+      manageOrdersStatus.textContent =
+        error.message ||
+        "Unable to load orders.";
+    } finally {
+      loadOrdersButton.disabled =
+        false;
+    }
+  }
+);
+    
 customerSearch.addEventListener(
   "input",
   () => {
