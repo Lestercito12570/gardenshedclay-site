@@ -125,8 +125,8 @@
         "price": 0
       },
       "images": [
-        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-01.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-02.jpg",
+        "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-01.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-03.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-04.jpg",
         "product-images/rustic-pottery-pie-plate-in-black-with-snowy-spots-05.jpg",
@@ -137,7 +137,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lOtAn96xeHH2",
-      "stripePriceId": "price_1U5E0gDTEEQD8p6ZjEV4wNPT"
+      "stripePriceId": "price_1U5E0gDTEEQD8p6ZjEV4wNPT",
+      "fulfillmentStatus": "available"
     },
     {
       "id": "rustic-pottery-pie-plate-in-black-with-snowy-spots2",
