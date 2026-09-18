@@ -2005,6 +2005,84 @@ const orderDate =
           "No item details";
 
         card.appendChild(items);
+
+if (order.status !== "shipped") {
+  const shippedButton =
+    document.createElement("button");
+
+  shippedButton.type =
+    "button";
+
+  shippedButton.className =
+    "button button-primary";
+
+  shippedButton.textContent =
+    "Mark Shipped";
+
+  shippedButton.addEventListener(
+  "click",
+  async () => {
+    shippedButton.disabled = true;
+    shippedButton.textContent =
+      "Updating...";
+
+    try {
+      const response =
+        await fetch(
+          `/api/admin/orders/${encodeURIComponent(order.orderId)}/status`,
+          {
+            method: "PATCH",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              status: "shipped"
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to update order."
+        );
+      }
+
+order.status =
+  "shipped";
+
+details.textContent =
+  `${orderDate} · ${order.orderId || "No order ID"} · $${total.toFixed(2)} total · $${shipping.toFixed(2)} shipping · shipped`;
+
+shippedButton.textContent =
+  "Shipped";
+
+manageOrdersStatus.textContent =
+  "Order marked as shipped.";
+      
+      
+    } catch (error) {
+      shippedButton.disabled = false;
+      shippedButton.textContent =
+        "Mark Shipped";
+
+      manageOrdersStatus.textContent =
+        error.message ||
+        "Unable to update order.";
+    }
+  }
+);
+  
+  card.appendChild(
+    shippedButton
+  );
+}
               
         orderList.appendChild(card);
       });
