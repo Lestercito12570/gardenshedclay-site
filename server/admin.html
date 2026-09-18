@@ -863,11 +863,11 @@ function renderPrimaryImageSelector() {
     const image =
       document.createElement("img");
 
-    image.src =
-      imagePath.startsWith("http")
-        ? imagePath
-        : `/images/products/${imagePath}`;
-
+  image.src =
+  imagePath.startsWith("http")
+    ? imagePath
+    : `/${imagePath}`;
+    
     image.alt =
       `Product image ${index + 1}`;
 
