@@ -1963,12 +1963,49 @@ loadOrdersButton.addEventListener(
         const total =
           Number(order.total || 0) / 100;
 
-        details.textContent =
-          `${order.orderId || "No order ID"} · $${total.toFixed(2)} · ${order.status || "No status"}`;
+const orderDate =
+  order.orderDate
+    ? new Date(
+        order.orderDate
+      ).toLocaleDateString()
+    : "No date";
 
+        const shipping =
+          Number(order.shipping || 0) / 100;
+              
+               details.textContent =
+          `${orderDate} · ${order.orderId || "No order ID"} · $${total.toFixed(2)} total · $${shipping.toFixed(2)} shipping · ${order.status || "No status"}`;              
+ 
         card.appendChild(title);
         card.appendChild(details);
 
+        const items =
+          document.createElement("p");
+
+        const itemNames =
+          Array.isArray(order.items)
+            ? order.items
+                .map((item) => {
+                  const quantity =
+                    Number(item.quantity || 0);
+
+                  const name =
+                    item.name ||
+                    "Item";
+
+                  return quantity > 1
+                    ? `${quantity} × ${name}`
+                    : name;
+                })
+                .join(" · ")
+            : "";
+
+        items.textContent =
+          itemNames ||
+          "No item details";
+
+        card.appendChild(items);
+              
         orderList.appendChild(card);
       });
       
