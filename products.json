@@ -90,7 +90,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lMW9HCmDbqtO",
-      "stripePriceId": "price_1U3dq5DTEEQD8p6ZtYcBqE4c"
+      "stripePriceId": "price_1U3dq5DTEEQD8p6ZtYcBqE4c",
+      "fulfillmentStatus": "pending-shipment"
     },
     {
       "id": "rustic-pottery-pie-plate-in-black-with-snowy-spots1",
