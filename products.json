@@ -46,7 +46,8 @@
       "published": false,
       "etsyListed": true,
       "stripeProductId": "prod_V3jtdnBVtdIp8j",
-      "stripePriceId": "price_1U56NeDTEEQD8p6ZSF3YBgqu"
+      "stripePriceId": "price_1U56NeDTEEQD8p6ZSF3YBgqu",
+      "fulfillmentStatus": "pending-shipment"
     },
     {
       "id": "wheel-thrown-handmade-stoneware-cake-stand-in-spearmint-green",
