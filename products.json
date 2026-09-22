@@ -907,7 +907,7 @@
       },
       "images": [],
       "featured": false,
-      "published": true,
+      "published": false,
       "etsyListed": true,
       "stripeProductId": "prod_VFpMjrtWW1fYaQ",
       "stripePriceId": "price_1UFJiFDTEEQD8p6Z0JAWQj7d"
