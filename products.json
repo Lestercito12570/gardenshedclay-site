@@ -1252,6 +1252,54 @@
       "etsyListed": true,
       "stripeProductId": "prod_VNbFMmuGvM0isr",
       "stripePriceId": "price_1UMq3MDTEEQD8p6ZBF4DukNB"
+    },
+    {
+      "id": "artisan-chip-n-dip-bowl-custom-handmade-snack-bowl1",
+      "name": "Artisan Chip n Dip Bowl - Custom Handmade Snack Bowl",
+      "slug": "artisan-chip-n-dip-bowl-custom-handmade-snack-bowl1",
+      "description": "Elevate your entertaining game with this stunning Handmade Chip n Dip Bowl! Crafted with love and attention to detail, this unique serving piece is perfect for parties, game nights, or casual gatherings. The spacious bowl holds your favorite chips, while the complimentary dip bowl in the center keeps everything fresh and accessible. A fantastic gift for housewarmings or foodie friends, this versatile dish adds charm to any occasion. Showcase your snacks in style with this one-of-a-kind creation!",
+      "price": 75,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "Chip_'n_Dip_Bowl",
+        "Snack_bowl",
+        "Gift_ideas",
+        "chip_and_dip_bowl",
+        "ceramic_dip_bowl",
+        "chip_dip_bowl",
+        "chip_and_dip_set",
+        "handmade_dip_bowl",
+        "ceramic_chip_bowl",
+        "handmade_serving_set",
+        "hummus_pita_bowl",
+        "salsa_chips_bowl",
+        "rustic_serving_bowl"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 12
+      },
+      "images": [
+        "product-images/artisan-chip-n-dip-bowl-custom-handmade-snack-bowl-01.jpg",
+        "product-images/artisan-chip-n-dip-bowl-custom-handmade-snack-bowl-02.jpg",
+        "product-images/artisan-chip-n-dip-bowl-custom-handmade-snack-bowl-03.jpg",
+        "product-images/artisan-chip-n-dip-bowl-custom-handmade-snack-bowl-04.jpg",
+        "product-images/artisan-chip-n-dip-bowl-custom-handmade-snack-bowl-05.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VNbGXDoFbmG5Nq",
+      "stripePriceId": "price_1UMq4GDTEEQD8p6Z2faybK1O"
     }
   ]
 }
