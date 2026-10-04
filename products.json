@@ -1153,6 +1153,56 @@
       "etsyListed": true,
       "stripeProductId": "prod_VG6vLiHi0UflAK",
       "stripePriceId": "price_1UFahlDTEEQD8p6ZLC1BnaKn"
+    },
+    {
+      "id": "handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers",
+      "name": "Handcrafted Black and Snowflake Mixing Bowl - Perfect Gift for Bakers",
+      "slug": "handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers",
+      "description": "Elevate your kitchen with our stunning Black and Snowflake Mixing Bowl! Crafted for both style and function, this beautiful bowl features an elegant snowflake design against a sleek black background, making it perfect for any season. Ideal for mixing, serving, or display, it adds a touch of winter charm to your culinary creations. Made from durable materials, it’s easy to clean and built to last. Make baking magical with this eye-catching piece. Order your Black and Snowflake Mixing Bowl today!",
+      "price": 45,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "stoneware",
+        "handmade",
+        "wheel_thrown",
+        "pottery",
+        "studio_pottery",
+        "gift_ideas_for_baker",
+        "mixing_bowl_handmade",
+        "snowflake_bowl",
+        "ceramic_mixing_bowl",
+        "Black_and_white_bowl",
+        "baking_mixing_bowl",
+        "rustic_kitchen_bowl",
+        "kitchen_mixing_bowl"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-01.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-02.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-03.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-04.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-05.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-06.jpg",
+        "product-images/handcrafted-black-and-snowflake-mixing-bowl-perfect-gift-for-bakers-07.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VNbEes3VYXu2Po",
+      "stripePriceId": "price_1UMq2JDTEEQD8p6Z5uFeCZb7"
     }
   ]
 }
