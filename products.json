@@ -278,7 +278,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lQxAqnj4WFrF",
-      "stripePriceId": "price_1U5E1BDTEEQD8p6ZRXhuu53d"
+      "stripePriceId": "price_1U5E1BDTEEQD8p6ZRXhuu53d",
+      "fulfillmentStatus": "pending-shipment"
     },
     {
       "id": "handmade-terra-cotta-planter",
