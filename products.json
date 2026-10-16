@@ -653,7 +653,7 @@
       "description": "This is a handmade stoneware spoon rest in blue/black/green mixes glazes. This is dishwasher safe for cleaning and a useful tool for placing spoons while cooking so your countertops remain clean!",
       "price": 12.5,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [],
@@ -688,7 +688,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lWHakoH26fGL",
-      "stripePriceId": "price_1U5DysDTEEQD8p6ZaaDbrqKb"
+      "stripePriceId": "price_1U5DysDTEEQD8p6ZaaDbrqKb",
+      "fulfillmentStatus": "pending-shipment"
     },
     {
       "id": "multicolored-spoon-rest3",
