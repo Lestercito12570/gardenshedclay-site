@@ -1303,6 +1303,51 @@
       "etsyListed": true,
       "stripeProductId": "prod_VNbGXDoFbmG5Nq",
       "stripePriceId": "price_1UNIloDTEEQD8p6ZdyHZPGi9"
+    },
+    {
+      "id": "wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue",
+      "name": "Wheel thrown stoneware Pitcher / Jug in black with a floating blue",
+      "slug": "wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue",
+      "description": "Wheel thrown and handmade stoneware jug, perfect for serving or for using as a vase. Blue glaze flows over black in a beautiful way.  approx 5\" high.",
+      "price": 35,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [
+        "jug",
+        "pitcher",
+        "handmade_pottery",
+        "pottery_pitcher",
+        "pitcher_vase",
+        "flower_vase"
+      ],
+      "readyToShip": true,
+      "leadTime": "",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 0
+      },
+      "images": [
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-01.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-02.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-03.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-04.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-05.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-06.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-07.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-08.jpg",
+        "product-images/wheel-thrown-stoneware-pitcher-jug-in-black-with-a-floating-blue-09.jpg"
+      ],
+      "featured": false,
+      "published": true,
+      "etsyListed": true,
+      "stripeProductId": "prod_VS4eKfUt8sINxw",
+      "stripePriceId": "price_1URAVKDTEEQD8p6ZMfCVDdXE"
     }
   ]
 }
