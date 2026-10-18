@@ -1,0 +1,28 @@
+{
+  "keyword": "Chip and Dip Bowl",
+  "brand": "Garden Shed Clay, LLC",
+  "target_site": "gardenshedclay.com",
+  "generated_at": "2026-10-04T15:36:00.787Z",
+  "on_page": {
+    "title": "Chip and Dip Bowl | Garden Shed Clay, LLC",
+    "meta_description": "Discover Chip and Dip Bowl with Garden Shed Clay, LLC. Expert insights, curated resources, and fresh content updated regularly.",
+    "h1": "Chip and Dip Bowl",
+    "canonical": "https://gardenshedclay.com/chip-and-dip-bowl"
+  },
+  "recommended_changes": [
+    "Add target keyword to the page title and H1",
+    "Write a 150-160 character meta description containing the keyword",
+    "Ensure the keyword appears in the first 100 words of body copy",
+    "Add internal links from related pages using the keyword as anchor text",
+    "Add descriptive alt text to relevant images containing the keyword"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Chip and Dip Bowl",
+    "author": {
+      "@type": "Organization",
+      "name": "Garden Shed Clay, LLC"
+    }
+  }
+}
