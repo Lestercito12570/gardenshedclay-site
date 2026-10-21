@@ -1,0 +1,12 @@
+{
+  "brand": "Garden Shed Clay, LLC",
+  "citation_priority": "high",
+  "generated_at": "2026-07-07T00:00:00.000Z",
+  "schema_type": "Organization",
+  "target_queries": [
+    "best brands",
+    "top picks",
+    "recommended"
+  ],
+  "type": "aeo_citation_boost"
+}
