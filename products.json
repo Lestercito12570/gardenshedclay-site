@@ -861,8 +861,8 @@
       "readyToShip": true,
       "leadTime": "",
       "shipping": {
-        "type": "flat-rate",
-        "price": 6
+        "type": "calculated",
+        "price": 0
       },
       "images": [
         "product-images/handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage-01.jpg",
@@ -874,7 +874,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lZ2hRGIWajBU",
-      "stripePriceId": "price_1U3e21DTEEQD8p6ZMSDS3zjF"
+      "stripePriceId": "price_1U3e21DTEEQD8p6ZMSDS3zjF",
+      "fulfillmentStatus": "available"
     },
     {
       "id": "rustic-pottery-pie-plate-with-multicolored-speckles",
