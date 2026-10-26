@@ -791,7 +791,7 @@
       "description": "Keep your brown sugar soft and scoop-ready with our handcrafted ceramic brown sugar keeper! Each charming piece is designed to maintain the perfect moisture level, ensuring your sugar stays fresh and easy to use. Features the iconic Moravian Star. Perfect for any kitchen décor, these keepers make a thoughtful gift for bakers and home chefs alike. Elevate your baking experience with this stylish and functional storage solution! Price includes shipping.",
       "price": 7,
       "currency": "USD",
-      "inventory": 21,
+      "inventory": 15,
       "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [],
@@ -815,7 +815,7 @@
       "readyToShip": true,
       "leadTime": "",
       "shipping": {
-        "type": "flat-rate",
+        "type": "calculated",
         "price": 0
       },
       "images": [
@@ -827,7 +827,8 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lYLqu5ONfPhw",
-      "stripePriceId": "price_1U3e1XDTEEQD8p6ZMR6PoLue"
+      "stripePriceId": "price_1U3e1XDTEEQD8p6ZMR6PoLue",
+      "fulfillmentStatus": "available"
     },
     {
       "id": "handcrafted-ceramic-brown-sugar-keeper-liberty-bell-design-food-safe-storage",
