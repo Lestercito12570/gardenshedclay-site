@@ -596,7 +596,7 @@
         if (typeof window.gtag === 'function') window.gtag('event', 'journal_share_click', { method, content_type: 'article', item_id: canonical });
       };
       const email = section.querySelector('.journal-share-email');
-      email.href = 'mailto:?subject=' + encodeURIComponent(title + ' | Garden Shed Clay') + '&body=' + encodeURIComponent('I thought you might enjoy this story from Garden Shed Clay:\\n\\n' + canonical);
+      email.href = 'mailto:?subject=' + encodeURIComponent(title + ' | Garden Shed Clay') + '&body=' + encodeURIComponent('I thought you might enjoy this story from Garden Shed Clay:\n\n' + canonical);
       email.addEventListener('click', () => track('email'));
       const facebook = section.querySelector('.journal-share-facebook');
       facebook.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(canonical);
