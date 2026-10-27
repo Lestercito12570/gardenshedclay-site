@@ -407,6 +407,17 @@
       }
     }
   .journal-photo{margin:38px 0}.journal-photo img{width:100%;height:auto;display:block}
+
+    /* Journal sharing: independent of subscription services */
+    .journal-share{max-width:760px;margin:0 auto 38px;padding:34px 28px;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .journal-share h2{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,42px);line-height:1.15}
+    .journal-share p{margin:10px 0 22px;color:var(--muted);font-size:14px}
+    .journal-share-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    .journal-share-actions button,.journal-share-actions a{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 17px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink);font:500 12px var(--sans);text-decoration:none;cursor:pointer}
+    .journal-share-actions button:hover,.journal-share-actions a:hover{border-color:var(--accent);background:var(--paper-deep)}
+    .journal-share-actions button:focus-visible,.journal-share-actions a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .journal-share-status{min-height:1.4em;margin:12px 0 0!important;font-size:12px!important}
+    .journal-native-share[hidden]{display:none}
 </style>
 
   <script type="application/ld+json">
@@ -508,6 +519,18 @@
 <p><strong>Lester | Garden Shed Clay</strong><br> <em>Handmade in Philadelphia</em></p>
 <figure class="journal-photo"><img src="/journal/IMG_0471.webp" alt="Autumn sunset over the water" loading="lazy"></figure></div>
     </article>
+    <section class="journal-share" aria-labelledby="journal-share-title">
+      <h2 id="journal-share-title">Enjoyed this story? Share it.</h2>
+      <p>Know someone who might enjoy a note from the garden or studio?</p>
+      <div class="journal-share-actions">
+        <button class="journal-native-share" type="button" hidden>Share</button>
+        <a class="journal-share-email" href="#">Email</a>
+        <a class="journal-share-facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <button class="journal-copy-link" type="button">Copy link</button>
+      </div>
+      <p class="journal-share-status" role="status" aria-live="polite"></p>
+    </section>
+
     
 <section class="journal-subscribe">
   <p class="journal-subscribe-label">Notes from the Studio</p>
@@ -560,6 +583,59 @@
     if (yearElement) {
       yearElement.textContent = new Date().getFullYear();
     }
+  </script>
+
+  <script>
+    (function () {
+      const section = document.querySelector('.journal-share');
+      if (!section) return;
+      const title = document.querySelector('article h1')?.textContent.trim() || document.title;
+      const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href.split('#')[0];
+      const status = section.querySelector('.journal-share-status');
+      const track = (method) => {
+        if (typeof window.gtag === 'function') window.gtag('event', 'journal_share_click', { method, content_type: 'article', item_id: canonical });
+      };
+      const email = section.querySelector('.journal-share-email');
+      email.href = 'mailto:?subject=' + encodeURIComponent(title + ' | Garden Shed Clay') + '&body=' + encodeURIComponent('I thought you might enjoy this story from Garden Shed Clay:\\n\\n' + canonical);
+      email.addEventListener('click', () => track('email'));
+      const facebook = section.querySelector('.journal-share-facebook');
+      facebook.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(canonical);
+      facebook.addEventListener('click', () => track('facebook'));
+      const copy = section.querySelector('.journal-copy-link');
+      copy.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(canonical);
+          } else {
+            const field = document.createElement('textarea');
+            field.value = canonical;
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.appendChild(field);
+            field.select();
+            const success = document.execCommand('copy');
+            field.remove();
+            if (!success) throw new Error('Copy unavailable');
+          }
+          status.textContent = 'Link copied!';
+          track('copy_link');
+        } catch (_) {
+          status.textContent = 'Copy unavailable. Please copy the address from your browser.';
+        }
+      });
+      if (typeof navigator.share === 'function') {
+        const native = section.querySelector('.journal-native-share');
+        native.hidden = false;
+        native.addEventListener('click', async () => {
+          try {
+            await navigator.share({ title, url: canonical });
+            track('native_share');
+          } catch (error) {
+            if (error?.name !== 'AbortError') status.textContent = 'Sharing unavailable. Try Email or Copy link.';
+          }
+        });
+      }
+    }());
   </script>
 </body>
 </html>
