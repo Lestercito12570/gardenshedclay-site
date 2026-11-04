@@ -1398,6 +1398,36 @@
       "etsyListed": true,
       "stripeProductId": "prod_VS4fs9iosP2dJ3",
       "stripePriceId": "price_1URAWQDTEEQD8p6ZLJlx6ArB"
+    },
+    {
+      "id": "commission_special_01",
+      "name": "Special Commisson - Susan",
+      "slug": "commission_special_01",
+      "description": "Special commission for Susan. \nWheel thrown pie plates\nBee/Bird Water Dishes",
+      "price": 360,
+      "currency": "USD",
+      "inventory": 1,
+      "fulfillmentStatus": "available",
+      "collection": "Kitchen",
+      "sortOrder": 10,
+      "colors": [
+        "Varied"
+      ],
+      "dishwasherSafe": true,
+      "microwaveSafe": true,
+      "tags": [],
+      "readyToShip": false,
+      "leadTime": "4 weeks",
+      "shipping": {
+        "type": "flat-rate",
+        "price": 50
+      },
+      "images": [],
+      "featured": false,
+      "published": true,
+      "etsyListed": false,
+      "stripeProductId": "prod_VZJYsUO7v5cQ4v",
+      "stripePriceId": "price_1UYAvADTEEQD8p6ZWls4F2y0"
     }
   ]
 }
