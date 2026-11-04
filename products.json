@@ -101,7 +101,7 @@
       "description": "A handmade, wheel thrown pie plate in stoneware and glazed in black with snowy spots. This is perfect for baking pies and is both micro and dishwasher safe. A BEAUTIFUL glaze and rustic design. Safe to use in the oven with care. 9-1/2\" diameter, 2\" height.",
       "price": 55,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [],
@@ -140,7 +140,7 @@
       "etsyListed": true,
       "stripeProductId": "prod_V3lOtAn96xeHH2",
       "stripePriceId": "price_1U5E0gDTEEQD8p6ZjEV4wNPT",
-      "fulfillmentStatus": "available"
+      "fulfillmentStatus": "pending-shipment"
     },
     {
       "id": "rustic-pottery-pie-plate-in-black-with-snowy-spots2",
