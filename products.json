@@ -1404,7 +1404,7 @@
       "name": "Special Commisson - Susan",
       "slug": "commission_special_01",
       "description": "Special commission for Susan. \nWheel thrown pie plates\nBee/Bird Water Dishes",
-      "price": 360,
+      "price": 410,
       "currency": "USD",
       "inventory": 1,
       "fulfillmentStatus": "available",
@@ -1427,7 +1427,7 @@
       "published": true,
       "etsyListed": false,
       "stripeProductId": "prod_VZJYsUO7v5cQ4v",
-      "stripePriceId": "price_1UYAvADTEEQD8p6ZWls4F2y0"
+      "stripePriceId": "price_1UYAyBDTEEQD8p6ZbG10Jof0"
     }
   ]
 }
