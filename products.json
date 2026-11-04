@@ -1407,7 +1407,7 @@
       "price": 410,
       "currency": "USD",
       "inventory": 1,
-      "fulfillmentStatus": "available",
+      "fulfillmentStatus": "pending-shipment",
       "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [
