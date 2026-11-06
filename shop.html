@@ -455,6 +455,7 @@
     .commission-form button { justify-self: start; padding: 13px 24px; border: 0; background: #693b3b; color: #fff8eb; cursor: pointer; }
     .commission-form button:hover { background: #4d2929; }
     .commission-help { font-size: 12px; }
+    .commission-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
     /*
     ----------------------------------------
     Studio statement
@@ -732,7 +733,7 @@
           <li><strong>Handmade character:</strong> Natural variations in shape, dimensions, glaze, and color are expected. Completion dates are estimates, as drying and firing can affect the schedule.</li>
         </ul>
         <h3>Request a special commission</h3>
-        <p>Share a few details below. There is no charge to inquire, and no obligation until you approve an estimate and pay for an accepted commission.</p>
+        <p>Share a few details below. There is no charge to inquire. I personally respond to every request by email, whether or not I can accept it. If the commission is possible, I will discuss the details with you and prepare a written estimate through QuickBooks. Full payment is required before production begins.</p>
         <form class="commission-form" id="commission-request-form">
           <label>Your name <input name="customerName" required maxlength="120" autocomplete="name"></label>
           <label>Email address <input type="email" name="customerEmail" required maxlength="254" autocomplete="email"></label>
@@ -740,9 +741,10 @@
           <label>Quantity <input name="quantity" type="number" min="1" max="100" value="1" required></label>
           <label>Preferred timeframe (optional) <input name="timeframe" maxlength="160" placeholder="For example: February 2027"></label>
           <label>Approximate budget (optional) <input name="budget" maxlength="160" placeholder="Your budget, excluding shipping"></label>
+          <div class="commission-trap" aria-hidden="true"><label>Leave this field blank <input name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="commission-check"><input type="checkbox" name="acknowledged" required><span>I understand that this is an inquiry, not an accepted order. If my request is accepted, I must approve the estimate and pay in full before production. Once production begins, the commission is noncancelable and nonrefundable for a change of mind, subject to applicable law and the agreed terms.</span></label>
-          <button type="submit">Prepare commission inquiry email</button>
-          <p class="commission-help" id="commission-form-status" role="status">Submitting opens your email application with the request filled in. Please press Send in your email application to deliver it to Garden Shed Clay. No payment is collected here.</p>
+          <button type="submit">Submit commission inquiry</button>
+          <p class="commission-help" id="commission-form-status" role="status">I will personally review your inquiry and respond by email. No payment is collected here.</p>
         </form>
       </div>
     </section>
@@ -799,28 +801,29 @@
 </footer>
   <script src="/js/shop.js" defer></script>
   <script>
-    document.getElementById("commission-request-form").addEventListener("submit", function (event) {
+    document.getElementById("commission-request-form").addEventListener("submit", async function (event) {
       event.preventDefault();
       if (!this.reportValidity()) return;
-      const data = new FormData(this);
-      const lines = [
-        "SPECIAL COMMISSION INQUIRY — GARDEN SHED CLAY",
-        "Name: " + data.get("customerName"),
-        "Email: " + data.get("customerEmail"),
-        "Quantity: " + data.get("quantity"),
-        "Preferred timeframe: " + (data.get("timeframe") || "Not specified"),
-        "Budget: " + (data.get("budget") || "Not specified"),
-        "",
-        "Description:",
-        data.get("description"),
-        "",
-        "Customer acknowledged commission terms: Yes",
-        "This is an inquiry only; no commission has been accepted or paid for."
-      ];
-      const subject = encodeURIComponent("Special commission inquiry — " + data.get("customerName"));
-      const body = encodeURIComponent(lines.join("\n"));
-      window.location.href = "mailto:lester@gardenshedclay.com?subject=" + subject + "&body=" + body;
-      document.getElementById("commission-form-status").textContent = "Your email application should open with the inquiry prepared. Please press Send there to complete your request. If nothing opens, email lester@gardenshedclay.com directly.";
+      const button = this.querySelector('button[type="submit"]');
+      const status = document.getElementById("commission-form-status");
+      button.disabled = true;
+      status.textContent = "Sending your inquiry…";
+      try {
+        const data = Object.fromEntries(new FormData(this).entries());
+        data.acknowledged = data.acknowledged === "on";
+        const response = await fetch("/api/commission-inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        if (!response.ok) throw new Error("Submission failed");
+        this.reset();
+        status.textContent = "Thank you! Your inquiry was submitted. I'll personally review it and respond by email, whether or not I can accept the commission.";
+      } catch (_) {
+        status.textContent = "Sorry, your inquiry could not be submitted. Please try again or email lester@gardenshedclay.com directly.";
+      } finally {
+        button.disabled = false;
+      }
     });
   </script>
   <script>
