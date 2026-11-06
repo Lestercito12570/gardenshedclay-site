@@ -205,6 +205,10 @@
       line-height: 1.45;
     }
 
+    .holiday-shipping-info { max-width: 980px; margin: 0 auto 60px; padding: 28px; background: #f1e8dc; border: 1px solid #d4b9a3; scroll-margin-top: 110px; }
+    .holiday-shipping-info h2 { font: 500 40px/1.1 var(--serif); margin: 0 0 12px; }
+    .holiday-shipping-info p { margin: 10px 0; }
+    .holiday-shipping-info a { text-underline-offset: 3px; }
     /*
     ----------------------------------------
     Hero image
@@ -498,6 +502,18 @@
       </p>
     </section>
 
+    <aside id="holiday-shipping-2026" class="holiday-shipping-info" data-holiday-2026 hidden>
+      <h2>Christmas 2026 shipping dates</h2>
+      <p>For the best chance of delivery before Christmas, please order handmade pottery by <strong>Monday, December 14</strong>. Each order needs time for careful packing.</p>
+      <p><strong>USPS recommended ship-by dates for the contiguous U.S.:</strong></p>
+      <ul>
+        <li>Ground Advantage / First-Class Mail — Thursday, December 17</li>
+        <li>Priority Mail — Friday, December 18</li>
+        <li>Priority Mail Express — Saturday, December 19</li>
+      </ul>
+      <p>USPS dates refer to mailing parcels, not placing orders. Carrier delivery times are estimates, not guarantees. Contact me before ordering if you need expedited shipping; additional charges may apply.</p>
+      <p><a href="https://www.usps.com/holiday/holiday-shipping-dates.htm" target="_blank" rel="noopener noreferrer">View the official USPS holiday schedule</a></p>
+    </aside>
     <figure class="shipping-photo">
       <img
         src="/IMG_9042.jpeg"
@@ -740,6 +756,10 @@
   </footer>
 
   <script>
+    const holidayDate = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    if (holidayDate >= "2026-11-06" && holidayDate <= "2026-12-19") {
+      document.querySelectorAll("[data-holiday-2026]").forEach(el => { el.hidden = false; });
+    }
     const yearElement = document.getElementById("year");
 
     if (yearElement) {
