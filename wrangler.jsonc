@@ -1,0 +1,18 @@
+{
+  "name": "gardenshedclay-site",
+  "compatibility_date": "2026-11-06",
+  "main": "./worker/commission.js",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/commission-inquiry"
+    ]
+  },
+  "send_email": [
+    {
+      "name": "COMMISSION_EMAIL",
+      "destination_address": "lester.morris@gmail.com"
+    }
+  ]
+}
