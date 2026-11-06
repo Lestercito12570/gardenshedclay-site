@@ -440,6 +440,22 @@
       text-transform: uppercase;
     }
 
+    .commission-section { max-width: 980px; margin: 0 auto; padding: 32px 28px 90px; }
+    .commission-inner { padding: clamp(24px, 5vw, 54px); background: #eee8dd; border: 1px solid var(--line); }
+    .commission-inner h2 { font: 500 clamp(38px, 5vw, 60px)/1.05 var(--serif); margin: 0 0 22px; }
+    .commission-inner h3 { font: 500 30px/1.1 var(--serif); margin: 30px 0 12px; }
+    .commission-inner p, .commission-inner li { color: #504a42; }
+    .commission-inner ul { padding-left: 22px; }
+    .commission-form { display: grid; gap: 16px; margin-top: 28px; }
+    .commission-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+    .commission-form input:not([type="checkbox"]), .commission-form textarea { width: 100%; min-width: 0; padding: 12px; border: 1px solid #9b8e80; background: #fff; color: var(--ink); border-radius: 2px; }
+    .commission-form textarea { min-height: 130px; resize: vertical; }
+    .commission-form .commission-check { display: flex; align-items: flex-start; gap: 12px; font-weight: 400; line-height: 1.6; }
+    .commission-form .commission-check input { margin-top: 5px; flex-shrink: 0; }
+    .commission-form button { justify-self: start; padding: 13px 24px; border: 0; background: #693b3b; color: #fff8eb; cursor: pointer; }
+    .commission-form button:hover { background: #4d2929; }
+    .commission-help { font-size: 12px; }
+    .commission-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
     /*
     ----------------------------------------
     Studio statement
@@ -703,6 +719,36 @@
       </div>
     </section>
 
+    <section class="commission-section" id="special-commissions" aria-labelledby="commission-title">
+      <div class="commission-inner">
+        <p class="shop-eyebrow">Made especially for you</p>
+        <h2 id="commission-title">Not seeing what you're looking for?</h2>
+        <p>Sometimes the perfect piece is one that hasn't been made yet. I occasionally accept special commissions for handmade pottery, whether it's a variation of a piece in my collection or an idea of your own. Tell me what you have in mind.</p>
+        <h3>How commissions work</h3>
+        <ul>
+          <li><strong>Availability:</strong> Requests are considered individually. Existing orders and studio commitments may mean I cannot accept a commission right away, or at all.</li>
+          <li><strong>Estimate and approval:</strong> I will review your request and, if I can accommodate it, provide a proposed design, price, and estimated timeline for your approval.</li>
+          <li><strong>Full prepayment:</strong> Approved commissions must be paid in full before any production begins. An inquiry does not create an order or reserve studio time.</li>
+          <li><strong>Firm commitment:</strong> Commissioned pieces are made specifically for you, not on approval. Once production begins, commissions are noncancelable and nonrefundable for a change of mind; the payment is forfeited if you decide you no longer want the piece. Exceptions apply where required by law or if Garden Shed Clay fails to meet its agreed obligations.</li>
+          <li><strong>Handmade character:</strong> Natural variations in shape, dimensions, glaze, and color are expected. Completion dates are estimates, as drying and firing can affect the schedule.</li>
+        </ul>
+        <h3>Request a special commission</h3>
+        <p>Share a few details below. There is no charge to inquire. I personally respond to every request by email, whether or not I can accept it. If the commission is possible, I will discuss the details with you and prepare a written estimate through QuickBooks. Full payment is required before production begins.</p>
+        <form class="commission-form" id="commission-request-form">
+          <label>Your name <input name="customerName" required maxlength="120" autocomplete="name"></label>
+          <label>Email address <input type="email" name="customerEmail" required maxlength="254" autocomplete="email"></label>
+          <label>What would you like made? <textarea name="description" required maxlength="3000" placeholder="Type of piece, approximate size, colors or glaze, and anything else I should know"></textarea></label>
+          <label>Quantity <input name="quantity" type="number" min="1" max="100" value="1" required></label>
+          <label>Preferred timeframe (optional) <input name="timeframe" maxlength="160" placeholder="For example: February 2027"></label>
+          <label>Approximate budget (optional) <input name="budget" maxlength="160" placeholder="Your budget, excluding shipping"></label>
+          <div class="commission-trap" aria-hidden="true"><label>Leave this field blank <input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="commission-check"><input type="checkbox" name="acknowledged" required><span>I understand that this is an inquiry, not an accepted order. If my request is accepted, I must approve the estimate and pay in full before production. Once production begins, the commission is noncancelable and nonrefundable for a change of mind, subject to applicable law and the agreed terms.</span></label>
+          <button type="submit">Prepare commission inquiry email</button>
+          <p class="commission-help" id="commission-form-status" role="status">Click the button to open a prepared email. Please press Send in your email application to deliver your inquiry. No payment is collected here.</p>
+        </form>
+      </div>
+    </section>
+
     <section class="studio-statement">
       <div class="studio-statement-inner">
         <h2>
@@ -754,6 +800,34 @@
   </div>
 </footer>
   <script src="/js/shop.js" defer></script>
+  <script>
+    document.getElementById("commission-request-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!this.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(this).entries());
+      const subject = "Special commission inquiry — Garden Shed Clay";
+      const body = [
+        "Hello Garden Shed Clay,",
+        "",
+        "I would like to inquire about a special commission.",
+        "",
+        "Name: " + data.customerName,
+        "Email: " + data.customerEmail,
+        "Quantity: " + data.quantity,
+        "Preferred timeframe: " + (data.timeframe || "Not specified"),
+        "Approximate budget: " + (data.budget || "Not specified"),
+        "",
+        "Description:",
+        data.description,
+        "",
+        "I acknowledge that this is an inquiry, not an accepted order. If accepted, I must approve an estimate and pay in full before production. Once production begins, the commission is noncancelable and nonrefundable for a change of mind, subject to applicable law and the agreed terms."
+      ].join("\n");
+      const link = "mailto:lester@gardenshedclay.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      document.getElementById("commission-form-status").textContent =
+        "Your email application should open with your inquiry prepared. Please press Send there to deliver it. The website has not sent your inquiry.";
+      window.location.href = link;
+    });
+  </script>
   <script>
     // Show through December 19 in the studio's Eastern time zone.
     const holidayDate = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
