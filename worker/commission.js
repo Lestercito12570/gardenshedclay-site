@@ -3,7 +3,7 @@ const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" }
 });
 const clean = (value, max) => typeof value === "string" ? value.trim().slice(0, max) : "";
-const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -47,13 +47,13 @@ export default {
       "Customer acknowledged commission terms: Yes",
       "This is an inquiry only. No commission has been accepted or paid for.",
       "Please personally respond to the customer whether or not the commission can be accepted."
-    ].join("\\n");
+    ].join("\n");
     try {
       await env.COMMISSION_EMAIL.send({
         from: "studio@gardenshedclay.com",
         to: "lester.morris@gmail.com",
         replyTo: customerEmail,
-        subject: "Garden Shed Clay commission inquiry — " + name.replace(/[\\r\\n]/g, " "),
+        subject: "Garden Shed Clay commission inquiry — " + name.replace(/[\r\n]/g, " "),
         text: message
       });
       return json({ ok: true });
