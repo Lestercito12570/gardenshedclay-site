@@ -1174,6 +1174,12 @@ app.get(
         );
 
       if (!response.ok) {
+        console.error(
+          "GitHub product catalog read failed:",
+          response.status,
+          response.statusText
+        );
+
         return res.status(502).json({
           error:
             "Unable to read the product catalog."
