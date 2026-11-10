@@ -495,12 +495,53 @@ async function applyFreeShippingCode() {
       "cart-made-to-order-note";
 
     note.textContent =
-      "Additional pieces will be made especially for you. We’ll contact you with an estimated ship date after your order is placed.";
+      "Only ready-to-ship pieces can be purchased now. Additional pieces require studio review, a written estimate, your acceptance, and full payment before production. No additional pieces are charged at checkout.";
 
-    wrapper.append(
-      status,
-      note
-    );
+    const actions = document.createElement("div");
+    actions.className = "cart-made-to-order-actions";
+
+    const requestButton = document.createElement("a");
+    requestButton.className = "button";
+    requestButton.textContent = "Request additional pieces";
+    const subject = "Made to Order inquiry — " + (item.name || "Pottery");
+    const body = [
+      "Hello Garden Shed Clay,",
+      "",
+      "I would like to request additional handmade pottery for review:",
+      "Item: " + (item.name || "Pottery"),
+      "Additional quantity requested: " + madeToOrderQuantity,
+      "Current ready-to-ship quantity: " + readyQuantity,
+      "",
+      "My name:",
+      "My preferred contact email:",
+      "Desired timing (optional):",
+      "Additional details (optional):",
+      "",
+      "I understand this is only a request, not an accepted order. The studio may decline or propose changes. Production begins only after I accept the estimate and pay in full.",
+      ""
+    ].join("\n");
+    requestButton.href = "mailto:lester@gardenshedclay.com?subject=" +
+      encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    requestButton.setAttribute("aria-label", "Email a Made to Order request for " + (item.name || "pottery"));
+
+    if (readyQuantity > 0) {
+      const availableButton = document.createElement("button");
+      availableButton.type = "button";
+      availableButton.className = "button";
+      availableButton.textContent = "Buy " + readyQuantity + " available now";
+      availableButton.addEventListener("click", () => {
+        const updated = loadCart();
+        const target = updated.find(entry => entry.id === item.id);
+        if (!target) return;
+        target.quantity = readyQuantity;
+        saveCart(updated);
+        renderCart(updated);
+      });
+      actions.appendChild(availableButton);
+    }
+    actions.appendChild(requestButton);
+
+    wrapper.append(status, note, actions);
 
     return wrapper;
   }
