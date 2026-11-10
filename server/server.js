@@ -466,6 +466,9 @@ if (
               status:
                 "pending-shipment",
 
+              inventoryTracking:
+                "pending",
+
               customer: {
                 name:
                   session.customer_details
@@ -580,6 +583,90 @@ if (
             
           }
           
+          // Legacy orders predate inventory automation. They were reconciled
+          // manually and must NEVER be deducted retroactively on webhook retry.
+          const inventoryEligible = !existingOrder ||
+            existingOrder.inventoryTracking === "pending";
+          if (inventoryEligible) {
+            // The product catalog commit is the idempotency boundary: each
+            // product records the Stripe session ID in the same atomic write
+            // as its stock reduction. GitHub's blob SHA prevents stale writes.
+            const catalogUrl =
+              `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${PRODUCTS_FILE_PATH}`;
+            const headers = {
+              Accept: "application/vnd.github+json",
+              Authorization: `Bearer ${githubToken}`,
+              "X-GitHub-Api-Version": "2022-11-28",
+              "Content-Type": "application/json",
+              "User-Agent": "garden-shed-clay-checkout"
+            };
+            let inventoryCommitted = false;
+            for (let attempt = 0; attempt < 5; attempt++) {
+              const catalogResponse = await fetch(
+                `${catalogUrl}?ref=${GITHUB_BRANCH}`, { headers }
+              );
+              if (!catalogResponse.ok) {
+                throw new Error(`Unable to read inventory: ${catalogResponse.status}`);
+              }
+              const catalogFile = await catalogResponse.json();
+              const catalog = JSON.parse(Buffer.from(
+                catalogFile.content, "base64"
+              ).toString("utf8"));
+              const products = Array.isArray(catalog) ? catalog : catalog.products;
+              if (!Array.isArray(products)) {
+                throw new Error("Invalid products.json inventory structure.");
+              }
+              const quantities = new Map();
+              for (const item of purchasedItems) {
+                if (!item.stripePriceId || !Number.isInteger(item.quantity) || item.quantity < 1) {
+                  throw new Error("Paid order has invalid inventory line items.");
+                }
+                quantities.set(item.stripePriceId,
+                  (quantities.get(item.stripePriceId) || 0) + item.quantity);
+              }
+              let changed = false;
+              for (const [priceId, quantity] of quantities) {
+                const product = products.find(p => p && p.stripePriceId === priceId);
+                if (!product) throw new Error(`Paid product not found in catalog: ${priceId}`);
+                const applied = Array.isArray(product.inventoryAppliedCheckoutSessions)
+                  ? product.inventoryAppliedCheckoutSessions : [];
+                if (applied.includes(session.id)) continue;
+                if (!Number.isSafeInteger(product.inventory) || product.inventory < quantity) {
+                  // Do not silently clamp stock or fabricate inventory. Escalate
+                  // this paid order for manual fulfillment reconciliation.
+                  throw new Error(`Paid order inventory shortage for ${product.id}: need ${quantity}, have ${product.inventory}`);
+                }
+                product.inventory -= quantity;
+                product.inventoryAppliedCheckoutSessions = [...applied, session.id];
+                changed = true;
+              }
+              if (!changed) {
+                inventoryCommitted = true;
+                break;
+              }
+              const write = await fetch(catalogUrl, {
+                method: "PUT", headers,
+                body: JSON.stringify({
+                  message: `Deduct inventory for paid checkout ${session.id}`,
+                  content: Buffer.from(JSON.stringify(catalog, null, 2) + "\\n").toString("base64"),
+                  sha: catalogFile.sha,
+                  branch: GITHUB_BRANCH
+                })
+              });
+              if (write.ok) {
+                inventoryCommitted = true;
+                break;
+              }
+              if (write.status !== 409 && write.status !== 422) {
+                throw new Error(`Unable to commit paid order inventory: ${write.status}`);
+              }
+            }
+            if (!inventoryCommitted) {
+              throw new Error("Inventory commit conflict after five retries.");
+            }
+            console.log("Paid checkout inventory deducted or previously applied:", session.id);
+          }
+
           console.log(
             "Garden Shed Clay order ledger loaded:",
             {
@@ -3310,6 +3397,13 @@ if (
   });
 }
         
+        const availableStock = Number(catalogProduct.inventory);
+        if (!Number.isSafeInteger(availableStock) || availableStock < quantity) {
+          return res.status(400).json({
+            error: `${catalogProduct.name} has only ${Math.max(0, availableStock || 0)} available. Please update your cart.`
+          });
+        }
+
         const productPrice =
           Number(
             catalogProduct.price
