@@ -315,3 +315,22 @@ select {
     max-width: none;
   }
 }
+
+/* Made to Order inquiry actions */
+.cart-made-to-order-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+.cart-made-to-order-actions .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  font: inherit;
+  max-width: 100%;
+  white-space: normal;
+}
