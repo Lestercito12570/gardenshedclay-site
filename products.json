@@ -1410,7 +1410,7 @@
       "description": "Special commission for Susan. \nWheel thrown pie plates\nBee/Bird Water Dishes",
       "price": 410,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "fulfillmentStatus": "pending-shipment",
       "collection": "Kitchen",
       "sortOrder": 10,
