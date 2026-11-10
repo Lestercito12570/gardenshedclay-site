@@ -2781,5 +2781,91 @@ saveChangesButton.disabled =
   })();
 </script>
   
+
+<section id="mto-admin" style="max-width:1050px;margin:2rem auto;padding:1.25rem;border:1px solid #ccc;border-radius:10px">
+  <h2>Made to Order Requests</h2>
+  <p>Inquiries are not orders. Confirm design, price and timing with the customer through QuickBooks. Do not begin production until customer approval and full payment are verified.</p>
+  <button type="button" id="mto-refresh">Refresh requests</button>
+  <p id="mto-status" role="status" aria-live="polite"></p>
+  <div id="mto-list"></div>
+</section>
+<script>
+(() => {
+  const list = document.getElementById("mto-list");
+  const status = document.getElementById("mto-status");
+  const statuses = ["pending-review", "estimate-proposed", "awaiting-payment", "declined"];
+  const add = (parent, tag, value) => {
+    const node = document.createElement(tag);
+    node.textContent = value == null ? "" : String(value);
+    parent.appendChild(node);
+    return node;
+  };
+  const field = (parent, label, value, maxLength = 250) => {
+    const wrap = document.createElement("label");
+    wrap.style.display = "block";
+    wrap.style.margin = "0.6rem 0";
+    add(wrap, "span", label + " ");
+    const input = document.createElement("input");
+    input.value = value == null ? "" : String(value);
+    input.maxLength = maxLength;
+    input.style.maxWidth = "100%";
+    wrap.appendChild(input);
+    parent.appendChild(wrap);
+    return input;
+  };
+  async function refresh() {
+    status.textContent = "Loading requests...";
+    try {
+      const response = await fetch("/api/admin/made-to-order-requests", {cache:"no-store"});
+      if (!response.ok) throw new Error("Unable to load requests.");
+      const data = await response.json();
+      list.replaceChildren();
+      const requests = (data.requests || []).slice().reverse();
+      if (!requests.length) add(list, "p", "No requests yet.");
+      requests.forEach(request => {
+        const card = document.createElement("article");
+        card.style.cssText = "border-top:1px solid #ccc;padding:1rem 0";
+        add(card, "h3", request.productName + " — " + request.quantity + " requested");
+        add(card, "p", request.id + " · " + request.createdAt + " · " + request.status);
+        add(card, "p", "Customer: " + request.name + " · " + request.email);
+        add(card, "p", "Desired timing: " + (request.desiredTiming || "Not specified"));
+        add(card, "p", "Details: " + (request.details || "None"));
+        add(card, "p", "Email notification: " + (request.notificationSent ? "Sent" : "Not configured or not delivered; review queue manually"));
+        const select = document.createElement("select");
+        statuses.forEach(value => {const opt=document.createElement("option");opt.value=value;opt.textContent=value;select.appendChild(opt);});
+        select.value = statuses.includes(request.status) ? request.status : "pending-review";
+        card.appendChild(select);
+        const timing = field(card, "Proposed completion timeframe", request.proposedTiming);
+        const price = field(card, "Proposed price (USD)", request.proposedPrice);
+        const estimate = field(card, "QuickBooks estimate/invoice reference", request.estimateReference, 150);
+        const notes = field(card, "Owner notes", request.ownerNotes, 2000);
+        const save = add(card, "button", "Save review");
+        save.type = "button";
+        const feedback = add(card, "p", "");
+        save.addEventListener("click", async () => {
+          save.disabled = true;
+          feedback.textContent = "Saving...";
+          try {
+            const response = await fetch("/api/admin/made-to-order-requests/" + encodeURIComponent(request.id), {
+              method:"PATCH", headers:{"Content-Type":"application/json"},
+              body:JSON.stringify({status:select.value, proposedTiming:timing.value, proposedPrice:price.value,
+                estimateReference:estimate.value, ownerNotes:notes.value})
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Unable to save.");
+            feedback.textContent = "Review saved. No customer email or invoice was sent automatically.";
+          } catch (error) {feedback.textContent = error.message;}
+          finally {save.disabled = false;}
+        });
+        list.appendChild(card);
+      });
+      status.textContent = requests.length + " request(s) loaded.";
+    } catch (error) {status.textContent = error.message;}
+  }
+  document.getElementById("mto-refresh").addEventListener("click", refresh);
+  refresh();
+})();
+</script>
+
 </body>
 </html>
