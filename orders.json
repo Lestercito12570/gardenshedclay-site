@@ -25,6 +25,51 @@
       "shipping": 0,
       "total": 41000,
       "currency": "USD"
+    },
+    {
+      "orderId": "gsc-cs_live_bc9pfOorSDHSftsgBFL0wMeZS5Ny4H1Ijn0hzacjiA6nr6tkPwXQBMK4aq",
+      "stripeCheckoutSessionId": "cs_live_bc9pfOorSDHSftsgBFL0wMeZS5Ny4H1Ijn0hzacjiA6nr6tkPwXQBMK4aq",
+      "stripePaymentIntentId": "pi_3UaLqJDTEEQD8p6Z2QbaK0NA",
+      "orderDate": "2026-11-10T20:36:28.000Z",
+      "status": "pending-shipment",
+      "customer": {
+        "name": "Cynthia L Humphries",
+        "email": "cindy52@bellsouth.net"
+      },
+      "items": [
+        {
+          "stripePriceId": "price_1U5Dv4DTEEQD8p6ZHJgnE6fX",
+          "name": "Baking Casserole in \"Spearmint\" Green and Cobalt Blue",
+          "quantity": 1,
+          "unitAmount": 3500,
+          "amountTotal": 3500
+        },
+        {
+          "stripePriceId": "price_1U3e1XDTEEQD8p6ZMR6PoLue",
+          "name": "Handmade Ceramic Brown Sugar Keeper with Moravian Star Design",
+          "quantity": 10,
+          "unitAmount": 700,
+          "amountTotal": 7000
+        },
+        {
+          "stripePriceId": "price_1U3e21DTEEQD8p6ZMSDS3zjF",
+          "name": "Handcrafted Ceramic Brown Sugar Keeper – Liberty Bell Design, Food-Safe Storage",
+          "quantity": 1,
+          "unitAmount": 700,
+          "amountTotal": 700
+        },
+        {
+          "stripePriceId": "price_1URAWQDTEEQD8p6ZLJlx6ArB",
+          "name": "Rustic Pottery Pie Plate with multicolored Speckles",
+          "quantity": 1,
+          "unitAmount": 5500,
+          "amountTotal": 5500
+        }
+      ],
+      "subtotal": 16700,
+      "shipping": 0,
+      "total": 16700,
+      "currency": "USD"
     }
   ]
 }
