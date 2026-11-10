@@ -500,29 +500,56 @@ async function applyFreeShippingCode() {
     const actions = document.createElement("div");
     actions.className = "cart-made-to-order-actions";
 
-    const requestButton = document.createElement("a");
+    const requestButton = document.createElement("button");
+    requestButton.type = "button";
     requestButton.className = "button";
     requestButton.textContent = "Request additional pieces";
-    const subject = "Made to Order inquiry — " + (item.name || "Pottery");
-    const body = [
-      "Hello Garden Shed Clay,",
-      "",
-      "I would like to request additional handmade pottery for review:",
-      "Item: " + (item.name || "Pottery"),
-      "Additional quantity requested: " + madeToOrderQuantity,
-      "Current ready-to-ship quantity: " + readyQuantity,
-      "",
-      "My name:",
-      "My preferred contact email:",
-      "Desired timing (optional):",
-      "Additional details (optional):",
-      "",
-      "I understand this is only a request, not an accepted order. The studio may decline or propose changes. Production begins only after I accept the estimate and pay in full.",
-      ""
-    ].join("\n");
-    requestButton.href = "mailto:lester@gardenshedclay.com?subject=" +
-      encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    requestButton.setAttribute("aria-label", "Email a Made to Order request for " + (item.name || "pottery"));
+    requestButton.addEventListener("click", () => {
+      const existing = wrapper.querySelector(".mto-request-form");
+      if (existing) { existing.remove(); return; }
+      const form = document.createElement("form");
+      form.className = "mto-request-form";
+      form.innerHTML = [
+        '<h3>Request a Made to Order estimate</h3>',
+        '<p>This is an inquiry only. No payment is collected and no work begins until the studio approves the commission, you accept the final specifications and estimate, and payment is received in full.</p>',
+        '<label>Your name <input name="name" required maxlength="120" autocomplete="name"></label>',
+        '<label>Email address <input name="email" type="email" required maxlength="254" autocomplete="email"></label>',
+        '<label>Additional pieces requested <input name="quantity" type="number" min="1" max="100" required></label>',
+        '<label>Desired timing (optional) <input name="desiredTiming" maxlength="250"></label>',
+        '<label>Details (optional) <textarea name="details" maxlength="2000" rows="3"></textarea></label>',
+        '<label class="mto-honeypot" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>',
+        '<button class="button button-primary" type="submit">Submit request for review</button>',
+        '<p class="mto-request-feedback" role="status" aria-live="polite"></p>'
+      ].join("");
+      form.elements.quantity.value = String(madeToOrderQuantity);
+      form.addEventListener("submit", async event => {
+        event.preventDefault();
+        const submit = form.querySelector('[type="submit"]');
+        const feedback = form.querySelector(".mto-request-feedback");
+        submit.disabled = true;
+        feedback.textContent = "Submitting your request...";
+        try {
+          const payload = Object.fromEntries(new FormData(form));
+          payload.productId = String(product.id || product.slug || item.id);
+          payload.quantity = Number(payload.quantity);
+          const response = await fetch("https://gsc-checkout.onrender.com/api/made-to-order-requests", {
+            method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)
+          });
+          const data = await response.json();
+          if (!response.ok || !data.success) throw new Error(data.error || "Unable to submit request.");
+          form.replaceChildren();
+          const success = document.createElement("p");
+          success.setAttribute("role", "status");
+          success.textContent = "Your request has been received for studio review. Reference: " + data.requestId + ". This is not an order. We'll contact you by email.";
+          form.appendChild(success);
+        } catch (error) {
+          feedback.textContent = error.message + " You can also contact lester@gardenshedclay.com.";
+          submit.disabled = false;
+        }
+      });
+      wrapper.appendChild(form);
+      form.elements.name.focus();
+    });
 
     if (readyQuantity > 0) {
       const availableButton = document.createElement("button");
