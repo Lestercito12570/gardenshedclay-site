@@ -3399,8 +3399,14 @@ if (
         
         const availableStock = Number(catalogProduct.inventory);
         if (!Number.isSafeInteger(availableStock) || availableStock < quantity) {
-          return res.status(400).json({
-            error: `${catalogProduct.name} has only ${Math.max(0, availableStock || 0)} available. Please update your cart.`
+          return res.status(409).json({
+            code: "INSUFFICIENT_STOCK",
+            error: `${catalogProduct.name} has only ${Math.max(0, availableStock || 0)} ready to ship.`,
+            stripePriceId: catalogProduct.stripePriceId,
+            productName: catalogProduct.name,
+            requestedQuantity: quantity,
+            availableQuantity: Number.isSafeInteger(availableStock)
+              ? Math.max(0, availableStock) : 0
           });
         }
 
