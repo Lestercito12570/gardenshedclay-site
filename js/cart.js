@@ -865,9 +865,7 @@ freeShippingCode:
             }
             return;
           }
-          return;
-        }
-        throw new Error(data.error || "Unable to start checkout.");
+          // The customer declined the adjustment. Keep their cart intact and\n          // allow them to review quantities or try checkout again.\n          renderCart(loadCart());\n          return;\n        }\n        throw new Error(data.error || "Unable to start checkout.");
       }
 
       if (!data.url) {
