@@ -3236,6 +3236,8 @@ if (
       let flatRateItemCount =
         0;
 
+      const calculatedShippingProducts = [];
+
 let smallPotteryPieceCount =
   0;
 
@@ -3335,14 +3337,12 @@ if (
             0
           );
 
-        if (
-          shippingType ===
-          "calculated"
-        ) {
-          return res.status(400).json({
-            error:
-              `${catalogProduct.name} uses calculated shipping, which is not yet supported at checkout.`
-          });
+        // Defer unsupported shipping validation until the full
+        // merchandise subtotal is known. Orders qualifying for
+        // free shipping must not be blocked by a product's
+        // calculated-shipping setting.
+        if (shippingType === "calculated") {
+          calculatedShippingProducts.push(catalogProduct.name);
         }
 
 const isSmallPotteryPiece =
@@ -3396,6 +3396,20 @@ flatRateItemCount +=
 
       const ADDITIONAL_ITEM_SHIPPING_CENTS =
         500;
+
+      // Do not guess shipping charges on orders below the
+      // free-shipping threshold. A validated newsletter code
+      // also grants free shipping.
+      if (
+        calculatedShippingProducts.length > 0 &&
+        merchandiseSubtotalCents < FREE_SHIPPING_THRESHOLD_CENTS &&
+        !newsletterFreeShippingValid
+      ) {
+        return res.status(400).json({
+          error:
+            `${calculatedShippingProducts[0]} uses calculated shipping, which is not yet supported at checkout.`
+        });
+      }
 
       let shippingAmountCents =
         0;
