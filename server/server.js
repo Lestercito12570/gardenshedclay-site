@@ -3791,9 +3791,19 @@ async function mtoNotify(request) {
   });
   return response.ok;
 }
+const mtoRequestRate = new Map();
 app.post("/api/made-to-order-requests", async (req, res) => {
   try {
     mtoKey();
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+    const recent = (mtoRequestRate.get(ip) || []).filter(t => now - t < 3600000);
+    if (recent.length >= 5) return res.status(429).json({error: "Too many requests. Please try again later."});
+    recent.push(now);
+    mtoRequestRate.set(ip, recent);
+    if (mtoRequestRate.size > 2000) for (const [key, values] of mtoRequestRate) {
+      if (values.every(t => now - t >= 3600000)) mtoRequestRate.delete(key);
+    }
     const input = req.body || {};
     // Honeypot: do not store automated submissions.
     if (input.website) return res.status(202).json({success: true});
