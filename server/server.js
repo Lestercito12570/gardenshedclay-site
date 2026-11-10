@@ -3241,6 +3241,9 @@ if (
 let smallPotteryPieceCount =
   0;
 
+let brownSugarKeeperCount =
+  0;
+
 let regularFlatRateItemCount =
   0;
       
@@ -3349,6 +3352,9 @@ const isSmallPotteryPiece =
   catalogProduct.shipping
     ?.category ===
   "small-pottery-piece";
+
+const isBrownSugarKeeper =
+  catalogProduct.shipping?.category === "brown-sugar-keeper";
         
         if (
           shippingType ===
@@ -3368,7 +3374,9 @@ const isSmallPotteryPiece =
               shippingCents
             );
 
-  if (isSmallPotteryPiece) {
+  if (isBrownSugarKeeper) {
+  brownSugarKeeperCount += quantity;
+} else if (isSmallPotteryPiece) {
   smallPotteryPieceCount +=
     quantity;
 } else {
@@ -3431,6 +3439,24 @@ if (
 
   newsletterFreeShippingApplied =
     true;
+} else if (
+  brownSugarKeeperCount > 0 &&
+  regularFlatRateItemCount === 0 &&
+  smallPotteryPieceCount === 0
+) {
+  // Brown sugar keepers only: $6 first, $2 each additional.
+  shippingAmountCents =
+    600 + Math.max(0, brownSugarKeeperCount - 1) * 200;
+} else if (
+  brownSugarKeeperCount > 0
+) {
+  // Mixed orders: retain the existing $5 additional-item rate
+  // for other pottery, and charge $2 per keeper.
+  const nonKeeperCount = flatRateItemCount - brownSugarKeeperCount;
+  shippingAmountCents =
+    highestFlatRateCents +
+    Math.max(0, nonKeeperCount - 1) * ADDITIONAL_ITEM_SHIPPING_CENTS +
+    brownSugarKeeperCount * 200;
 } else if (
   regularFlatRateItemCount > 0
 ) {
