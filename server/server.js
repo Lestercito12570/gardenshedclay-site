@@ -3710,6 +3710,159 @@ metadata: {
   }
 );
 
+
+/*
+ * Made to Order requests
+ * Customer PII is AES-256-GCM encrypted before it reaches GitHub.
+ * Set MTO_ENCRYPTION_KEY to 64 hex characters in Render.
+ * Optional notification: RESEND_API_KEY and MTO_NOTIFICATION_FROM.
+ */
+const MTO_FILE_PATH = "private-data/made-to-order.enc.json";
+const MTO_STATUSES = new Set(["pending-review", "estimate-proposed", "declined", "awaiting-payment", "paid-ready-for-production", "in-production", "completed"]);
+const mtoHeaders = token => ({
+  Accept: "application/vnd.github+json",
+  Authorization: "Bearer " + token,
+  "X-GitHub-Api-Version": "2022-11-28",
+  "User-Agent": "garden-shed-clay-mto",
+  "Content-Type": "application/json"
+});
+function mtoKey() {
+  const value = process.env.MTO_ENCRYPTION_KEY || "";
+  if (!/^[0-9a-fA-F]{64}$/.test(value)) throw new Error("MTO_ENCRYPTION_KEY must be 64 hexadecimal characters.");
+  return Buffer.from(value, "hex");
+}
+function mtoEncrypt(data) {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", mtoKey(), iv);
+  const payload = Buffer.concat([cipher.update(JSON.stringify(data), "utf8"), cipher.final()]);
+  return JSON.stringify({version: 1, iv: iv.toString("base64"), tag: cipher.getAuthTag().toString("base64"), data: payload.toString("base64")}) + "\n";
+}
+function mtoDecrypt(payload) {
+  const obj = JSON.parse(payload);
+  if (obj.version !== 1) throw new Error("Unsupported request file version.");
+  const decipher = crypto.createDecipheriv("aes-256-gcm", mtoKey(), Buffer.from(obj.iv, "base64"));
+  decipher.setAuthTag(Buffer.from(obj.tag, "base64"));
+  const result = JSON.parse(Buffer.concat([decipher.update(Buffer.from(obj.data, "base64")), decipher.final()]).toString("utf8"));
+  if (!Array.isArray(result)) throw new Error("Invalid request data.");
+  return result;
+}
+async function mtoRead() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw new Error("GITHUB_TOKEN is not configured.");
+  const url = "https://api.github.com/repos/" + GITHUB_OWNER + "/" + GITHUB_REPO + "/contents/" + MTO_FILE_PATH + "?ref=" + GITHUB_BRANCH;
+  const response = await fetch(url, {headers: mtoHeaders(token), cache: "no-store"});
+  if (response.status === 404) return {items: [], sha: null};
+  if (!response.ok) throw new Error("Request store unavailable: " + response.status);
+  const file = await response.json();
+  return {items: mtoDecrypt(Buffer.from(file.content.replace(/\\s/g, ""), "base64").toString("utf8")), sha: file.sha};
+}
+async function mtoWrite(items, sha, message) {
+  const token = process.env.GITHUB_TOKEN;
+  const url = "https://api.github.com/repos/" + GITHUB_OWNER + "/" + GITHUB_REPO + "/contents/" + MTO_FILE_PATH;
+  const body = {message, content: Buffer.from(mtoEncrypt(items)).toString("base64"), branch: GITHUB_BRANCH};
+  if (sha) body.sha = sha;
+  const response = await fetch(url, {method: "PUT", headers: mtoHeaders(token), body: JSON.stringify(body)});
+  if (response.status === 409 || response.status === 422) return false;
+  if (!response.ok) throw new Error("Request store write failed: " + response.status);
+  return true;
+}
+async function mtoMutate(change) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const {items, sha} = await mtoRead();
+    const result = change(items);
+    if (await mtoWrite(items, sha, "Update encrypted Made to Order requests")) return result;
+  }
+  throw new Error("Concurrent request update; please retry.");
+}
+async function mtoNotify(request) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.MTO_NOTIFICATION_FROM;
+  if (!apiKey || !from) return false;
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {Authorization: "Bearer " + apiKey, "Content-Type": "application/json"},
+    body: JSON.stringify({
+      from, to: ["lester@gardenshedclay.com"],
+      subject: "Made to Order request " + request.id,
+      text: "A new Made to Order inquiry is awaiting review.\n\nItem: " + request.productName +
+        "\nQuantity: " + request.quantity + "\nCustomer: " + request.name +
+        "\nEmail: " + request.email + "\n\nReview it in the Garden Shed Clay admin."
+    })
+  });
+  return response.ok;
+}
+app.post("/api/made-to-order-requests", async (req, res) => {
+  try {
+    mtoKey();
+    const input = req.body || {};
+    // Honeypot: do not store automated submissions.
+    if (input.website) return res.status(202).json({success: true});
+    const name = String(input.name || "").trim().slice(0, 120);
+    const email = String(input.email || "").trim().toLowerCase().slice(0, 254);
+    const productId = String(input.productId || "").trim().slice(0, 120);
+    const quantity = Number(input.quantity);
+    const details = String(input.details || "").trim().slice(0, 2000);
+    const desiredTiming = String(input.desiredTiming || "").trim().slice(0, 250);
+    if (!name || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || !productId || !Number.isSafeInteger(quantity) || quantity < 1 || quantity > 100) {
+      return res.status(400).json({error: "Please enter your name, valid email, item, and a quantity from 1 to 100."});
+    }
+    const catalogResponse = await fetch("https://raw.githubusercontent.com/" + GITHUB_OWNER + "/" + GITHUB_REPO + "/" + GITHUB_BRANCH + "/products.json", {cache: "no-store"});
+    if (!catalogResponse.ok) throw new Error("Catalog unavailable.");
+    const catalogPayload = await catalogResponse.json();
+    const products = Array.isArray(catalogPayload) ? catalogPayload : catalogPayload.products;
+    const product = (products || []).find(p => p && (p.id === productId || p.slug === productId));
+    if (!product) return res.status(400).json({error: "That item is no longer in the catalog."});
+    const request = {
+      id: "MTO-" + crypto.randomUUID(), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
+      name, email, productId, productName: String(product.name || product.title || productId),
+      quantity, details, desiredTiming, status: "pending-review", estimateReference: "",
+      proposedPrice: null, proposedTiming: "", ownerNotes: "", customerApprovedAt: null,
+      paymentConfirmedAt: null, notificationSent: false
+    };
+    await mtoMutate(items => {items.push(request); return request.id;});
+    // Notification failure does not invalidate a safely stored request.
+    try {
+      if (await mtoNotify(request)) {
+        await mtoMutate(items => {const saved = items.find(x => x.id === request.id); if (saved) saved.notificationSent = true;});
+      }
+    } catch (error) { console.error("Made to Order notification failed:", error); }
+    return res.status(201).json({success: true, requestId: request.id, message: "Request received for studio review. This is not an order or a payment."});
+  } catch (error) {
+    console.error("Made to Order request error:", error);
+    return res.status(503).json({error: "Unable to save your request. Please try again later or email the studio."});
+  }
+});
+app.get("/api/admin/made-to-order-requests", requireAdmin, async (req, res) => {
+  try {return res.json({requests: (await mtoRead()).items});}
+  catch (error) {console.error("MTO admin read:", error); return res.status(503).json({error: "Unable to load requests."});}
+});
+app.patch("/api/admin/made-to-order-requests/:id", requireAdmin, async (req, res) => {
+  try {
+    const status = String(req.body?.status || "");
+    if (!MTO_STATUSES.has(status)) return res.status(400).json({error: "Invalid request status."});
+    // Payment and customer acceptance must be independently verified; this endpoint cannot assert either.
+    if (["paid-ready-for-production", "in-production", "completed"].includes(status)) {
+      return res.status(409).json({error: "Payment/approval verification is not implemented. Do not mark requests ready for production here."});
+    }
+    const id = String(req.params.id);
+    const updated = await mtoMutate(items => {
+      const request = items.find(x => x.id === id);
+      if (!request) return null;
+      request.status = status;
+      request.ownerNotes = String(req.body.ownerNotes || "").slice(0, 2000);
+      request.proposedTiming = String(req.body.proposedTiming || "").slice(0, 250);
+      request.estimateReference = String(req.body.estimateReference || "").slice(0, 150);
+      const price = req.body.proposedPrice;
+      request.proposedPrice = price === null || price === undefined || price === "" ? null : Number(price);
+      if (request.proposedPrice !== null && (!Number.isFinite(request.proposedPrice) || request.proposedPrice < 0)) throw new Error("Invalid proposed price.");
+      request.updatedAt = new Date().toISOString();
+      return request;
+    });
+    if (!updated) return res.status(404).json({error: "Request not found."});
+    return res.json({success: true, request: updated});
+  } catch (error) {console.error("MTO admin update:", error); return res.status(503).json({error: "Unable to update request."});}
+});
+
 app.listen(PORT, () => {
   console.log(
     `Garden Shed Clay checkout service listening on port ${PORT}`
