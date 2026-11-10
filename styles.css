@@ -334,3 +334,9 @@ select {
   max-width: 100%;
   white-space: normal;
 }
+
+/* Made to Order request form */
+.mto-request-form { margin-top:1rem; padding:1rem; border:1px solid #c8c2b8; border-radius:8px; max-width:540px; }
+.mto-request-form label { display:block; margin:0.8rem 0; }
+.mto-request-form input, .mto-request-form textarea { display:block; width:100%; max-width:100%; box-sizing:border-box; padding:0.55rem; margin-top:0.25rem; color:#222; background:#fff; border:1px solid #8a857d; }
+.mto-request-form .mto-honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
