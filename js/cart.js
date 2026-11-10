@@ -836,10 +836,41 @@ freeShippingCode:
         await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Unable to start checkout."
-        );
+        if (response.status === 409 && data.code === "INSUFFICIENT_STOCK") {
+          const available = Number(data.availableQuantity);
+          const affected = cart.find(item =>
+            item.stripePriceId === data.stripePriceId
+          );
+          if (!affected || !Number.isSafeInteger(available) || available < 0) {
+            throw new Error("Unable to reconcile checkout inventory.");
+          }
+          const requested = Number(affected.quantity);
+          const message = available > 0
+            ? `Only ${available} of "${data.productName}" ${available === 1 ? "is" : "are"} ready to ship (you requested ${requested}).\\n\\nWould you like to update your cart to ${available} and continue to checkout? The remaining ${requested - available} will not be ordered.`
+            : `"${data.productName}" is sold out.\\n\\nWould you like to remove it from your cart and continue with your other items?`;
+          if (window.confirm(message)) {
+            const revised = loadCart();
+            const index = revised.findIndex(item =>
+              item.stripePriceId === data.stripePriceId
+            );
+            if (index < 0) throw new Error("Cart changed; please review it again.");
+            if (available === 0) revised.splice(index, 1);
+            else revised[index].quantity = available;
+            saveCart(revised);
+            renderCart(revised);
+            if (revised.length) {
+              // Retry against fresh server stock; a further change triggers
+              // another explicit confirmation rather than silently trimming.
+              return await beginCheckout();
+            }
+            return;
+          }
+          // The customer declined the adjustment. Keep their cart intact and
+          // allow them to review quantities or try checkout again.
+          renderCart(loadCart());
+          return;
+        }
+        throw new Error(data.error || "Unable to start checkout.");
       }
 
       if (!data.url) {
@@ -851,14 +882,8 @@ freeShippingCode:
       window.location.href =
         data.url;
     } catch (error) {
-      console.error(
-        "Checkout error:",
-        error
-      );
-
-      alert(
-        "Checkout could not be started. Please try again."
-      );
+      console.error("Checkout error:", error);
+      alert(error.message || "Checkout could not be started. Please try again.");
 
       elements.checkoutButton.disabled =
         false;
