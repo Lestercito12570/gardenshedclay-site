@@ -2864,6 +2864,30 @@ saveChangesButton.disabled =
           finally {save.disabled = false;}
         });
         if (request.type === "international-shipping") {
+          if (request.paymentUrl) {
+            const link = add(card, "a", "Copy/open international Stripe payment link");
+            link.href = request.paymentUrl;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            add(card, "p", "Payment link expires: " + (request.paymentExpiresAt || "unknown") +
+              ". Share only after confirming the quote with the customer.");
+          } else if (request.quote?.status === "prepared-not-payable" && request.status === "estimate-proposed") {
+            const issue = add(card, "button", "Create secure Stripe payment link");
+            issue.type = "button";
+            const feedback = add(card, "p", "Payment activation requires server approval; preparation alone does not charge the customer.");
+            issue.addEventListener("click", async () => {
+              if (!confirm("Create a Stripe Checkout payment link for this approved international quote?")) return;
+              issue.disabled = true;
+              try {
+                const response = await fetch("/api/admin/international-quotes/" +
+                  encodeURIComponent(request.id) + "/payment-link", {method:"POST"});
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Unable to create link.");
+                feedback.textContent = "Payment link created. Reload the admin page to view it.";
+              } catch(error) {feedback.textContent = error.message;}
+              finally {issue.disabled = false;}
+            });
+          }
           const heading = add(card, "h4", "International quote preparation");
           heading.style.marginTop = "1rem";
           add(card, "p", "Review the shipping destination and inventory. Preparing a quote does not create a payment link or contact the customer.");
