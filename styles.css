@@ -340,3 +340,50 @@ select {
 .mto-request-form label { display:block; margin:0.8rem 0; }
 .mto-request-form input, .mto-request-form textarea { display:block; width:100%; max-width:100%; box-sizing:border-box; padding:0.55rem; margin-top:0.25rem; color:#222; background:#fff; border:1px solid #8a857d; }
 .mto-request-form .mto-honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+/* International shipping quote form: explicit field layout, isolated from other forms. */
+#international-form .international-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  width: 100%;
+}
+#international-form .international-field label {
+  display: block;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+#international-form .international-field input,
+#international-form .international-field textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.4;
+}
+#international-form .international-field textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+#international-form .international-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+#international-form button[type="submit"] {
+  max-width: 100%;
+  white-space: normal;
+}
