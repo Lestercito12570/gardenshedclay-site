@@ -331,6 +331,19 @@ if (
           session.payment_status === "paid"
         ) {
 
+          // Reject unmatched international sessions BEFORE recording orders or touching inventory.
+          if (session.metadata?.internationalInquiryId) {
+            const inquiry = (await mtoRead()).items.find(x =>
+              x.id === session.metadata.internationalInquiryId && x.type === "international-shipping");
+            if (!inquiry || inquiry.paymentSessionId !== session.id ||
+                inquiry.paymentQuoteHash !== session.metadata.internationalQuoteHash ||
+                inquiry.quote?.totalCents !== session.amount_total ||
+                inquiry.quote?.countryCode !== session.shipping_details?.address?.country &&
+                inquiry.quote?.countryCode !== session.collected_information?.shipping_details?.address?.country) {
+              throw new Error("International payment does not match an authorized quote, destination or amount.");
+            }
+          }
+
           const stripeLineItems =
             await liveStripe.checkout.sessions.listLineItems(
               session.id,
@@ -3788,6 +3801,7 @@ async function mtoMutate(change) {
   for (let attempt = 0; attempt < 4; attempt++) {
     const {items, sha} = await mtoRead();
     const result = change(items);
+    if (result === null) return null;
     if (await mtoWrite(items, sha, "Update encrypted Made to Order requests")) return result;
   }
   throw new Error("Concurrent request update; please retry.");
@@ -4078,6 +4092,8 @@ app.post("/api/admin/international-quotes/:id/payment-link", requireAdmin, async
     if (stripeExpiry < Math.floor(Date.now()/1000) + 1800) {
       return res.status(409).json({error:"Quote expires too soon to issue a payment link."});
     }
+    // An identical request can be retried after a GitHub write failure. The Stripe
+    // idempotency key reuses the same session rather than charging twice.
     const session = await liveStripe.checkout.sessions.create({
       mode:"payment",
       line_items:lineItems,
@@ -4113,7 +4129,11 @@ app.post("/api/admin/international-quotes/:id/payment-link", requireAdmin, async
       return current;
     });
     if (!updated) {
-      await liveStripe.checkout.sessions.expire(session.id).catch(err=>console.error("Could not expire conflicting international session:",err));
+      // Do not expire an existing session that a concurrent request already registered.
+      const latest = (await mtoRead()).items.find(x=>x.id===id);
+      if (latest?.paymentSessionId !== session.id) {
+        await liveStripe.checkout.sessions.expire(session.id).catch(err=>console.error("Could not expire conflicting international session:",err));
+      }
       return res.status(409).json({error:"Inquiry changed; Stripe payment session was cancelled. Reload and retry."});
     }
     return res.json({success:true,url:session.url,expiresAt:updated.paymentExpiresAt,
