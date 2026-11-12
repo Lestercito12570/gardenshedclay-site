@@ -667,6 +667,24 @@ if (
             console.log("Paid checkout inventory deducted or previously applied:", session.id);
           }
 
+          if (session.metadata?.internationalInquiryId) {
+            const inquiryId = session.metadata.internationalInquiryId;
+            const quoteHash = session.metadata.internationalQuoteHash;
+            const verified = await mtoMutate(all => {
+              const inquiry = all.find(x=>x.id===inquiryId && x.type==="international-shipping");
+              if (!inquiry || inquiry.paymentSessionId !== session.id ||
+                  inquiry.paymentQuoteHash !== quoteHash) {
+                throw new Error("International paid session does not match a registered quote.");
+              }
+              if (inquiry.paymentConfirmedAt) return inquiry;
+              inquiry.paymentConfirmedAt = new Date().toISOString();
+              inquiry.status = "paid-ready-for-production";
+              inquiry.updatedAt = new Date().toISOString();
+              return inquiry;
+            });
+            if (!verified) throw new Error("Unable to confirm international paid inquiry.");
+          }
+
           console.log(
             "Garden Shed Clay order ledger loaded:",
             {
@@ -3915,6 +3933,7 @@ app.patch("/api/admin/made-to-order-requests/:id", requireAdmin, async (req, res
     const updated = await mtoMutate(items => {
       const request = items.find(x => x.id === id);
       if (!request) return null;
+      if (request.paymentSessionId || request.paymentConfirmedAt) throw new Error("Payment-linked inquiries cannot be manually reclassified.");
       request.status = status;
       request.ownerNotes = String(req.body.ownerNotes || "").slice(0, 2000);
       request.proposedTiming = String(req.body.proposedTiming || "").slice(0, 250);
@@ -3998,6 +4017,110 @@ app.post("/api/admin/international-quotes/:id/prepare", requireAdmin, async (req
   } catch(error) {
     console.error("International quote preparation error:",error);
     return res.status(503).json({error:"Unable to prepare the quote. No payment was created."});
+  }
+});
+
+
+/*
+ * PR #95: owner-controlled international payment links.
+ * Feature stays OFF until end-to-end webhook and fulfillment tests are approved.
+ */
+const INTERNATIONAL_PAYMENT_COUNTRIES = new Set(
+  "AU AT BE CA CH CZ DE DK ES FI FR GB GR HR HU IE IL IT JP LU MX NL NO NZ PL PT SE SG SK SI".split(" ")
+);
+app.post("/api/admin/international-quotes/:id/payment-link", requireAdmin, async (req,res) => {
+  try {
+    if (process.env.ENABLE_INTERNATIONAL_STRIPE_PAYMENTS !== "true") {
+      return res.status(409).json({error:"International Stripe payments are not activated. Complete payment and webhook validation first."});
+    }
+    const id = String(req.params.id || "");
+    const {items} = await mtoRead();
+    const inquiry = items.find(x => x.id === id && x.type === "international-shipping");
+    if (!inquiry || !inquiry.quote) return res.status(404).json({error:"Prepared international quote not found."});
+    const q = inquiry.quote;
+    if (inquiry.status !== "estimate-proposed" || inquiry.paymentSessionId || inquiry.paymentConfirmedAt ||
+        q.status !== "prepared-not-payable" || !INTERNATIONAL_PAYMENT_COUNTRIES.has(q.countryCode) ||
+        Date.parse(q.expiresAt + "T23:59:59Z") <= Date.now()) {
+      return res.status(409).json({error:"Quote is expired, already linked, or destination is unsupported. Prepare a new quote."});
+    }
+    if (!Number.isSafeInteger(q.shippingCents) || q.shippingCents < 0 ||
+        !Number.isSafeInteger(q.totalCents) || !Array.isArray(q.items) || !q.items.length) {
+      return res.status(409).json({error:"Invalid quote totals."});
+    }
+    const response = await fetch("https://raw.githubusercontent.com/"+GITHUB_OWNER+"/"+GITHUB_REPO+"/"+GITHUB_BRANCH+"/products.json",{cache:"no-store"});
+    if (!response.ok) throw new Error("Catalog unavailable");
+    const catalogPayload = await response.json();
+    const catalog = Array.isArray(catalogPayload) ? catalogPayload : catalogPayload.products;
+    let subtotal = 0;
+    const lineItems = [];
+    for (const item of q.items) {
+      const product = (catalog || []).find(p => p && String(p.id || p.slug) === String(item.productId));
+      if (!product || product.stripePriceId !== item.stripePriceId ||
+          !Number.isSafeInteger(product.inventory) || product.inventory < item.quantity) {
+        return res.status(409).json({error:"Product or inventory changed. Prepare a new quote."});
+      }
+      const price = await liveStripe.prices.retrieve(item.stripePriceId);
+      if (!price.active || price.currency !== "usd" || price.unit_amount !== item.unitAmountCents) {
+        return res.status(409).json({error:"Price changed. Prepare a new quote."});
+      }
+      subtotal += price.unit_amount * item.quantity;
+      lineItems.push({price:price.id,quantity:item.quantity});
+    }
+    if (subtotal !== q.merchandiseSubtotalCents || subtotal + q.shippingCents !== q.totalCents) {
+      return res.status(409).json({error:"Quote totals changed. Prepare a new quote."});
+    }
+    // Deterministic idempotency key prevents duplicate Stripe sessions after a write failure.
+    const quoteHash = crypto.createHash("sha256").update(JSON.stringify({id,quote:q})).digest("hex");
+    const stripeExpiry = Math.min(
+      Math.floor(Date.parse(q.expiresAt+"T23:59:59Z") / 1000),
+      Math.floor(Date.now()/1000) + 24*3600
+    );
+    if (stripeExpiry < Math.floor(Date.now()/1000) + 1800) {
+      return res.status(409).json({error:"Quote expires too soon to issue a payment link."});
+    }
+    const session = await liveStripe.checkout.sessions.create({
+      mode:"payment",
+      line_items:lineItems,
+      customer_email:inquiry.email,
+      client_reference_id:id,
+      success_url:"https://gardenshedclay.com/success.html?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url:"https://gardenshedclay.com/cart.html",
+      expires_at:stripeExpiry,
+      shipping_address_collection:{allowed_countries:[q.countryCode]},
+      shipping_options:[{shipping_rate_data:{
+        type:"fixed_amount",
+        fixed_amount:{amount:q.shippingCents,currency:"usd"},
+        display_name:"Approved international shipping"
+      }}],
+      metadata:{
+        internationalInquiryId:id,
+        internationalQuoteHash:quoteHash,
+        merchandiseSubtotalCents:String(subtotal),
+        shippingAmountCents:String(q.shippingCents)
+      }
+    },{idempotencyKey:"gsc-int-"+quoteHash});
+    const updated = await mtoMutate(all => {
+      const current = all.find(x=>x.id===id && x.type==="international-shipping");
+      if (!current || current.paymentSessionId || current.paymentConfirmedAt ||
+          current.status !== "estimate-proposed" ||
+          crypto.createHash("sha256").update(JSON.stringify({id,quote:current.quote})).digest("hex") !== quoteHash) return null;
+      current.paymentSessionId = session.id;
+      current.paymentUrl = session.url;
+      current.paymentQuoteHash = quoteHash;
+      current.paymentExpiresAt = new Date(stripeExpiry*1000).toISOString();
+      current.status = "awaiting-payment";
+      current.updatedAt = new Date().toISOString();
+      return current;
+    });
+    if (!updated) {
+      await liveStripe.checkout.sessions.expire(session.id).catch(err=>console.error("Could not expire conflicting international session:",err));
+      return res.status(409).json({error:"Inquiry changed; Stripe payment session was cancelled. Reload and retry."});
+    }
+    return res.json({success:true,url:session.url,expiresAt:updated.paymentExpiresAt,
+      notice:"Share this link with the customer only after confirming the quote."});
+  } catch(error) {
+    console.error("International payment link error:",error);
+    return res.status(503).json({error:"Unable to create payment link. Review inquiry status before retrying."});
   }
 });
 
