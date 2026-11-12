@@ -118,6 +118,21 @@
 
       </button>
 
+<section class="international-inquiry" aria-labelledby="international-title" style="margin:1.5rem 0;padding:1.25rem;border:1px solid #d8c9b6;border-radius:8px">
+<h3 id="international-title">Ordering from outside the United States?</h3>
+<p>We welcome international inquiries! Shipping is calculated for your destination and confirmed before payment. Customs duties and import taxes, where applicable, are the buyer's responsibility. Service depends on destination and carrier availability.</p>
+<button class="button" id="international-toggle" type="button">Request an international shipping quote</button>
+<form id="international-form" hidden style="margin-top:1rem">
+<p>We'll quote shipping for the pottery currently in your cart. No order, payment or inventory reservation is created.</p>
+<label>Your name <input name="name" required maxlength="120" autocomplete="name"></label>
+<label>Email <input name="email" type="email" required maxlength="254" autocomplete="email"></label>
+<label>Destination country <input name="country" required maxlength="100" autocomplete="country-name"></label>
+<label>Postal code / region <input name="postalCode" required maxlength="120" autocomplete="postal-code"></label>
+<label>Notes (optional) <textarea name="notes" maxlength="1500" rows="3"></textarea></label>
+<label style="position:absolute;left:-9999px" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+<button class="button button-primary" type="submit">Submit shipping inquiry</button>
+<p id="international-feedback" role="status" aria-live="polite"></p>
+</form></section>
 <a
   href="/shop.html"
   class="button"
