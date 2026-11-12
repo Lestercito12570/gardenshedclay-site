@@ -2863,6 +2863,45 @@ saveChangesButton.disabled =
           } catch (error) {feedback.textContent = error.message;}
           finally {save.disabled = false;}
         });
+        if (request.type === "international-shipping") {
+          const heading = add(card, "h4", "International quote preparation");
+          heading.style.marginTop = "1rem";
+          add(card, "p", "Review the shipping destination and inventory. Preparing a quote does not create a payment link or contact the customer.");
+          if (request.quote) {
+            add(card, "p", "Prepared quote: merchandise $" + (request.quote.merchandiseSubtotalCents / 100).toFixed(2) +
+              " + shipping $" + (request.quote.shippingCents / 100).toFixed(2) +
+              " = $" + (request.quote.totalCents / 100).toFixed(2) +
+              " USD · " + request.quote.countryCode + " · expires " + request.quote.expiresAt +
+              " · " + request.quote.status);
+          }
+          const country = field(card, "Destination ISO country code (two letters, e.g. CA or GB)", request.quote?.countryCode || "", 2);
+          const shipping = field(card, "Approved shipping charge (USD; e.g. 24.50)", request.quote ? (request.quote.shippingCents / 100).toFixed(2) : "", 12);
+          const expiry = field(card, "Quote expiry date (YYYY-MM-DD)", request.quote?.expiresAt || "", 10);
+          const prepare = add(card, "button", "Prepare quote for review (no payment)");
+          prepare.type = "button";
+          prepare.disabled = Boolean(request.paymentSessionId || request.paymentConfirmedAt);
+          const quoteFeedback = add(card, "p", "");
+          prepare.addEventListener("click", async () => {
+            const amount = shipping.value.trim();
+            if (!/^\\d+(?:\\.\\d{1,2})?$/.test(amount)) {
+              quoteFeedback.textContent = "Enter shipping in USD with at most two decimal places.";
+              return;
+            }
+            prepare.disabled = true;
+            quoteFeedback.textContent = "Verifying current product prices and inventory...";
+            try {
+              const response = await fetch("/api/admin/international-quotes/" + encodeURIComponent(request.id) + "/prepare", {
+                method:"POST",headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({countryCode:country.value.trim().toUpperCase(),
+                  shippingCents:Math.round(Number(amount)*100),expiresAt:expiry.value.trim()})
+              });
+              const data = await response.json();
+              if (!response.ok) throw new Error(data.error || "Unable to prepare quote.");
+              quoteFeedback.textContent = "Quote saved for owner review. No payment link was created. Refresh to see totals.";
+            } catch(error) {quoteFeedback.textContent = error.message;}
+            finally {prepare.disabled = false;}
+          });
+        }
         list.appendChild(card);
       });
       status.textContent = requests.length + " request(s) loaded.";
