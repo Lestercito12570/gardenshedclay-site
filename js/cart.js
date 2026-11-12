@@ -961,6 +961,41 @@ freeShippingCode:
     }
   }
 
+  function initializeInternationalInquiry() {
+    const toggle = document.getElementById("international-toggle");
+    const form = document.getElementById("international-form");
+    const feedback = document.getElementById("international-feedback");
+    if (!toggle || !form || !feedback) return;
+    toggle.addEventListener("click", () => { form.hidden = !form.hidden; if (!form.hidden) form.elements.name.focus(); });
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const cart = loadCart();
+      if (!cart.length) { feedback.textContent = "Add pottery to your cart first."; return; }
+      const submit = form.querySelector('button[type="submit"]');
+      submit.disabled = true;
+      feedback.textContent = "Sending your inquiry...";
+      try {
+        const values = new FormData(form);
+        const response = await fetch("https://gsc-checkout.onrender.com/api/international-shipping-inquiries", {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+            name:values.get("name"), email:values.get("email"),
+            country:values.get("country"), postalCode:values.get("postalCode"),
+            notes:values.get("notes"), website:values.get("website"),
+            items:cart.map(item => ({id:item.id,quantity:Number(item.quantity)}))
+          })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Unable to submit inquiry.");
+        feedback.textContent = "Thank you! Inquiry " + data.requestId + " received. We will confirm shipping before payment.";
+        form.querySelectorAll("input,textarea,button").forEach(el => el.disabled = true);
+      } catch (error) {
+        feedback.textContent = error.message || "Please try again.";
+        submit.disabled = false;
+      }
+    });
+  }
+
   async function initializeCart() {
     const cart =
       loadCart();
@@ -968,6 +1003,7 @@ freeShippingCode:
     await loadCatalog();
 
     renderCart(cart);
+    initializeInternationalInquiry();
 
     if (
       elements.checkoutButton
