@@ -3783,8 +3783,8 @@ async function mtoNotify(request) {
     headers: {Authorization: "Bearer " + apiKey, "Content-Type": "application/json"},
     body: JSON.stringify({
       from, to: ["lester@gardenshedclay.com"],
-      subject: "Made to Order request " + request.id,
-      text: "A new Made to Order inquiry is awaiting review.\n\nItem: " + request.productName +
+      subject: (request.type === "international-shipping" ? "International shipping inquiry " : "Made to Order request ") + request.id,
+      text: (request.type === "international-shipping" ? "An international shipping inquiry is awaiting review." : "A Made to Order inquiry is awaiting review.") + "\n\nItem: " + request.productName +
         "\nQuantity: " + request.quantity + "\nCustomer: " + request.name +
         "\nEmail: " + request.email + "\n\nReview it in the Garden Shed Clay admin."
     })
@@ -3842,6 +3842,63 @@ app.post("/api/made-to-order-requests", async (req, res) => {
     return res.status(503).json({error: "Unable to save your request. Please try again later or email the studio."});
   }
 });
+
+/* International shipping inquiries: encrypted storage, no checkout or stock mutation. */
+app.post("/api/international-shipping-inquiries", async (req,res) => {
+  try {
+    mtoKey();
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+    const recent = (mtoRequestRate.get(ip) || []).filter(t => now-t < 3600000);
+    if (recent.length >= 5) return res.status(429).json({error:"Too many requests. Please try again later."});
+    recent.push(now);
+    mtoRequestRate.set(ip,recent);
+    const input = req.body || {};
+    if (input.website) return res.status(202).json({success:true});
+    const name = String(input.name || "").trim().slice(0,120);
+    const email = String(input.email || "").trim().toLowerCase().slice(0,254);
+    const country = String(input.country || "").trim().slice(0,100);
+    const postalCode = String(input.postalCode || "").trim().slice(0,120);
+    const notes = String(input.notes || "").trim().slice(0,1500);
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !country || !postalCode ||
+        !Array.isArray(input.items) || !input.items.length || input.items.length > 30) {
+      return res.status(400).json({error:"Enter your contact details, destination and pottery selections."});
+    }
+    const response = await fetch("https://raw.githubusercontent.com/"+GITHUB_OWNER+"/"+GITHUB_REPO+"/"+GITHUB_BRANCH+"/products.json",{cache:"no-store"});
+    if (!response.ok) throw new Error("Catalog unavailable");
+    const payload = await response.json();
+    const catalog = Array.isArray(payload) ? payload : payload.products;
+    const items = input.items.map(item => {
+      const id = String(item?.id || "").trim();
+      const quantity = Number(item?.quantity);
+      if (!id || !Number.isSafeInteger(quantity) || quantity < 1 || quantity > 100) return null;
+      const product = (catalog || []).find(p => p && (String(p.id) === id || String(p.slug) === id));
+      if (!product) return null;
+      return {productId:String(product.id || product.slug),productName:String(product.name || product.title || id),quantity};
+    });
+    if (items.some(item => !item) || new Set(items.map(item=>item.productId)).size !== items.length) {
+      return res.status(400).json({error:"An item in your cart is unavailable. Please refresh and try again."});
+    }
+    const request = {
+      id:"INT-"+crypto.randomUUID(),type:"international-shipping",createdAt:new Date().toISOString(),
+      updatedAt:new Date().toISOString(),name,email,country,postalCode,notes,items,
+      productName:items.map(item=>item.productName).join(", "),quantity:items.reduce((n,item)=>n+item.quantity,0),
+      status:"pending-review",estimateReference:"",proposedPrice:null,proposedTiming:"",
+      ownerNotes:"",customerApprovedAt:null,paymentConfirmedAt:null,notificationSent:false
+    };
+    await mtoMutate(all => {all.push(request);return request.id;});
+    try {
+      if (await mtoNotify(request)) {
+        await mtoMutate(all => {const saved=all.find(item=>item.id===request.id);if(saved)saved.notificationSent=true;});
+      }
+    } catch(error) {console.error("International inquiry notification failed:",error);}
+    return res.status(201).json({success:true,requestId:request.id,message:"Inquiry received. No payment or order created."});
+  } catch(error) {
+    console.error("International inquiry error:",error);
+    return res.status(503).json({error:"Unable to save your inquiry. Please try again or email the studio."});
+  }
+});
+
 app.get("/api/admin/made-to-order-requests", requireAdmin, async (req, res) => {
   try {return res.json({requests: (await mtoRead()).items});}
   catch (error) {console.error("MTO admin read:", error); return res.status(503).json({error: "Unable to load requests."});}
