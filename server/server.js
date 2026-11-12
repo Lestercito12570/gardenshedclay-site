@@ -3930,6 +3930,77 @@ app.patch("/api/admin/made-to-order-requests/:id", requireAdmin, async (req, res
   } catch (error) {console.error("MTO admin update:", error); return res.status(503).json({error: "Unable to update request."});}
 });
 
+
+/*
+ * International quote preparation (PR #94).
+ * Deliberately disabled for live payment until webhook and inventory integration
+ * have been end-to-end tested. No customer-facing payment URL is issued here.
+ */
+const INTERNATIONAL_QUOTE_STATUSES = new Set(["pending-review","estimate-proposed","declined"]);
+app.post("/api/admin/international-quotes/:id/prepare", requireAdmin, async (req,res) => {
+  try {
+    const requestId = String(req.params.id || "");
+    const countryCode = String(req.body?.countryCode || "").trim().toUpperCase();
+    const shippingCents = Number(req.body?.shippingCents);
+    const expiresAt = String(req.body?.expiresAt || "");
+    if (!/^[A-Z]{2}$/.test(countryCode) || countryCode === "US" ||
+        !Number.isSafeInteger(shippingCents) || shippingCents < 0 || shippingCents > 10000000 ||
+        !/^\\d{4}-\\d{2}-\\d{2}$/.test(expiresAt) ||
+        Date.parse(expiresAt + "T23:59:59Z") <= Date.now()) {
+      return res.status(400).json({error:"Enter a non-US two-letter country code, shipping in cents, and a future expiration date."});
+    }
+    const store = await mtoRead();
+    const inquiry = store.items.find(item => item.id === requestId && item.type === "international-shipping");
+    if (!inquiry) return res.status(404).json({error:"International inquiry not found."});
+    if (!INTERNATIONAL_QUOTE_STATUSES.has(inquiry.status) || inquiry.paymentConfirmedAt || inquiry.paymentSessionId) {
+      return res.status(409).json({error:"This inquiry is not eligible for a new quote. Review its current state."});
+    }
+    const response = await fetch("https://raw.githubusercontent.com/"+GITHUB_OWNER+"/"+GITHUB_REPO+"/"+GITHUB_BRANCH+"/products.json",{cache:"no-store"});
+    if (!response.ok) throw new Error("Catalog unavailable");
+    const payload = await response.json();
+    const catalog = Array.isArray(payload) ? payload : payload.products;
+    const items = [];
+    let merchandiseSubtotalCents = 0;
+    for (const requested of inquiry.items || []) {
+      const product = (catalog || []).find(p => p && String(p.id || p.slug) === String(requested.productId));
+      if (!product || !product.stripePriceId || !Number.isSafeInteger(requested.quantity) || requested.quantity < 1 ||
+          !Number.isSafeInteger(product.inventory) || product.inventory < requested.quantity) {
+        return res.status(409).json({error:"Product, price or inventory changed. Review the inquiry before preparing a quote."});
+      }
+      // Price comes from Stripe, never from customer input.
+      const price = await liveStripe.prices.retrieve(product.stripePriceId);
+      if (!price.active || price.currency !== "usd" || !Number.isSafeInteger(price.unit_amount) || price.unit_amount < 1) {
+        return res.status(409).json({error:"A product has an unavailable or unsupported Stripe price."});
+      }
+      merchandiseSubtotalCents += price.unit_amount * requested.quantity;
+      items.push({productId:requested.productId,productName:requested.productName,
+        stripePriceId:price.id,quantity:requested.quantity,unitAmountCents:price.unit_amount});
+    }
+    if (!items.length || !Number.isSafeInteger(merchandiseSubtotalCents)) {
+      return res.status(409).json({error:"Quote cannot be prepared from this inquiry."});
+    }
+    const quote = {
+      countryCode, shippingCents, merchandiseSubtotalCents,
+      totalCents:merchandiseSubtotalCents + shippingCents,
+      items, expiresAt, preparedAt:new Date().toISOString(),
+      status:"prepared-not-payable"
+    };
+    const updated = await mtoMutate(all => {
+      const current = all.find(item=>item.id===requestId && item.type==="international-shipping");
+      if (!current || !INTERNATIONAL_QUOTE_STATUSES.has(current.status) || current.paymentSessionId || current.paymentConfirmedAt) return null;
+      current.quote = quote;
+      current.status = "estimate-proposed";
+      current.updatedAt = new Date().toISOString();
+      return current;
+    });
+    if (!updated) return res.status(409).json({error:"Inquiry changed while preparing the quote. Reload and retry."});
+    return res.json({success:true,quote,notice:"Quote prepared for owner review only. No Stripe session or payment link has been created."});
+  } catch(error) {
+    console.error("International quote preparation error:",error);
+    return res.status(503).json({error:"Unable to prepare the quote. No payment was created."});
+  }
+});
+
 app.listen(PORT, () => {
   console.log(
     `Garden Shed Clay checkout service listening on port ${PORT}`
