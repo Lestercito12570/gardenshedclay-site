@@ -122,14 +122,14 @@
 <h3 id="international-title">Ordering from outside the United States?</h3>
 <p>We welcome international inquiries! Shipping is calculated for your destination and confirmed before payment. Customs duties and import taxes, where applicable, are the buyer's responsibility. Service depends on destination and carrier availability.</p>
 <button class="button" id="international-toggle" type="button">Request an international shipping quote</button>
-<form id="international-form" hidden style="margin-top:1rem">
+<form id="international-form" hidden autocomplete="on" style="margin-top:1rem">
 <p>We'll quote shipping for the pottery currently in your cart. No order, payment or inventory reservation is created.</p>
-<label>Your name <input name="name" required maxlength="120" autocomplete="name"></label>
-<label>Email <input name="email" type="email" required maxlength="254" autocomplete="email"></label>
-<label>Destination country <input name="country" required maxlength="100" autocomplete="country-name"></label>
-<label>Postal code / region <input name="postalCode" required maxlength="120" autocomplete="postal-code"></label>
-<label>Notes (optional) <textarea name="notes" maxlength="1500" rows="3"></textarea></label>
-<label style="position:absolute;left:-9999px" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+<div class="international-field"><label for="international-name">Your name</label><input id="international-name" name="name" type="text" required maxlength="120" autocomplete="section-international name"></div>
+<div class="international-field"><label for="international-email">Email address</label><input id="international-email" name="email" type="email" required maxlength="254" autocomplete="section-international email" inputmode="email"></div>
+<div class="international-field"><label for="international-country">Destination country</label><input id="international-country" name="country" type="text" required maxlength="100" autocomplete="section-international shipping country-name" placeholder="e.g. United Kingdom"></div>
+<div class="international-field"><label for="international-postal">Postal code / region</label><input id="international-postal" name="postalCode" type="text" required maxlength="120" autocomplete="section-international shipping postal-code"></div>
+<div class="international-field"><label for="international-notes">Notes (optional)</label><textarea id="international-notes" name="notes" maxlength="1500" rows="3"></textarea></div>
+<div class="international-honeypot" aria-hidden="true"><label for="international-website">Website</label><input id="international-website" name="website" tabindex="-1" autocomplete="off"></div>
 <button class="button button-primary" type="submit">Submit shipping inquiry</button>
 <p id="international-feedback" role="status" aria-live="polite"></p>
 </form></section>
