@@ -479,6 +479,18 @@ if (
                     ?.email || null
               },
 
+              // Preserve the verified Checkout shipping address for fulfillment.
+              // Historical orders may not have this field.
+              shippingAddress:
+                session.collected_information?.shipping_details?.address ||
+                session.shipping_details?.address ||
+                null,
+              shippingRecipient:
+                session.collected_information?.shipping_details?.name ||
+                session.shipping_details?.name ||
+                session.customer_details?.name ||
+                null,
+
               items:
                 purchasedItems,
 
