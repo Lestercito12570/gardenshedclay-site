@@ -2004,6 +2004,83 @@ customers.forEach((customer) => {
   }
 );
 
+
+    // Packing documents are generated locally from the authenticated order list.
+    // Do not include payment identifiers, prices, or customer email on printouts.
+    function printOrderDocument(order, customerCopy) {
+      const popup = window.open("", "_blank");
+      if (!popup) {
+        manageOrdersStatus.textContent = "Please allow pop-ups for this admin page to print packing documents.";
+        return;
+      }
+      const doc = popup.document;
+      doc.open();
+      doc.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Packing document</title></head><body></body></html>');
+      doc.close();
+      const style = doc.createElement("style");
+      style.textContent = '@page{size:letter;margin:.65in}body{font:14px Arial,sans-serif;color:#222;max-width:8in;margin:0 auto}h1{font:24px Georgia,serif;margin:0}h2{font-size:18px;margin:8px 0 22px}header{border-bottom:2px solid #333;padding-bottom:15px;margin-bottom:22px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}.label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#555}table{border-collapse:collapse;width:100%;margin:20px 0}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #aaa}th:last-child,td:last-child{text-align:right}.check{font-size:20px}.warning{border:1px solid #777;padding:12px;font-weight:bold}.notes{margin-top:35px;line-height:2}.foot{margin-top:36px;border-top:1px solid #ccc;padding-top:16px}@media print{.no-print{display:none}}';
+      doc.head.appendChild(style);
+      const body = doc.body;
+      const add = (parent, tag, value, cls) => {
+        const el = doc.createElement(tag);
+        if (value !== undefined) el.textContent = String(value);
+        if (cls) el.className = cls;
+        parent.appendChild(el);
+        return el;
+      };
+      const header = add(body, "header");
+      add(header, "h1", "GARDEN SHED CLAY");
+      add(header, "h2", customerCopy ? "Packing Slip" : "Packing Worksheet");
+      const meta = add(body, "section", undefined, "meta");
+      const left = add(meta, "div");
+      add(left, "div", "Order", "label");
+      add(left, "div", order.orderId || "Website order");
+      add(left, "div", "Order date", "label");
+      add(left, "div", order.orderDate ? new Date(order.orderDate).toLocaleDateString() : "Not recorded");
+      const right = add(meta, "div");
+      add(right, "div", "Ship to", "label");
+      const address = order.shippingAddress || order.customer?.shippingAddress;
+      const recipient = order.shippingRecipient || order.customer?.name || "";
+      add(right, "div", recipient);
+      if (address && (address.line1 || address.city)) {
+        [address.line1,address.line2,
+          [address.city,address.state,address.postal_code || address.postalCode].filter(Boolean).join(", "),
+          address.country].filter(Boolean).forEach(line => add(right,"div",line));
+      } else {
+        add(right, "div", "ADDRESS NOT STORED — VERIFY AGAINST STRIPE BEFORE SHIPPING", "warning");
+      }
+      const table = add(body, "table");
+      const tr = add(table, "tr");
+      if (!customerCopy) add(tr, "th", "Packed");
+      add(tr, "th", "Item");
+      add(tr, "th", "Qty");
+      let total = 0;
+      (Array.isArray(order.items) ? order.items : []).forEach(item => {
+        const row = add(table, "tr");
+        if (!customerCopy) add(row, "td", "☐", "check");
+        add(row, "td", item.name || "Item (verify description)");
+        const quantity = Number(item.quantity || 0);
+        add(row, "td", quantity);
+        if (Number.isFinite(quantity)) total += quantity;
+      });
+      add(body, "p", "Total pieces: " + total);
+      if (!customerCopy) {
+        const notes = add(body, "section", undefined, "notes");
+        add(notes, "div", "☐ Fragile — handmade pottery; cushion and protect each piece");
+        add(notes, "div", "☐ Verify quantity, condition and shipping label");
+        add(notes, "div", "Packed by: _______________________  Date: ______________");
+        add(notes, "div", "Notes: __________________________________________________");
+      } else {
+        add(body, "p", "Thank you for supporting handmade pottery!");
+      }
+      const footer = add(body, "footer", undefined, "foot");
+      add(footer, "div", "Garden Shed Clay · gardenshedclay.com");
+      const printButton = add(body, "button", "Print", "no-print");
+      printButton.type = "button";
+      printButton.onclick = () => popup.print();
+      popup.focus();
+    }
+
 loadOrdersButton.addEventListener(
   "click",
   async () => {
@@ -2106,6 +2183,21 @@ const orderDate =
           "No item details";
 
         card.appendChild(items);
+
+        const packingActions = document.createElement("div");
+        packingActions.className = "admin-actions";
+        for (const [label, customerCopy] of [
+          ["Print Packing Worksheet", false],
+          ["Print Customer Packing Slip", true]
+        ]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "button";
+          button.textContent = label;
+          button.addEventListener("click", () => printOrderDocument(order, customerCopy));
+          packingActions.appendChild(button);
+        }
+        card.appendChild(packingActions);
 
 if (order.status !== "shipped") {
   const shippedButton =
