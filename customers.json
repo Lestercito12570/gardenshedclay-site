@@ -3593,6 +3593,29 @@
       "notes": "",
       "createdAt": "2026-09-11",
       "updatedAt": "2026-09-11"
+    },
+    {
+      "customerId": "etsy-import-ffa7945b-8387-4bb0-ac56-8725b67fa5e7",
+      "name": "Bhai Good",
+      "email": "",
+      "phone": "",
+      "shippingAddress": {
+        "address1": "383 Brigitte Dr.",
+        "address2": "",
+        "city": "Northglenn",
+        "state": "CO",
+        "postalCode": "80260",
+        "country": "United States"
+      },
+      "sources": [
+        "Etsy"
+      ],
+      "sales": [],
+      "notes": "Etsy import; mailing consent unconfirmed",
+      "status": "active",
+      "mailingEligible": false,
+      "createdAt": "2026-11-14T22:29:52.307Z",
+      "updatedAt": "2026-11-14T22:29:52.307Z"
     }
   ]
 }
