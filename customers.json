@@ -1587,41 +1587,6 @@
       "updatedAt": "2026-09-11"
     },
     {
-      "customerId": "cust-0046",
-      "name": "COURTNEY A COGHILL",
-      "companyAttention": "",
-      "email": null,
-      "phone": null,
-      "shippingAddress": {
-        "address1": "2100 ROSSMORE RE",
-        "address2": "",
-        "city": "Clemmons",
-        "state": "NC",
-        "postalCode": "27012",
-        "country": "United States"
-      },
-      "sources": [
-        "Etsy 2024"
-      ],
-      "stripeCustomerId": null,
-      "mailerLite": {
-        "subscriberId": null,
-        "status": null
-      },
-      "sales": {
-        "orderCount": 0,
-        "lifetimeSales": 0,
-        "averageOrderValue": 0,
-        "firstPurchaseDate": null,
-        "lastPurchaseDate": null,
-        "lastOrderId": null,
-        "historicalSalesComplete": false
-      },
-      "notes": "",
-      "createdAt": "2026-09-11",
-      "updatedAt": "2026-09-11"
-    },
-    {
       "customerId": "cust-0047",
       "name": "Courtney Coghill",
       "companyAttention": "",
