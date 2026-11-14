@@ -1909,44 +1909,6 @@ manageProductsList.appendChild(card);
   }
 );
 
-const exportCustomersButton = document.createElement("button");
-exportCustomersButton.type = "button";
-exportCustomersButton.textContent = "Export Mailing CSV";
-exportCustomersButton.disabled = true;
-exportCustomersButton.className = "button";
-loadCustomersButton.parentElement.appendChild(exportCustomersButton);
-exportCustomersButton.addEventListener("click", () => {
-  const headers = ["Name","Address 1","Address 2","City","State","Postal Code","Country","Sources","Address Complete"];
-  const csvCell = (value) => {
-    const raw = String(value ?? "");
-    const safe = /^\s*[=+@-]/.test(raw) ? "'" + raw : raw;
-    return '"' + safe.replace(/"/g, '""') + '"';
-  };
-  const seen = new Set();
-  const rows = loadedCustomers.filter((c) => {
-    const a = c.shippingAddress || {};
-    const key = [c.name,a.address1,a.address2,a.city,a.state,a.postalCode,a.country]
-      .map(v => String(v || "").trim().toLowerCase()).join("|");
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  }).map((c) => {
-    const a = c.shippingAddress || {};
-    return [c.name,a.address1,a.address2,a.city,a.state,a.postalCode,a.country,
-      Array.isArray(c.sources) ? c.sources.join("; ") : "",
-      a.address1 && a.city && a.state && a.postalCode ? "Yes" : "No"];
-  });
-  const csv = [headers,...rows].map(row => row.map(csvCell).join(",")).join("\r\n");
-  const url = URL.createObjectURL(new Blob(["\uFEFF",csv],{type:"text/csv;charset=utf-8"}));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "garden-shed-clay-mailing-list.csv";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-});
-
 let loadedCustomers = [];
     
 loadCustomersButton.addEventListener(
@@ -1980,37 +1942,55 @@ loadCustomersButton.addEventListener(
           ? data.customers
           : [];
 
-loadedCustomers = customers;\n      exportCustomersButton.disabled = customers.length === 0;
+loadedCustomers = customers;
       
       manageCustomersStatus.textContent =
         `${customers.length} customers loaded.`;
 
 customers.forEach((customer) => {
-  const card = document.createElement("details");
-  card.style.cssText = "padding:16px;margin-top:12px;border:1px solid #ccc;background:#fff";
-  const summary = document.createElement("summary");
-  summary.style.cursor = "pointer";
-  summary.textContent = customer.name || customer.customerId || "Unnamed customer";
-  card.appendChild(summary);
-  const addr = customer.shippingAddress || {};
-  const overview = document.createElement("p");
-  overview.textContent = [[addr.city, addr.state].filter(Boolean).join(", ") || "No location",
-    Array.isArray(customer.sources) ? customer.sources.join(", ") : "No source"].join(" · ");
-  card.appendChild(overview);
-  const heading = document.createElement("strong");
-  heading.textContent = "Mailing address";
-  card.appendChild(heading);
-  const address = document.createElement("p");
-  address.style.whiteSpace = "pre-line";
-  address.textContent = [addr.address1, addr.address2,
-    [addr.city, addr.state, addr.postalCode].filter(Boolean).join(" "), addr.country]
-    .filter(Boolean).join("\n") || "No mailing address on file";
-  card.appendChild(address);
-  if (!addr.address1 || !addr.city || !addr.state || !addr.postalCode) {
-    const warning = document.createElement("p");
-    warning.textContent = "Incomplete mailing address — review before mailing.";
-    card.appendChild(warning);
-  }
+  const card =
+    document.createElement("div");
+
+  card.style.padding = "16px";
+  card.style.marginTop = "12px";
+  card.style.border =
+    "1px solid rgba(38, 35, 31, 0.16)";
+  card.style.background = "#fff";
+
+  const title =
+    document.createElement("h3");
+
+  title.textContent =
+    customer.name ||
+    customer.customerId;
+
+  title.style.marginTop = "0";
+
+  const details =
+    document.createElement("p");
+
+  const city =
+    customer.shippingAddress?.city || "";
+
+  const state =
+    customer.shippingAddress?.state || "";
+
+  const location =
+    [city, state]
+      .filter(Boolean)
+      .join(", ");
+
+  const sources =
+    Array.isArray(customer.sources)
+      ? customer.sources.join(", ")
+      : "";
+
+  details.textContent =
+    `${location || "No location"} · ${sources || "No source"}`;
+
+  card.appendChild(title);
+  card.appendChild(details);
+
   customerList.appendChild(card);
 });
       } catch (error) {
