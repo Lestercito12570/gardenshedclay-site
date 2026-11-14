@@ -2027,6 +2027,77 @@ customers.forEach((customer) => {
     notice.textContent = "Incomplete mailing address — review before mailing.";
     card.appendChild(notice);
   }
+  const editButton = document.createElement("button");
+  editButton.type = "button";
+  editButton.className = "button";
+  editButton.textContent = "Edit Customer";
+  card.appendChild(editButton);
+  editButton.addEventListener("click", () => {
+    if (card.querySelector("form")) return;
+    const fields = [
+      ["name","Customer name"],["address1","Street address"],["address2","Apartment / suite"],
+      ["city","City"],["state","State"],["postalCode","ZIP / postal code"],["country","Country"]
+    ];
+    const expected = {name:customer.name || ""};
+    fields.slice(1).forEach(([key]) => { expected[key] = address[key] || ""; });
+    const form = document.createElement("form");
+    form.style.marginTop = "12px";
+    const inputs = {};
+    fields.forEach(([key,labelText]) => {
+      const label = document.createElement("label");
+      label.style.display = "block";
+      label.style.marginBottom = "8px";
+      label.textContent = labelText + " ";
+      const input = document.createElement("input");
+      input.type = "text";
+      input.maxLength = 250;
+      input.value = expected[key];
+      input.style.display = "block";
+      input.style.width = "100%";
+      input.style.maxWidth = "440px";
+      if (key === "name") input.required = true;
+      label.appendChild(input);
+      form.appendChild(label);
+      inputs[key] = input;
+    });
+    const status = document.createElement("p");
+    status.setAttribute("role","status");
+    const save = document.createElement("button");
+    save.type = "submit";
+    save.className = "button button-primary";
+    save.textContent = "Save Changes";
+    const cancel = document.createElement("button");
+    cancel.type = "button";
+    cancel.className = "button";
+    cancel.textContent = "Cancel";
+    cancel.addEventListener("click", () => form.remove());
+    form.appendChild(save);
+    form.appendChild(cancel);
+    form.appendChild(status);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      save.disabled = true;
+      status.textContent = "Saving...";
+      const updates = {};
+      fields.forEach(([key]) => { updates[key] = inputs[key].value.trim(); });
+      try {
+        const response = await fetch("/api/admin/customers/" + encodeURIComponent(customer.customerId), {
+          method:"PATCH", headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({expected,updates})
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Unable to save.");
+        Object.assign(customer,result.customer);
+        status.textContent = "Saved. Reload customers to refresh the displayed address and CSV.";
+        save.textContent = "Saved";
+        form.querySelectorAll("input").forEach(input => {input.disabled = true;});
+      } catch (error) {
+        status.textContent = error.message;
+        save.disabled = false;
+      }
+    });
+    card.appendChild(form);
+  });
   customerList.appendChild(card);
 });
       } catch (error) {
