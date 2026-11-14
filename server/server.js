@@ -1536,6 +1536,10 @@ app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => 
     if (index<0) return res.status(404).json({error:"Customer not found."});
     if (data.customers[index].name!==expectedName)
       return res.status(409).json({error:"Customer changed. Reload before deleting."});
+    const removed=data.customers[index];
+    const deletedKey=crypto.createHash("sha256").update(String(removed.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"")).digest("hex");
+    if (!Array.isArray(data.deletedCustomerNameHashes)) data.deletedCustomerNameHashes=[];
+    if (!data.deletedCustomerNameHashes.includes(deletedKey)) data.deletedCustomerNameHashes.push(deletedKey);
     data.customers.splice(index,1);
     const write=await fetch(url,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},
       body:JSON.stringify({message:"Remove duplicate customer record",sha:file.sha,branch:GITHUB_BRANCH,
