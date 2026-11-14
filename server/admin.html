@@ -1924,7 +1924,7 @@ exportMailingButton.addEventListener("click", () => {
     return '"' + safe.replace(/"/g, '""') + '"';
   };
   const seen = new Set();
-  const rows = loadedCustomers.filter((customer) => {
+  const rows = loadedCustomers.filter((customer) => customer.status !== "inactive").filter((customer) => {
     const a = customer.shippingAddress || {};
     const key = [customer.name, a.address1, a.address2, a.city, a.state, a.postalCode, a.country]
       .map(value => String(value || "").trim().toLowerCase()).join("|");
@@ -2006,6 +2006,10 @@ customers.forEach((customer) => {
   const overview = document.createElement("p");
   overview.textContent = (location || "No location") + " · " + (sources || "No source");
   card.appendChild(overview);
+
+  const statusText = document.createElement("p");
+  statusText.textContent = "Status: " + (customer.status === "inactive" ? "Inactive — excluded from mailing CSV" : "Active");
+  card.appendChild(statusText);
 
   const heading = document.createElement("strong");
   heading.textContent = "Mailing address";
@@ -2097,6 +2101,54 @@ customers.forEach((customer) => {
       }
     });
     card.appendChild(form);
+  });
+
+  const statusButton=document.createElement("button");
+  statusButton.type="button";
+  statusButton.className="button";
+  statusButton.textContent=customer.status==="inactive"?"Reactivate Customer":"Mark Inactive";
+  card.appendChild(statusButton);
+  statusButton.addEventListener("click",async()=>{
+    const current=customer.status==="inactive"?"inactive":"active";
+    const next=current==="active"?"inactive":"active";
+    statusButton.disabled=true;
+    try {
+      const response=await fetch("/api/admin/customers/"+encodeURIComponent(customer.customerId)+"/status",{
+        method:"PATCH",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({status:next,expectedStatus:current})
+      });
+      const result=await response.json();
+      if (!response.ok) throw new Error(result.error||"Unable to update status.");
+      Object.assign(customer,result.customer);
+      statusText.textContent="Status: "+(next==="inactive"?"Inactive — excluded from mailing CSV":"Active");
+      statusButton.textContent=next==="inactive"?"Reactivate Customer":"Mark Inactive";
+    } catch(error) {alert(error.message);} finally {statusButton.disabled=false;}
+  });
+
+  const deleteButton=document.createElement("button");
+  deleteButton.type="button";
+  deleteButton.className="button";
+  deleteButton.textContent="Delete Customer";
+  deleteButton.style.marginLeft="8px";
+  card.appendChild(deleteButton);
+  deleteButton.addEventListener("click",async()=>{
+    if (!confirm("Delete the customer record for "+(customer.name||customer.customerId)+"? Historical orders will remain. This removes the customer from the list and mailing export.")) return;
+    const typed=prompt("To confirm deletion, type DELETE:");
+    if (typed!=="DELETE") return;
+    deleteButton.disabled=true;
+    try {
+      const response=await fetch("/api/admin/customers/"+encodeURIComponent(customer.customerId),{
+        method:"DELETE",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({expectedName:customer.name})
+      });
+      const result=await response.json();
+      if (!response.ok) throw new Error(result.error||"Unable to delete customer.");
+      const index=loadedCustomers.indexOf(customer);
+      if (index>=0) loadedCustomers.splice(index,1);
+      card.remove();
+      manageCustomersStatus.textContent=loadedCustomers.length+" customers loaded.";
+      exportMailingButton.disabled=loadedCustomers.length===0;
+    } catch(error) {alert(error.message);} finally {deleteButton.disabled=false;}
   });
   customerList.appendChild(card);
 });
