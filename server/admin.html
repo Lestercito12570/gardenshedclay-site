@@ -300,6 +300,16 @@
   </button>
 </div>
 
+
+<details id="add-customer-panel" style="margin:12px 0">
+  <summary style="cursor:pointer;font-weight:bold">Add Customer Manually</summary>
+  <form id="add-customer-form" class="product-card-form" style="margin-top:12px">
+    <div class="form-grid" id="add-customer-fields"></div>
+    <label class="checkbox-item"><input type="checkbox" id="add-customer-mailing"> Customer has agreed to promotional mail</label>
+    <div class="admin-actions"><button class="button button-primary" type="submit">Save New Customer</button></div>
+    <p id="add-customer-status" role="status"></p>
+  </form>
+</details>
 <p
   id="manage-customers-status"
   class="admin-status"
@@ -1909,6 +1919,50 @@ manageProductsList.appendChild(card);
   }
 );
 
+
+const addCustomerForm=document.getElementById("add-customer-form");
+const addCustomerFields=document.getElementById("add-customer-fields");
+const addCustomerStatus=document.getElementById("add-customer-status");
+const addCustomerInputs={};
+const addCustomerDefinitions=[
+  ["name","Customer name"],["email","Email"],["phone","Phone"],["address1","Street address"],
+  ["address2","Apartment / suite"],["city","City"],["state","State"],["postalCode","ZIP / postal code"],
+  ["country","Country"],["notes","Notes"]
+];
+addCustomerDefinitions.forEach(([key,labelText])=>{
+  const label=document.createElement("label");
+  label.className="form-group";
+  label.textContent=labelText;
+  const input=document.createElement(key==="notes"?"textarea":"input");
+  input.className="form-input";
+  if (key==="email") input.type="email";
+  if (key==="name") input.required=true;
+  input.maxLength=500;
+  if (key==="country") input.value="US";
+  label.appendChild(input);
+  addCustomerFields.appendChild(label);
+  addCustomerInputs[key]=input;
+});
+addCustomerForm.addEventListener("submit",async(event)=>{
+  event.preventDefault();
+  const button=addCustomerForm.querySelector('button[type="submit"]');
+  button.disabled=true;
+  addCustomerStatus.textContent="Saving customer...";
+  const payload={mailingEligible:document.getElementById("add-customer-mailing").checked};
+  addCustomerDefinitions.forEach(([key])=>{payload[key]=addCustomerInputs[key].value;});
+  try {
+    const response=await fetch("/api/admin/customers",{
+      method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)
+    });
+    const result=await response.json();
+    if (!response.ok) throw new Error(result.error||"Unable to add customer.");
+    addCustomerStatus.textContent="Customer added. Click Load Customers to refresh.";
+    addCustomerForm.reset();
+    addCustomerInputs.country.value="US";
+  } catch(error) {addCustomerStatus.textContent=error.message;}
+  finally {button.disabled=false;}
+});
+
 const exportMailingButton = document.createElement("button");
 exportMailingButton.type = "button";
 exportMailingButton.className = "button";
@@ -1924,7 +1978,7 @@ exportMailingButton.addEventListener("click", () => {
     return '"' + safe.replace(/"/g, '""') + '"';
   };
   const seen = new Set();
-  const rows = loadedCustomers.filter((customer) => customer.status !== "inactive").filter((customer) => {
+  const rows = loadedCustomers.filter((customer) => customer.status !== "inactive" && customer.mailingEligible !== false).filter((customer) => {
     const a = customer.shippingAddress || {};
     const key = [customer.name, a.address1, a.address2, a.city, a.state, a.postalCode, a.country]
       .map(value => String(value || "").trim().toLowerCase()).join("|");

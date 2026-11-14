@@ -1544,6 +1544,55 @@ app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => 
   } catch(error) {console.error("Customer deletion failed",error);return res.status(500).json({error:"Unable to delete customer."});}
 });
 
+
+app.post("/api/admin/customers", requireAdmin, async (req,res) => {
+  const body=req.body || {};
+  const fields=["name","email","phone","notes","address1","address2","city","state","postalCode","country"];
+  if (Object.keys(body).some(key=>![...fields,"mailingEligible"].includes(key)) ||
+      fields.some(key=>typeof body[key]!=="string" || body[key].length>500) ||
+      typeof body.mailingEligible!=="boolean" || !body.name.trim()) {
+    return res.status(400).json({error:"Please provide a name and valid customer fields."});
+  }
+  const normalized={};
+  for (const field of fields) normalized[field]=body[field].trim();
+  if (normalized.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized.email))
+    return res.status(400).json({error:"Invalid email address."});
+  const token=process.env.GITHUB_TOKEN;
+  if (!token) return res.status(500).json({error:"Customer storage unavailable."});
+  const url=`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${CUSTOMERS_FILE_PATH}`;
+  const headers={Accept:"application/vnd.github+json",Authorization:`Bearer ${token}`,
+    "X-GitHub-Api-Version":"2022-11-28","User-Agent":"garden-shed-clay-admin"};
+  const norm=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+  try {
+    const read=await fetch(url+"?ref="+GITHUB_BRANCH,{headers});
+    if (!read.ok) return res.status(502).json({error:"Unable to read customers."});
+    const file=await read.json();
+    const data=JSON.parse(Buffer.from(file.content,"base64").toString("utf8"));
+    if (!Array.isArray(data.customers)) return res.status(500).json({error:"Unsupported customer storage."});
+    const duplicate=data.customers.find(c=>
+      (normalized.email && norm(c.email)===norm(normalized.email)) ||
+      (norm(c.name)===norm(normalized.name) &&
+       (!normalized.address1 || norm(c.shippingAddress?.address1)===norm(normalized.address1))));
+    if (duplicate) return res.status(409).json({error:"Possible existing customer. Search the customer list before adding."});
+    const now=new Date().toISOString();
+    const customer={
+      customerId:"manual-"+crypto.randomUUID(),name:normalized.name,
+      companyAttention:"",email:normalized.email,phone:normalized.phone,
+      shippingAddress:{address1:normalized.address1,address2:normalized.address2,
+        city:normalized.city,state:normalized.state,postalCode:normalized.postalCode,country:normalized.country||"US"},
+      sources:["Manual"],stripeCustomerId:null,mailerLite:null,sales:[],notes:normalized.notes,
+      status:"active",mailingEligible:body.mailingEligible,createdAt:now,updatedAt:now
+    };
+    data.customers.push(customer);
+    const write=await fetch(url,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},
+      body:JSON.stringify({message:"Add manual Garden Shed Clay customer",sha:file.sha,branch:GITHUB_BRANCH,
+        content:Buffer.from(JSON.stringify(data,null,2)+"\n").toString("base64")})});
+    if ([409,422].includes(write.status)) return res.status(409).json({error:"Customer database changed. Reload and retry."});
+    if (!write.ok) return res.status(502).json({error:"Unable to save customer."});
+    return res.status(201).json({customer});
+  } catch(error) {console.error("Manual customer creation failed",error);return res.status(500).json({error:"Unable to add customer."});}
+});
+
 app.get(
   "/api/admin/orders",
   requireAdmin,
