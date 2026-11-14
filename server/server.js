@@ -1481,6 +1481,69 @@ app.patch("/api/admin/customers/:customerId", requireAdmin, async (req, res) => 
   }
 });
 
+
+app.patch("/api/admin/customers/:customerId/status", requireAdmin, async (req,res) => {
+  const id = String(req.params.customerId || "").trim();
+  const status = req.body?.status;
+  const expectedStatus = req.body?.expectedStatus;
+  if (!id || !["active","inactive"].includes(status) || !["active","inactive"].includes(expectedStatus))
+    return res.status(400).json({error:"Invalid customer status."});
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return res.status(500).json({error:"Customer storage unavailable."});
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${CUSTOMERS_FILE_PATH}`;
+  const headers = {Accept:"application/vnd.github+json",Authorization:`Bearer ${token}`,
+    "X-GitHub-Api-Version":"2022-11-28","User-Agent":"garden-shed-clay-admin"};
+  try {
+    const read = await fetch(url+"?ref="+GITHUB_BRANCH,{headers});
+    if (!read.ok) return res.status(502).json({error:"Unable to load customers."});
+    const file = await read.json();
+    const data = JSON.parse(Buffer.from(file.content,"base64").toString("utf8"));
+    if (!Array.isArray(data.customers)) return res.status(500).json({error:"Unsupported customer storage."});
+    const customer = data.customers.find(c=>c.customerId===id);
+    if (!customer) return res.status(404).json({error:"Customer not found."});
+    if ((customer.status==="inactive"?"inactive":"active")!==expectedStatus)
+      return res.status(409).json({error:"Customer status changed. Reload before saving."});
+    customer.status=status;
+    customer.updatedAt=new Date().toISOString();
+    const write=await fetch(url,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},
+      body:JSON.stringify({message:"Update customer mailing status",sha:file.sha,branch:GITHUB_BRANCH,
+        content:Buffer.from(JSON.stringify(data,null,2)+"\n").toString("base64")})});
+    if ([409,422].includes(write.status)) return res.status(409).json({error:"Customer list changed. Reload and retry."});
+    if (!write.ok) return res.status(502).json({error:"Unable to save customer status."});
+    return res.json({customer});
+  } catch(error) {console.error("Customer status update failed",error);return res.status(500).json({error:"Unable to save customer status."});}
+});
+
+app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => {
+  const id=String(req.params.customerId||"").trim();
+  const expectedName=req.body?.expectedName;
+  if (!id || typeof expectedName!=="string" || !expectedName)
+    return res.status(400).json({error:"Customer confirmation required."});
+  const token=process.env.GITHUB_TOKEN;
+  if (!token) return res.status(500).json({error:"Customer storage unavailable."});
+  const url=`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${CUSTOMERS_FILE_PATH}`;
+  const headers={Accept:"application/vnd.github+json",Authorization:`Bearer ${token}`,
+    "X-GitHub-Api-Version":"2022-11-28","User-Agent":"garden-shed-clay-admin"};
+  try {
+    const read=await fetch(url+"?ref="+GITHUB_BRANCH,{headers});
+    if (!read.ok) return res.status(502).json({error:"Unable to load customers."});
+    const file=await read.json();
+    const data=JSON.parse(Buffer.from(file.content,"base64").toString("utf8"));
+    if (!Array.isArray(data.customers)) return res.status(500).json({error:"Unsupported customer storage."});
+    const index=data.customers.findIndex(c=>c.customerId===id);
+    if (index<0) return res.status(404).json({error:"Customer not found."});
+    if (data.customers[index].name!==expectedName)
+      return res.status(409).json({error:"Customer changed. Reload before deleting."});
+    data.customers.splice(index,1);
+    const write=await fetch(url,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},
+      body:JSON.stringify({message:"Remove duplicate customer record",sha:file.sha,branch:GITHUB_BRANCH,
+        content:Buffer.from(JSON.stringify(data,null,2)+"\n").toString("base64")})});
+    if ([409,422].includes(write.status)) return res.status(409).json({error:"Customer list changed. Reload and retry."});
+    if (!write.ok) return res.status(502).json({error:"Unable to delete customer."});
+    return res.json({success:true});
+  } catch(error) {console.error("Customer deletion failed",error);return res.status(500).json({error:"Unable to delete customer."});}
+});
+
 app.get(
   "/api/admin/orders",
   requireAdmin,
