@@ -1421,6 +1421,66 @@ app.get(
   }
 );
 
+
+app.patch("/api/admin/customers/:customerId", requireAdmin, async (req, res) => {
+  const id = String(req.params.customerId || "").trim();
+  const fields = ["name", "address1", "address2", "city", "state", "postalCode", "country"];
+  const payload = req.body || {};
+  if (!id || !payload.expected || typeof payload.expected !== "object" ||
+      !payload.updates || typeof payload.updates !== "object" ||
+      Object.keys(payload.updates).some(key => !fields.includes(key))) {
+    return res.status(400).json({error:"Invalid customer update."});
+  }
+  const clean = {};
+  for (const field of fields) {
+    if (typeof payload.updates[field] !== "string" || payload.updates[field].length > 250) {
+      return res.status(400).json({error:"All editable fields must be text under 250 characters."});
+    }
+    clean[field] = payload.updates[field].trim();
+  }
+  if (!clean.name) return res.status(400).json({error:"Customer name is required."});
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return res.status(500).json({error:"Customer storage unavailable."});
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${CUSTOMERS_FILE_PATH}`;
+  const headers = {
+    Accept:"application/vnd.github+json",
+    Authorization:`Bearer ${token}`,
+    "X-GitHub-Api-Version":"2022-11-28",
+    "User-Agent":"garden-shed-clay-admin"
+  };
+  try {
+    const response = await fetch(url + "?ref=" + GITHUB_BRANCH, {headers});
+    if (!response.ok) return res.status(502).json({error:"Unable to read customers."});
+    const file = await response.json();
+    const data = JSON.parse(Buffer.from(file.content,"base64").toString("utf8"));
+    const customers = Array.isArray(data) ? data : data.customers;
+    if (!Array.isArray(customers)) return res.status(500).json({error:"Unsupported customer storage."});
+    const customer = customers.find(item => item.customerId === id);
+    if (!customer) return res.status(404).json({error:"Customer not found."});
+    const current = {name:customer.name || ""};
+    for (const field of fields.slice(1)) current[field] = customer.shippingAddress?.[field] || "";
+    if (fields.some(field => current[field] !== payload.expected[field])) {
+      return res.status(409).json({error:"This customer changed since you loaded it. Reload before saving."});
+    }
+    customer.name = clean.name;
+    customer.shippingAddress = {...(customer.shippingAddress || {})};
+    for (const field of fields.slice(1)) customer.shippingAddress[field] = clean[field];
+    const content = Buffer.from(JSON.stringify(data,null,2) + "\n").toString("base64");
+    const write = await fetch(url, {
+      method:"PUT", headers:{...headers,"Content-Type":"application/json"},
+      body:JSON.stringify({message:"Update customer mailing address",content,sha:file.sha,branch:GITHUB_BRANCH})
+    });
+    if (write.status === 409 || write.status === 422) {
+      return res.status(409).json({error:"Customer database changed during save. Reload and try again."});
+    }
+    if (!write.ok) return res.status(502).json({error:"Unable to save customer changes."});
+    return res.json({customer});
+  } catch (error) {
+    console.error("Customer update failed:", error);
+    return res.status(500).json({error:"Unable to save customer changes."});
+  }
+});
+
 app.get(
   "/api/admin/orders",
   requireAdmin,
