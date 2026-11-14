@@ -1,3 +1,4 @@
+import { registerCustomerTools } from "./customer-tools.js";
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
@@ -1230,6 +1231,7 @@ app.get(
     return res.sendFile(adminFile);
   }
 );
+app.get("/admin-customer-tools.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-customer-tools.js")));
 /*
  * Protected catalog reader
  */
@@ -1534,6 +1536,10 @@ app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => 
     if (index<0) return res.status(404).json({error:"Customer not found."});
     if (data.customers[index].name!==expectedName)
       return res.status(409).json({error:"Customer changed. Reload before deleting."});
+    const removed=data.customers[index];
+    const deletedKey=crypto.createHash("sha256").update(String(removed.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"")).digest("hex");
+    if (!Array.isArray(data.deletedCustomerNameHashes)) data.deletedCustomerNameHashes=[];
+    if (!data.deletedCustomerNameHashes.includes(deletedKey)) data.deletedCustomerNameHashes.push(deletedKey);
     data.customers.splice(index,1);
     const write=await fetch(url,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},
       body:JSON.stringify({message:"Remove duplicate customer record",sha:file.sha,branch:GITHUB_BRANCH,
@@ -1544,6 +1550,8 @@ app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => 
   } catch(error) {console.error("Customer deletion failed",error);return res.status(500).json({error:"Unable to delete customer."});}
 });
 
+
+registerCustomerTools(app,requireAdmin,{owner:GITHUB_OWNER,repo:GITHUB_REPO,branch:GITHUB_BRANCH,path:CUSTOMERS_FILE_PATH});
 
 app.post("/api/admin/customers", requireAdmin, async (req,res) => {
   const body=req.body || {};
