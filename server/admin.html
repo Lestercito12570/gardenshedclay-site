@@ -310,6 +310,7 @@
     <p id="add-customer-status" role="status"></p>
   </form>
 </details>
+<details style="margin:12px 0"><summary>Import Etsy Customers</summary><p>Upload Etsy Sold Orders CSV, preview new names, then approve additions.</p><input id="customer-etsy-file" type="file" accept=".csv"><button type="button" id="customer-etsy-preview" class="button">Preview</button><p id="customer-etsy-status"></p><div id="customer-etsy-list"></div><button type="button" id="customer-etsy-save" class="button button-primary" hidden>Approve New Customers</button></details><details style="margin:12px 0"><summary>Avery 5160 / 8160 Mailing Labels</summary><p>30 labels per US Letter sheet. Print at Actual Size / 100%. Test on plain paper first.</p><label>Start at label <input id="customer-label-start" type="number" min="1" max="30" value="1"></label><button type="button" id="customer-label-download" class="button">Download PDF</button><p id="customer-label-status"></p></details>
 <p
   id="manage-customers-status"
   class="admin-status"
@@ -3217,5 +3218,6 @@ saveChangesButton.disabled =
 })();
 </script>
 
+<script src="/admin-customer-tools.js"></script>
 </body>
 </html>
