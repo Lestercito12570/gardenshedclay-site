@@ -1909,6 +1909,45 @@ manageProductsList.appendChild(card);
   }
 );
 
+const exportMailingButton = document.createElement("button");
+exportMailingButton.type = "button";
+exportMailingButton.className = "button";
+exportMailingButton.textContent = "Export Mailing CSV";
+exportMailingButton.disabled = true;
+loadCustomersButton.parentElement.appendChild(exportMailingButton);
+
+exportMailingButton.addEventListener("click", () => {
+  const headers = ["Name", "Address 1", "Address 2", "City", "State", "ZIP", "Country", "Sources", "Address Complete"];
+  const csvCell = (value) => {
+    const raw = String(value == null ? "" : value);
+    const safe = /^[\\s]*[=+@-]/.test(raw) ? "'" + raw : raw;
+    return '"' + safe.replace(/"/g, '""') + '"';
+  };
+  const seen = new Set();
+  const rows = loadedCustomers.filter((customer) => {
+    const a = customer.shippingAddress || {};
+    const key = [customer.name, a.address1, a.address2, a.city, a.state, a.postalCode, a.country]
+      .map(value => String(value || "").trim().toLowerCase()).join("|");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).map((customer) => {
+    const a = customer.shippingAddress || {};
+    return [customer.name, a.address1, a.address2, a.city, a.state, a.postalCode, a.country,
+      Array.isArray(customer.sources) ? customer.sources.join("; ") : "",
+      a.address1 && a.city && a.state && a.postalCode ? "Yes" : "No"];
+  });
+  const csv = [headers, ...rows].map(row => row.map(csvCell).join(",")).join("\\r\\n");
+  const url = URL.createObjectURL(new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "garden-shed-clay-mailing-list.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+});
+
 let loadedCustomers = [];
     
 loadCustomersButton.addEventListener(
@@ -1943,54 +1982,51 @@ loadCustomersButton.addEventListener(
           : [];
 
 loadedCustomers = customers;
+      exportMailingButton.disabled = customers.length === 0;
       
       manageCustomersStatus.textContent =
         `${customers.length} customers loaded.`;
 
 customers.forEach((customer) => {
-  const card =
-    document.createElement("div");
-
+  const card = document.createElement("details");
   card.style.padding = "16px";
   card.style.marginTop = "12px";
-  card.style.border =
-    "1px solid rgba(38, 35, 31, 0.16)";
+  card.style.border = "1px solid rgba(38, 35, 31, 0.16)";
   card.style.background = "#fff";
 
-  const title =
-    document.createElement("h3");
+  const summary = document.createElement("summary");
+  summary.style.cursor = "pointer";
+  summary.style.fontWeight = "bold";
+  summary.textContent = customer.name || customer.customerId || "Unnamed customer";
+  card.appendChild(summary);
 
-  title.textContent =
-    customer.name ||
-    customer.customerId;
+  const address = customer.shippingAddress || {};
+  const location = [address.city, address.state].filter(Boolean).join(", ");
+  const sources = Array.isArray(customer.sources) ? customer.sources.join(", ") : "";
+  const overview = document.createElement("p");
+  overview.textContent = (location || "No location") + " · " + (sources || "No source");
+  card.appendChild(overview);
 
-  title.style.marginTop = "0";
+  const heading = document.createElement("strong");
+  heading.textContent = "Mailing address";
+  card.appendChild(heading);
 
-  const details =
-    document.createElement("p");
+  const lines = [
+    address.address1,
+    address.address2,
+    [address.city, address.state, address.postalCode].filter(Boolean).join(" "),
+    address.country
+  ].filter(Boolean);
+  const mailing = document.createElement("p");
+  mailing.style.whiteSpace = "pre-line";
+  mailing.textContent = lines.join("\n") || "No mailing address on file";
+  card.appendChild(mailing);
 
-  const city =
-    customer.shippingAddress?.city || "";
-
-  const state =
-    customer.shippingAddress?.state || "";
-
-  const location =
-    [city, state]
-      .filter(Boolean)
-      .join(", ");
-
-  const sources =
-    Array.isArray(customer.sources)
-      ? customer.sources.join(", ")
-      : "";
-
-  details.textContent =
-    `${location || "No location"} · ${sources || "No source"}`;
-
-  card.appendChild(title);
-  card.appendChild(details);
-
+  if (!address.address1 || !address.city || !address.state || !address.postalCode) {
+    const notice = document.createElement("p");
+    notice.textContent = "Incomplete mailing address — review before mailing.";
+    card.appendChild(notice);
+  }
   customerList.appendChild(card);
 });
       } catch (error) {
