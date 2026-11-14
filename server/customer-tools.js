@@ -20,9 +20,11 @@ export function registerCustomerTools(app,requireAdmin,{owner,repo,branch,path})
   try{
    const {h,file,data}=await load();
    const known=new Set(data.customers.map(c=>key(c.name)).filter(Boolean)),add=[];
+   const deleted=new Set(Array.isArray(data.deletedCustomerNameHashes)?data.deletedCustomerNameHashes:[]);
+   const hashName=name=>crypto.createHash("sha256").update(key(name)).digest("hex");
    for(const raw of entries){
     const c=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,String(v).trim()]));
-    if(known.has(key(c.name)))continue;known.add(key(c.name));
+    if(known.has(key(c.name))||deleted.has(hashName(c.name)))continue;known.add(key(c.name));
     const now=new Date().toISOString();
     add.push({customerId:"etsy-import-"+crypto.randomUUID(),name:c.name,email:"",phone:"",
      shippingAddress:{address1:c.address1,address2:c.address2,city:c.city,state:c.state,postalCode:c.postalCode,country:c.country||"US"},
