@@ -1,3 +1,4 @@
+import { registerCustomerTools } from "./customer-tools.js";
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
@@ -1544,6 +1545,8 @@ app.delete("/api/admin/customers/:customerId", requireAdmin, async (req,res) => 
   } catch(error) {console.error("Customer deletion failed",error);return res.status(500).json({error:"Unable to delete customer."});}
 });
 
+
+registerCustomerTools(app,requireAdmin,{owner:GITHUB_OWNER,repo:GITHUB_REPO,branch:GITHUB_BRANCH,path:CUSTOMERS_FILE_PATH});
 
 app.post("/api/admin/customers", requireAdmin, async (req,res) => {
   const body=req.body || {};
