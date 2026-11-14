@@ -31,7 +31,7 @@
       "stripeCheckoutSessionId": "cs_live_bc9pfOorSDHSftsgBFL0wMeZS5Ny4H1Ijn0hzacjiA6nr6tkPwXQBMK4aq",
       "stripePaymentIntentId": "pi_3UaLqJDTEEQD8p6Z2QbaK0NA",
       "orderDate": "2026-11-10T20:36:28.000Z",
-      "status": "pending-shipment",
+      "status": "shipped",
       "customer": {
         "name": "Cynthia L Humphries",
         "email": "cindy52@bellsouth.net"
