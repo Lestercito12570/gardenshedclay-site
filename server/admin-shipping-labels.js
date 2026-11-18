@@ -28,6 +28,9 @@
   const start=Number(el("ship-label-start").value),copies=Number(el("ship-label-copies").value);
   if(!name||!line1||!city||!state||!zip){status.textContent="Enter recipient name, street, city, state and postal code.";return;}
   if(!Number.isInteger(start)||start<1||start>8||!Number.isInteger(copies)||copies<1||copies>100){status.textContent="Start must be 1–8; copies must be 1–100.";return;}
+  const file=el("ship-label-logo").files[0];
+  if(!file||!["image/png","image/jpeg","image/webp"].includes(file.type)){status.textContent="Select your supplied Garden Shed Clay logo image (PNG, JPEG or WebP).";return;}
+  if(file.size>4000000){status.textContent="Logo must be under 4 MB.";return;}
   if(el("ship-label-save-customer").checked){
    if(select.value!==""){status.textContent="This address belongs to a selected customer. Uncheck Save as new customer to print without changing the customer list.";return;}
    if(!window.confirm("Save this recipient as a new customer before printing? Promotional mailing will remain disabled."))return;
@@ -40,9 +43,6 @@
     select.replaceChildren(new Option("Enter an address manually",""));await load();
    }catch(e){status.textContent=e.message;return;}
   }
-  const file=el("ship-label-logo").files[0];
-  if(!file||!["image/png","image/jpeg","image/webp"].includes(file.type)){status.textContent="Select your supplied Garden Shed Clay logo image (PNG, JPEG or WebP).";return;}
-  if(file.size>4000000){status.textContent="Logo must be under 4 MB.";return;}
   const popup=window.open("","_blank");
   if(!popup){status.textContent="Allow popups to open the printable sheet.";return;}
   const reader=new FileReader();
