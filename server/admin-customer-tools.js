@@ -59,6 +59,19 @@
    candidates=[];save.hidden=true;list.replaceChildren();
   }catch(e){status.textContent=e.message;}finally{save.disabled=false;}
  });
+ window.gscPrint8160=async function(ids){
+  const status=$("customer-label-status"),start=Number($("customer-label-start").value);
+  if(!Number.isInteger(start)||start<1||start>30){status.textContent="Choose starting position 1–30.";return;}
+  if(!Array.isArray(ids)||!ids.length){status.textContent="Select at least one customer.";return;}
+  status.textContent="Generating selected mailing labels...";
+  try{
+   const response=await fetch("/api/admin/customers/avery-labels.pdf?start="+start,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customerIds:ids})});
+   if(!response.ok){const e=await response.json();throw Error(e.error||"Unable to generate selected labels.");}
+   const url=URL.createObjectURL(await response.blob()),a=document.createElement("a");
+   a.href=url;a.download="garden-shed-clay-selected-avery-8160.pdf";document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),2000);status.textContent="Selected labels downloaded. Print at 100% / Actual Size.";
+  }catch(e){status.textContent=e.message;}
+ };
  $("customer-label-download").addEventListener("click",async()=>{
   const status=$("customer-label-status"),start=Number($("customer-label-start").value);
   if(!Number.isInteger(start)||start<1||start>30){status.textContent="Choose 1–30.";return;}

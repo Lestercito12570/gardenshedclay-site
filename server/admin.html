@@ -310,7 +310,7 @@
     <p id="add-customer-status" role="status"></p>
   </form>
 </details>
-<details style="margin:12px 0"><summary>Import Etsy Customers</summary><p>Upload Etsy Sold Orders CSV, preview new names, then approve additions.</p><input id="customer-etsy-file" type="file" accept=".csv"><button type="button" id="customer-etsy-preview" class="button">Preview</button><p id="customer-etsy-status"></p><div id="customer-etsy-list"></div><button type="button" id="customer-etsy-save" class="button button-primary" hidden>Approve New Customers</button></details><details style="margin:12px 0"><summary>Avery 5160 / 8160 Mailing Labels</summary><p>30 labels per US Letter sheet. Print at Actual Size / 100%. Test on plain paper first.</p><label>Start at label <input id="customer-label-start" type="number" min="1" max="30" value="1"></label><button type="button" id="customer-label-download" class="button">Download PDF</button><p id="customer-label-status"></p></details>
+<details style="margin:12px 0"><summary>Import Etsy Customers</summary><p>Upload Etsy Sold Orders CSV, preview new names, then approve additions.</p><input id="customer-etsy-file" type="file" accept=".csv"><button type="button" id="customer-etsy-preview" class="button">Preview</button><p id="customer-etsy-status"></p><div id="customer-etsy-list"></div><button type="button" id="customer-etsy-save" class="button button-primary" hidden>Approve New Customers</button></details><details style="margin:12px 0"><summary>Avery 5160 / 8160 Mailing Labels</summary><p>30 labels per US Letter sheet. Print at Actual Size / 100%. Test on plain paper first.</p><label>Start at label <input id="customer-label-start" type="number" min="1" max="30" value="1"></label><button type="button" id="customer-label-download" class="button">Download PDF</button><p id="customer-label-status"></p><p>For individual or selected labels, choose customers below. The Download PDF button above still prints the full eligible mailing list.</p><button type="button" id="customer-label-selected" class="button">Print Selected 8160 Labels</button> <button type="button" id="customer-label-clear" class="button">Clear Selection</button> <span id="customer-label-count">0 selected</span></details>
 <p
   id="manage-customers-status"
   class="admin-status"
@@ -2028,6 +2028,15 @@ exportMailingButton.addEventListener("click", () => {
 });
 
 let loadedCustomers = [];
+const selectedLabelCustomers=new Set();
+const labelCount=document.getElementById("customer-label-count");
+const updateLabelCount=()=>{labelCount.textContent=selectedLabelCustomers.size+" selected";};
+document.getElementById("customer-label-selected").addEventListener("click",()=>window.gscPrint8160([...selectedLabelCustomers]));
+document.getElementById("customer-label-clear").addEventListener("click",()=>{
+ selectedLabelCustomers.clear();
+ customerList.querySelectorAll(".customer-label-check").forEach(c=>c.checked=false);
+ updateLabelCount();
+});
     
 loadCustomersButton.addEventListener(
   "click",
@@ -2061,6 +2070,7 @@ loadCustomersButton.addEventListener(
           : [];
 
 loadedCustomers = customers;
+      selectedLabelCustomers.clear();updateLabelCount();
       exportMailingButton.disabled = customers.length === 0;
       
       manageCustomersStatus.textContent =
@@ -2085,6 +2095,21 @@ customers.forEach((customer) => {
   const overview = document.createElement("p");
   overview.textContent = (location || "No location") + " · " + (sources || "No source");
   card.appendChild(overview);
+  const labelActions=document.createElement("div");
+  labelActions.style.display="flex";labelActions.style.flexWrap="wrap";labelActions.style.gap="10px";labelActions.style.alignItems="center";
+  const labelCheck=document.createElement("input");labelCheck.type="checkbox";labelCheck.className="customer-label-check";
+  labelCheck.checked=selectedLabelCustomers.has(customer.customerId);
+  labelCheck.disabled=customer.status==="inactive"||!customer.customerId;
+  const checkLabel=document.createElement("label");checkLabel.append(labelCheck,document.createTextNode(" Select for 8160 batch"));
+  labelCheck.addEventListener("change",()=>{if(labelCheck.checked)selectedLabelCustomers.add(customer.customerId);else selectedLabelCustomers.delete(customer.customerId);updateLabelCount();});
+  labelActions.appendChild(checkLabel);
+  const complete=!!(customer.name&&address.address1&&address.city&&address.state&&address.postalCode);
+  for(const [label,action] of [["Print One 8160",()=>window.gscPrint8160([customer.customerId])],["Print One 5815",()=>window.gscPrepare5815(customer)]]){
+   const b=document.createElement("button");b.type="button";b.className="button";b.textContent=label;
+   b.disabled=!complete||customer.status==="inactive"||!customer.customerId;
+   b.addEventListener("click",action);labelActions.appendChild(b);
+  }
+  card.appendChild(labelActions);
 
   const statusText = document.createElement("p");
   statusText.textContent = "Status: " + (customer.status === "inactive" ? "Inactive — excluded from mailing CSV" : "Active");
