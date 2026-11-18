@@ -743,8 +743,8 @@
           <label>Approximate budget (optional) <input name="budget" maxlength="160" placeholder="Your budget, excluding shipping"></label>
           <div class="commission-trap" aria-hidden="true"><label>Leave this field blank <input name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="commission-check"><input type="checkbox" name="acknowledged" required><span>I understand that this is an inquiry, not an accepted order. If my request is accepted, I must approve the estimate and pay in full before production. Once production begins, the commission is noncancelable and nonrefundable for a change of mind, subject to applicable law and the agreed terms.</span></label>
-          <button type="submit">Prepare commission inquiry email</button>
-          <p class="commission-help" id="commission-form-status" role="status">Click the button to open a prepared email. Please press Send in your email application to deliver your inquiry. No payment is collected here.</p>
+          <button type="submit">Send commission inquiry</button>
+          <p class="commission-help" id="commission-form-status" role="status">Your inquiry will be submitted securely to the studio for review. No payment is collected here.</p>
         </form>
       </div>
     </section>
@@ -801,31 +801,27 @@
 </footer>
   <script src="/js/shop.js" defer></script>
   <script>
-    document.getElementById("commission-request-form").addEventListener("submit", function (event) {
+    document.getElementById("commission-request-form").addEventListener("submit", async function (event) {
       event.preventDefault();
       if (!this.reportValidity()) return;
-      const data = Object.fromEntries(new FormData(this).entries());
-      const subject = "Special commission inquiry — Garden Shed Clay";
-      const body = [
-        "Hello Garden Shed Clay,",
-        "",
-        "I would like to inquire about a special commission.",
-        "",
-        "Name: " + data.customerName,
-        "Email: " + data.customerEmail,
-        "Quantity: " + data.quantity,
-        "Preferred timeframe: " + (data.timeframe || "Not specified"),
-        "Approximate budget: " + (data.budget || "Not specified"),
-        "",
-        "Description:",
-        data.description,
-        "",
-        "I acknowledge that this is an inquiry, not an accepted order. If accepted, I must approve an estimate and pay in full before production. Once production begins, the commission is noncancelable and nonrefundable for a change of mind, subject to applicable law and the agreed terms."
-      ].join("\n");
-      const link = "mailto:lester@gardenshedclay.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      document.getElementById("commission-form-status").textContent =
-        "Your email application should open with your inquiry prepared. Please press Send there to deliver it. The website has not sent your inquiry.";
-      window.location.href = link;
+      const data=Object.fromEntries(new FormData(this).entries());
+      const status=document.getElementById("commission-form-status");
+      const button=this.querySelector('button[type="submit"]');
+      button.disabled=true;status.textContent="Submitting your inquiry securely...";
+      try {
+        const response=await fetch("/api/special-commission-inquiries",{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({name:data.customerName,email:data.customerEmail,details:data.description,
+            quantity:Number(data.quantity),timeframe:data.timeframe,budget:data.budget,
+            acknowledged:data.acknowledged==="on",website:data.website||""})
+        });
+        const result=await response.json();
+        if(!response.ok||!result.success)throw Error(result.error||"Unable to submit inquiry.");
+        status.textContent="Thank you! Your inquiry was received for studio review. Reference: "+result.requestId+". No order or payment has been created.";
+        this.reset();
+      }catch(error){
+        status.textContent=(error.message||"Unable to submit.")+" Your inquiry has not been confirmed. Please retry or email lester@gardenshedclay.com.";
+      }finally{button.disabled=false;}
     });
   </script>
   <script>
