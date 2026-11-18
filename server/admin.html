@@ -327,6 +327,29 @@
   <div>
     <p class="eyebrow">Orders</p>
     <h2>Manage Orders</h2>
+<details style="margin:14px 0"><summary><strong>Avery 5815 Branded Shipping Address Labels</strong></summary>
+<p>Choose an existing customer or enter an address. Select your Garden Shed Clay logo image (including its printed return address). Generate a printable 8-up sheet. These are address labels, not prepaid postage labels.</p>
+<label for="ship-label-customer">Existing customer (optional)</label>
+<select id="ship-label-customer"><option value="">Enter an address manually</option></select>
+<div style="display:grid;gap:8px;max-width:430px;margin:12px 0">
+<input id="ship-label-name" placeholder="Recipient full name" aria-label="Recipient full name">
+<input id="ship-label-line1" placeholder="Street address" aria-label="Street address">
+<input id="ship-label-line2" placeholder="Apartment / suite (optional)" aria-label="Apartment or suite">
+<input id="ship-label-city" placeholder="City" aria-label="City">
+<input id="ship-label-state" placeholder="State / province" aria-label="State or province">
+<input id="ship-label-zip" placeholder="Postal code" aria-label="Postal code">
+<input id="ship-label-country" placeholder="Country" aria-label="Country" value="US">
+<label for="ship-label-logo">Garden Shed Clay logo image</label>
+<input type="file" id="ship-label-logo" accept="image/png,image/jpeg,image/webp">
+<label for="ship-label-start">First available label position (1–8)</label>
+<input id="ship-label-start" type="number" min="1" max="8" value="1">
+<label for="ship-label-copies">Number of identical labels</label>
+<input id="ship-label-copies" type="number" min="1" max="100" value="1">
+</div>
+<button type="button" id="ship-label-generate" class="button button-primary">Open Printable Labels</button>
+<p id="ship-label-feedback" role="status"></p>
+</details>
+
 
     <p class="admin-note">
       View website orders and fulfillment status for
@@ -3219,5 +3242,6 @@ saveChangesButton.disabled =
 </script>
 
 <script src="/admin-customer-tools.js"></script>
+<script src="/admin-shipping-labels.js"></script>
 </body>
 </html>
