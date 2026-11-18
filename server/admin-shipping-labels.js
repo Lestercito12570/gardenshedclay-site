@@ -21,6 +21,20 @@
   const values=[c.name,a.address1,a.address2,a.city,a.state,a.postalCode,a.country||"US"];
   fields.forEach((f,i)=>el("ship-label-"+f).value=values[i]||"");
  });
+ window.gscPrepare5815=function(customer){
+  const panel=el("ship-label-generate").closest("details");
+  if(panel)panel.open=true;
+  const index=customers.findIndex(c=>c.customerId===customer.customerId);
+  select.value=index>=0?String(index):"";
+  const a=customer.shippingAddress||{};
+  const values=[customer.name,a.address1,a.address2,a.city,a.state,a.postalCode,a.country||"US"];
+  fields.forEach((f,i)=>el("ship-label-"+f).value=values[i]||"");
+  el("ship-label-save-customer").checked=false;
+  el("ship-label-start").value="1";
+  el("ship-label-copies").value="1";
+  status.textContent="Selected "+customer.name+". Choose your logo image, then open one printable label.";
+  el("ship-label-generate").scrollIntoView({behavior:"smooth",block:"center"});
+ };
  const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  el("ship-label-generate").addEventListener("click",async()=>{
   const values=fields.map(f=>el("ship-label-"+f).value.trim());
