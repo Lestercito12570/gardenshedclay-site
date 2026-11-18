@@ -3977,9 +3977,9 @@ async function mtoNotify(request) {
     body: JSON.stringify({
       from, to: ["lester@gardenshedclay.com"],
       subject: (request.type === "international-shipping" ? "International shipping inquiry " : "Made to Order request ") + request.id,
-      text: (request.type === "international-shipping" ? "An international shipping inquiry is awaiting review." : "A Made to Order inquiry is awaiting review.") + "\n\nItem: " + request.productName +
+      text: (request.type === "special-commission" ? "A special commission inquiry is awaiting review." : request.type === "international-shipping" ? "An international shipping inquiry is awaiting review." : "A Made to Order inquiry is awaiting review.") + "\n\nItem: " + request.productName +
         "\nQuantity: " + request.quantity + "\nCustomer: " + request.name +
-        "\nEmail: " + request.email + "\n\nReview it in the Garden Shed Clay admin."
+        "\nEmail: " + request.email + (request.type === "special-commission" ? "\nDescription: " + request.details + "\nPreferred timeframe: " + (request.desiredTiming||"Not specified") + "\nBudget: " + (request.budget||"Not specified") : "") + "\n\nReview it in the Garden Shed Clay admin."
     })
   });
   return response.ok;
