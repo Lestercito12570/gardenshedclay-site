@@ -35,6 +35,17 @@
   status.textContent="Selected "+customer.name+". Choose your logo image, then open one printable label.";
   el("ship-label-generate").scrollIntoView({behavior:"smooth",block:"center"});
  };
+ window.gscPrepareOrder5815=function(recipient){
+  const panel=el("ship-label-generate").closest("details");if(panel)panel.open=true;
+  select.value="";
+  const a=recipient.address;
+  const values=[recipient.name,a.address1,a.address2,a.city,a.state,a.postalCode,a.country||"US"];
+  fields.forEach((f,i)=>el("ship-label-"+f).value=values[i]||"");
+  el("ship-label-save-customer").checked=false;
+  el("ship-label-start").value="1";el("ship-label-copies").value="1";
+  status.textContent="Order shipping address loaded. Select logo, verify address, and print one label.";
+  el("ship-label-generate").scrollIntoView({behavior:"smooth",block:"center"});
+ };
  const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  el("ship-label-generate").addEventListener("click",async()=>{
   const values=fields.map(f=>el("ship-label-"+f).value.trim());
