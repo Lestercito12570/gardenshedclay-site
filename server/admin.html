@@ -3181,6 +3181,19 @@ saveChangesButton.disabled =
 <section id="mto-admin" style="max-width:1050px;margin:2rem auto;padding:1.25rem;border:1px solid #ccc;border-radius:10px">
   <h2>Customer Inquiries — Made to Order &amp; International Shipping</h2>
   <p>Inquiries are not paid orders. For international shipping, confirm destination, availability and total shipping cost before arranging separate Stripe payment. Never fulfill an inquiry as a paid order.</p>
+  <details style="margin:1rem 0"><summary>Add an earlier email-based commission inquiry</summary>
+    <form id="mto-manual-form" style="display:grid;gap:.6rem;max-width:650px;margin:1rem 0">
+      <label>Customer name <input name="name" required maxlength="120"></label>
+      <label>Email <input name="email" type="email" required maxlength="254"></label>
+      <label>Description <textarea name="details" required maxlength="3000" rows="3"></textarea></label>
+      <label>Quantity <input name="quantity" type="number" min="1" max="100" required value="1"></label>
+      <label>Preferred timeframe <input name="timeframe" maxlength="160"></label>
+      <label>Approximate budget <input name="budget" maxlength="160"></label>
+      <label>Date received <input name="receivedAt" type="date"></label>
+      <button type="submit" class="button">Save earlier inquiry</button>
+      <p id="mto-manual-status" role="status"></p>
+    </form>
+  </details>
   <button type="button" id="mto-refresh">Refresh requests</button>
   <p id="mto-status" role="status" aria-live="polite"></p>
   <div id="mto-list"></div>
@@ -3209,6 +3222,25 @@ saveChangesButton.disabled =
     parent.appendChild(wrap);
     return input;
   };
+  document.getElementById("mto-manual-form").addEventListener("submit",async function(event){
+    event.preventDefault();if(!this.reportValidity())return;
+    const button=this.querySelector('button[type="submit"]');
+    const feedback=document.getElementById("mto-manual-status");
+    const values=Object.fromEntries(new FormData(this).entries());
+    button.disabled=true;feedback.textContent="Saving inquiry...";
+    try{
+      const response=await fetch("/api/admin/special-commission-inquiries",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({...values,quantity:Number(values.quantity),
+          receivedAt:values.receivedAt?values.receivedAt+"T12:00:00":""})
+      });
+      const result=await response.json();
+      if(!response.ok)throw Error(result.error||"Unable to save inquiry.");
+      feedback.textContent="Earlier inquiry saved. Reference: "+result.requestId;
+      this.reset();await refresh();
+    }catch(error){feedback.textContent=error.message;}
+    finally{button.disabled=false;}
+  });
   async function refresh() {
     status.textContent = "Loading requests...";
     try {
@@ -3221,7 +3253,7 @@ saveChangesButton.disabled =
       requests.forEach(request => {
         const card = document.createElement("article");
         card.style.cssText = "border-top:1px solid #ccc;padding:1rem 0";
-        add(card, "h3", (request.type === "international-shipping" ? "INTERNATIONAL SHIPPING · " : "MADE TO ORDER · ") + request.productName + " — " + request.quantity + " requested");
+        add(card, "h3", (request.type === "international-shipping" ? "INTERNATIONAL SHIPPING · " : request.type === "special-commission" ? "SPECIAL COMMISSION · " : "MADE TO ORDER · ") + request.productName + " — " + request.quantity + " requested");
         if (request.type === "international-shipping") {
           add(card, "p", "Destination: " + request.country + " · " + request.postalCode);
           (request.items || []).forEach(item => add(card, "p", "Item: " + item.productName + " × " + item.quantity));
@@ -3232,6 +3264,7 @@ saveChangesButton.disabled =
         add(card, "p", "Customer: " + request.name + " · " + request.email);
         if (request.type !== "international-shipping") add(card, "p", "Desired timing: " + (request.desiredTiming || "Not specified"));
         if (request.type !== "international-shipping") add(card, "p", "Details: " + (request.details || "None"));
+        if (request.type === "special-commission") add(card,"p","Approximate budget: "+(request.budget||"Not specified")+" · Source: "+request.source);
         add(card, "p", "Email notification: " + (request.notificationSent ? "Sent" : "Not configured or not delivered; review queue manually"));
         const select = document.createElement("select");
         statuses.forEach(value => {const opt=document.createElement("option");opt.value=value;opt.textContent=value;select.appendChild(opt);});

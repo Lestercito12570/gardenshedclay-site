@@ -3977,9 +3977,9 @@ async function mtoNotify(request) {
     body: JSON.stringify({
       from, to: ["lester@gardenshedclay.com"],
       subject: (request.type === "international-shipping" ? "International shipping inquiry " : "Made to Order request ") + request.id,
-      text: (request.type === "international-shipping" ? "An international shipping inquiry is awaiting review." : "A Made to Order inquiry is awaiting review.") + "\n\nItem: " + request.productName +
+      text: (request.type === "special-commission" ? "A special commission inquiry is awaiting review." : request.type === "international-shipping" ? "An international shipping inquiry is awaiting review." : "A Made to Order inquiry is awaiting review.") + "\n\nItem: " + request.productName +
         "\nQuantity: " + request.quantity + "\nCustomer: " + request.name +
-        "\nEmail: " + request.email + "\n\nReview it in the Garden Shed Clay admin."
+        "\nEmail: " + request.email + (request.type === "special-commission" ? "\nDescription: " + request.details + "\nPreferred timeframe: " + (request.desiredTiming||"Not specified") + "\nBudget: " + (request.budget||"Not specified") : "") + "\n\nReview it in the Garden Shed Clay admin."
     })
   });
   return response.ok;
@@ -4034,6 +4034,59 @@ app.post("/api/made-to-order-requests", async (req, res) => {
     console.error("Made to Order request error:", error);
     return res.status(503).json({error: "Unable to save your request. Please try again later or email the studio."});
   }
+});
+
+
+/* Free-form special commissions; no catalog item, payment or production created. */
+function commissionInput(input) {
+  const name=String(input.name||"").trim().slice(0,120);
+  const email=String(input.email||"").trim().toLowerCase().slice(0,254);
+  const details=String(input.details||"").trim().slice(0,3000);
+  const quantity=Number(input.quantity);
+  const desiredTiming=String(input.timeframe||"").trim().slice(0,160);
+  const budget=String(input.budget||"").trim().slice(0,160);
+  if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!details||!Number.isSafeInteger(quantity)||quantity<1||quantity>100) return null;
+  return {name,email,details,quantity,desiredTiming,budget};
+}
+function commissionRecord(data,source,receivedAt) {
+  const now=new Date().toISOString();
+  return {id:"COM-"+crypto.randomUUID(),type:"special-commission",source,
+    createdAt:receivedAt||now,updatedAt:now,...data,
+    productName:"Special commission",status:"pending-review",estimateReference:"",
+    proposedPrice:null,proposedTiming:"",ownerNotes:"",customerApprovedAt:null,
+    paymentConfirmedAt:null,notificationSent:false};
+}
+app.post("/api/special-commission-inquiries",async(req,res)=>{
+  try{
+    mtoKey();
+    const input=req.body||{};
+    if(input.website)return res.status(202).json({success:true});
+    if(input.acknowledged!==true)return res.status(400).json({error:"Please acknowledge the commission terms."});
+    const ip=req.ip||req.socket.remoteAddress||"unknown",now=Date.now();
+    const recent=(mtoRequestRate.get(ip)||[]).filter(t=>now-t<3600000);
+    if(recent.length>=5)return res.status(429).json({error:"Too many requests. Please try again later."});
+    const data=commissionInput(input);
+    if(!data)return res.status(400).json({error:"Please enter a valid name, email, description and quantity."});
+    recent.push(now);mtoRequestRate.set(ip,recent);
+    const request=commissionRecord(data,"website");
+    await mtoMutate(items=>{items.push(request);return request.id;});
+    try{
+      if(await mtoNotify(request))await mtoMutate(items=>{const saved=items.find(x=>x.id===request.id);if(saved)saved.notificationSent=true;});
+    }catch(error){console.error("Commission notification failed",error);}
+    return res.status(201).json({success:true,requestId:request.id,message:"Your commission inquiry has been received for review. No order or payment has been created."});
+  }catch(error){console.error("Commission inquiry error",error);return res.status(503).json({error:"Unable to save your inquiry. Please try again later or email the studio."});}
+});
+app.post("/api/admin/special-commission-inquiries",requireAdmin,async(req,res)=>{
+  try{
+    mtoKey();
+    const data=commissionInput(req.body||{});
+    if(!data)return res.status(400).json({error:"Name, email, description and valid quantity are required."});
+    const received=String(req.body.receivedAt||"").trim();
+    if(received&&(!Number.isFinite(Date.parse(received))||Date.parse(received)>Date.now()))return res.status(400).json({error:"Invalid received date."});
+    const request=commissionRecord(data,"manual-email-import",received?new Date(received).toISOString():undefined);
+    await mtoMutate(items=>{items.push(request);return request.id;});
+    return res.status(201).json({success:true,requestId:request.id});
+  }catch(error){console.error("Manual commission import failed",error);return res.status(503).json({error:"Unable to save inquiry."});}
 });
 
 /* International shipping inquiries: encrypted storage, no checkout or stock mutation. */
