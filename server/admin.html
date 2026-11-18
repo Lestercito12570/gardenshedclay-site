@@ -2268,6 +2268,37 @@ customers.forEach((customer) => {
 );
 
 
+    // Labels use the shipping recipient and address captured on the order, not a guessed customer match.
+    function orderLabelRecipient(order){
+      const a=order.shippingAddress||order.customer?.shippingAddress||{};
+      const name=String(order.shippingRecipient||order.customer?.name||"").trim();
+      const address={
+        address1:String(a.line1||a.address1||"").trim(),address2:String(a.line2||a.address2||"").trim(),
+        city:String(a.city||"").trim(),state:String(a.state||"").trim(),
+        postalCode:String(a.postal_code||a.postalCode||"").trim(),country:String(a.country||"US").trim()
+      };
+      return {name,address,complete:!!(name&&address.address1&&address.city&&address.state&&address.postalCode)};
+    }
+    function printOrder8160(order){
+      const recipient=orderLabelRecipient(order);
+      if(!recipient.complete){manageOrdersStatus.textContent="Shipping address is incomplete. Verify the order before printing.";return;}
+      const raw=window.prompt("Avery 8160: start at label position 1–30","1");
+      if(raw===null)return;
+      const start=Number(raw);
+      if(!Number.isInteger(start)||start<1||start>30){manageOrdersStatus.textContent="Starting position must be 1–30.";return;}
+      const popup=window.open("","_blank");
+      if(!popup){manageOrdersStatus.textContent="Allow pop-ups to print the mailing label.";return;}
+      const a=recipient.address;
+      const lines=[recipient.name,a.address1,a.address2,a.city+", "+a.state+" "+a.postalCode,
+        ["US","USA","UNITED STATES"].includes(a.country.toUpperCase())?"":a.country].filter(Boolean);
+      const doc=popup.document;doc.open();doc.write('<!doctype html><html><head><meta charset="utf-8"><title>Avery 8160 - One Order Label</title></head><body></body></html>');doc.close();
+      const style=doc.createElement("style");
+      style.textContent='@page{size:letter;margin:0}*{box-sizing:border-box}body{margin:0;color:#000;background:white}.sheet{width:8.5in;height:11in;padding:.5in .1875in;display:grid;grid-template-columns:repeat(3,2.625in);column-gap:.125in;grid-template-rows:repeat(10,1in)}.label{padding:.12in .10in;overflow:hidden;font:9pt/1.25 Arial,sans-serif;overflow-wrap:anywhere;white-space:pre-line}@media screen{body{background:#ddd}.sheet{background:white;margin:15px auto;box-shadow:0 1px 8px #aaa}}';
+      doc.head.appendChild(style);
+      const sheet=doc.createElement("section");sheet.className="sheet";doc.body.appendChild(sheet);
+      for(let i=1;i<=30;i++){const slot=doc.createElement("div");slot.className="label";if(i===start)slot.textContent=lines.join("\n");sheet.appendChild(slot);}
+      manageOrdersStatus.textContent="One 8160 order label opened. Print US Letter at 100% / Actual Size, no scaling.";
+    }
     // Packing documents are generated locally from the authenticated order list.
     // Do not include payment identifiers, prices, or customer email on printouts.
     function printOrderDocument(order, customerCopy) {
@@ -2459,6 +2490,16 @@ const orderDate =
           button.textContent = label;
           button.addEventListener("click", () => printOrderDocument(order, customerCopy));
           packingActions.appendChild(button);
+        }
+        const recipient=orderLabelRecipient(order);
+        for(const [label,action] of [
+          ["Print 8160 Label",()=>printOrder8160(order)],
+          ["Print 5815 Label",()=>window.gscPrepareOrder5815(recipient)]
+        ]){
+          const button=document.createElement("button");button.type="button";button.className="button";
+          button.textContent=label;button.disabled=!recipient.complete;
+          button.title=recipient.complete?"Use the shipping address stored on this order":"Shipping address incomplete; verify order before printing";
+          button.addEventListener("click",action);packingActions.appendChild(button);
         }
         card.appendChild(packingActions);
 
