@@ -40,20 +40,25 @@ export function registerCustomerTools(app,requireAdmin,{owner,repo,branch,path})
    return res.json({added:add.length,skipped:entries.length-add.length});
   }catch(e){console.error("Customer import failed",e);return res.status(500).json({error:"Customer import failed"});}
  });
- app.get("/api/admin/customers/avery-labels.pdf",requireAdmin,async(req,res)=>{
+ const averyPdfHandler=async(req,res)=>{
+  const requested=req.method==="POST"?req.body?.customerIds:null;
+  if(req.method==="POST"&&(!Array.isArray(requested)||!requested.length||requested.length>500||requested.some(id=>typeof id!=="string"||id.length>200)||new Set(requested).size!==requested.length))return res.status(400).json({error:"Select 1–500 unique customers"});
+  const selected=requested?new Set(requested):null;
   const start=Number(req.query.start||1);
   if(!Number.isInteger(start)||start<1||start>30)return res.status(400).json({error:"Start label must be 1–30"});
   try{
    const {data}=await load(),seen=new Set(),labels=[];
    for(const c of data.customers){
+    if(selected&&!selected.has(c.customerId))continue;
     const a=c.shippingAddress||{};
-    if(c.status==="inactive"||c.mailingEligible===false||!c.name?.trim()||!a.address1?.trim()||!a.city?.trim()||!a.state?.trim()||!a.postalCode?.trim())continue;
+    if(c.status==="inactive"||(!selected&&c.mailingEligible===false)||!c.name?.trim()||!a.address1?.trim()||!a.city?.trim()||!a.state?.trim()||!a.postalCode?.trim())continue;
     const id=[c.name,a.address1,a.address2,a.city,a.state,a.postalCode].map(key).join("|");
     if(seen.has(id))continue;seen.add(id);
     labels.push([c.name,a.address1,a.address2,a.city+", "+a.state+" "+a.postalCode,
       ["US","USA","UNITED STATES"].includes(String(a.country||"US").toUpperCase())?"":a.country].filter(Boolean));
    }
    if(!labels.length)return res.status(422).json({error:"No eligible complete addresses"});
+   if(selected&&labels.length!==selected.size)return res.status(422).json({error:"Some selected customers are inactive, missing, duplicates, or have incomplete addresses. Review selection."});
    const escape=v=>String(v).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^\x20-\x7e]/g,"?").replace(/[\\()]/g,"\\$&");
    const pages=[];let i=0;
    while(i<labels.length){
