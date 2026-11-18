@@ -88,5 +88,7 @@ export function registerCustomerTools(app,requireAdmin,{owner,repo,branch,path})
    res.set("Content-Disposition",'attachment; filename="garden-shed-clay-avery-5160.pdf"');
    return res.send(Buffer.from(pdf,"ascii"));
   }catch(e){console.error("Avery PDF failed",e);return res.status(500).json({error:"Unable to generate PDF"});}
- });
+ };
+ app.get("/api/admin/customers/avery-labels.pdf",requireAdmin,averyPdfHandler);
+ app.post("/api/admin/customers/avery-labels.pdf",requireAdmin,averyPdfHandler);
 }
