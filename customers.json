@@ -3616,6 +3616,32 @@
       "mailingEligible": false,
       "createdAt": "2026-11-14T22:29:52.307Z",
       "updatedAt": "2026-11-14T22:29:52.307Z"
+    },
+    {
+      "customerId": "manual-471b9ac1-5d55-4cda-bf30-190c60a6709c",
+      "name": "Wendy Anderson-Spencer",
+      "companyAttention": "",
+      "email": "subculture@valleyfreeradio.org",
+      "phone": "413-727-2235",
+      "shippingAddress": {
+        "address1": "52 Nonotuck Street",
+        "address2": "",
+        "city": "Holyoke",
+        "state": "MA",
+        "postalCode": "01040",
+        "country": "US"
+      },
+      "sources": [
+        "Manual"
+      ],
+      "stripeCustomerId": null,
+      "mailerLite": null,
+      "sales": [],
+      "notes": "",
+      "status": "active",
+      "mailingEligible": true,
+      "createdAt": "2026-11-19T18:48:07.141Z",
+      "updatedAt": "2026-11-19T18:48:07.141Z"
     }
   ]
 }
