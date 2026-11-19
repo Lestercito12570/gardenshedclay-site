@@ -38,14 +38,23 @@ window.gscAdd5815ToQueue=(source,origin="Order")=>{
 };
 $("ship-queue-add-manual").onclick=()=>window.gscAdd5815ToQueue({name:"",shippingAddress:{}},"Manual");
 $("ship-queue-clear").onclick=()=>{if(queue.length&& !confirm("Clear all queued labels?"))return;queue.length=0;render();};
-$("ship-queue-export").onclick=()=>{
+$("ship-queue-export").onclick=async()=>{
  const start=Number($("ship-queue-start").value);
  if(!Number.isInteger(start)||start<1||start>8){status.textContent="Choose a starting position from 1 to 8.";return;}
  if(!queue.length){status.textContent="Add a recipient first.";return;}
  if(queue.some(item=>!complete(item.address)||!Number.isInteger(item.copies)||item.copies<1||item.copies>100)){
   status.textContent="Complete all recipient addresses and use 1–100 copies per recipient.";return;
  }
- status.textContent="PDF export is not enabled yet. The queue is a preview until the approved Version 3 artwork and fonts are bundled and validated; no labels were printed.";
+ try{
+  status.textContent="Preparing PDF…";
+  const response=await fetch("/api/admin/avery-5815-queue.pdf",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({start,entries:queue})});
+  if(!response.ok){const error=await response.json();throw Error(error.error||"PDF generation failed.");}
+  const blob=await response.blob();
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");link.href=url;link.download="GardenShedClay_Avery5815.pdf";document.body.append(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  status.textContent="PDF downloaded. Print at Actual Size / 100% and verify against plain paper before using label stock.";
+ }catch(e){status.textContent=e.message;}
 };
 render();
 })();
