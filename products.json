@@ -520,7 +520,7 @@
       "description": "Discover our stunning wheel thrown, handmade ceramic container in a beautiful celadon glaze. This piece showcases a modern design with rustic charm, perfect for any home decor. Its minimalist and basic form measures 3 x 4, making it an ideal accent for your tabletop or a thoughtful gift for a loved one. Elevate your space with this unique ceramic container that blends style and function seamlessly. Add a touch of artistry to your collection today!",
       "price": 15,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Home",
       "sortOrder": 10,
       "colors": [],
@@ -559,7 +559,10 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lVK9BBSs7z9w",
-      "stripePriceId": "price_1U3dy1DTEEQD8p6Z5hzFYsuE"
+      "stripePriceId": "price_1U3dy1DTEEQD8p6Z5hzFYsuE",
+      "inventoryAppliedCheckoutSessions": [
+        "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug"
+      ]
     },
     {
       "id": "ceramic-celadon-dish-for-jewelry-tiny-treasures",
@@ -615,7 +618,7 @@
       "description": "This is a handmade stoneware spoon rest in blue/black/green mixes glazes. This is dishwasher safe for cleaning and a useful tool for placing spoons while cooking so your countertops remain clean!",
       "price": 12.5,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "collection": "Kitchen",
       "sortOrder": 10,
       "colors": [],
@@ -646,7 +649,10 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_V3lWmpcPF7ncdZ",
-      "stripePriceId": "price_1U5Dz6DTEEQD8p6ZzKOmYZZN"
+      "stripePriceId": "price_1U5Dz6DTEEQD8p6ZzKOmYZZN",
+      "inventoryAppliedCheckoutSessions": [
+        "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug"
+      ]
     },
     {
       "id": "multicolored-spoon-rest2",
@@ -928,7 +934,7 @@
       "description": "This is a stoneware spoon rest in my bright sunshine yellow glaze. Some cheerfulness and fun in the kitchen!\n\nthis spoon rest is handmade and dishwasher safe.",
       "price": 12.5,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "fulfillmentStatus": "available",
       "collection": "Kitchen",
       "sortOrder": 10,
@@ -965,7 +971,10 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_VFpOFEaGVKNQW9",
-      "stripePriceId": "price_1UFJk2DTEEQD8p6ZJLjNY8oy"
+      "stripePriceId": "price_1UFJk2DTEEQD8p6ZJLjNY8oy",
+      "inventoryAppliedCheckoutSessions": [
+        "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug"
+      ]
     },
     {
       "id": "rustic-pottery-pie-plate-with-multicolored-speckles-1",
@@ -1170,7 +1179,7 @@
       "description": "Elevate your kitchen with our stunning Black and Snowflake Mixing Bowl! Crafted for both style and function, this beautiful bowl features an elegant snowflake design against a sleek black background, making it perfect for any season. Ideal for mixing, serving, or display, it adds a touch of winter charm to your culinary creations. Made from durable materials, it’s easy to clean and built to last. Make baking magical with this eye-catching piece. Order your Black and Snowflake Mixing Bowl today!",
       "price": 45,
       "currency": "USD",
-      "inventory": 1,
+      "inventory": 0,
       "fulfillmentStatus": "available",
       "collection": "Kitchen",
       "sortOrder": 10,
@@ -1211,7 +1220,10 @@
       "published": true,
       "etsyListed": true,
       "stripeProductId": "prod_VNbEes3VYXu2Po",
-      "stripePriceId": "price_1UMq2JDTEEQD8p6Z5uFeCZb7"
+      "stripePriceId": "price_1UMq2JDTEEQD8p6Z5uFeCZb7",
+      "inventoryAppliedCheckoutSessions": [
+        "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug"
+      ]
     },
     {
       "id": "artisan-chip-n-dip-bowl-custom-handmade-snack-bowl",
@@ -1434,4 +1446,4 @@
       "stripePriceId": "price_1UYAyBDTEEQD8p6ZbG10Jof0"
     }
   ]
-}
+}\n
