@@ -1232,6 +1232,7 @@ app.get(
   }
 );
 app.get("/admin-shipping-labels.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-shipping-labels.js")));
+app.get("/admin-5815-queue.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-5815-queue.js")));
 app.get("/admin-customer-tools.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-customer-tools.js")));
 /*
  * Protected catalog reader
