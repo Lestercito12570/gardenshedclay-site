@@ -70,6 +70,61 @@
       "shipping": 0,
       "total": 16700,
       "currency": "USD"
+    },
+    {
+      "orderId": "gsc-cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug",
+      "stripeCheckoutSessionId": "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug",
+      "stripePaymentIntentId": "pi_3UdMgMDTEEQD8p6Z0FBeowU4",
+      "orderDate": "2026-11-19T04:08:15.000Z",
+      "status": "pending-shipment",
+      "inventoryTracking": "pending",
+      "customer": {
+        "name": "wendy fleming",
+        "email": "flemingwendyl@gmail.com"
+      },
+      "shippingAddress": {
+        "city": "Holyoke",
+        "country": "US",
+        "line1": "52 Nonotuck Street",
+        "line2": null,
+        "postal_code": "01040",
+        "state": "MA"
+      },
+      "shippingRecipient": "wendy fleming",
+      "items": [
+        {
+          "stripePriceId": "price_1U3dy1DTEEQD8p6Z5hzFYsuE",
+          "name": "Wheel Thrown Handmade Celadon Container - Modern Rustic Design, Minimalist 3x4 Inches",
+          "quantity": 1,
+          "unitAmount": 2500,
+          "amountTotal": 2500
+        },
+        {
+          "stripePriceId": "price_1UFJk2DTEEQD8p6ZJLjNY8oy",
+          "name": "Spoon Rest in Yellow glaze",
+          "quantity": 1,
+          "unitAmount": 1250,
+          "amountTotal": 1250
+        },
+        {
+          "stripePriceId": "price_1UMq2JDTEEQD8p6Z5uFeCZb7",
+          "name": "Handcrafted Black and Snowflake Mixing Bowl - Perfect Gift for Bakers",
+          "quantity": 1,
+          "unitAmount": 4500,
+          "amountTotal": 4500
+        },
+        {
+          "stripePriceId": "price_1U5Dz6DTEEQD8p6ZzKOmYZZN",
+          "name": "Multicolored Spoon Rest",
+          "quantity": 1,
+          "unitAmount": 1250,
+          "amountTotal": 1250
+        }
+      ],
+      "subtotal": 8500,
+      "shipping": 1500,
+      "total": 11000,
+      "currency": "USD"
     }
   ]
 }
