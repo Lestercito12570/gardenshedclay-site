@@ -327,6 +327,7 @@
   <div>
     <p class="eyebrow">Orders</p>
     <h2>Manage Orders</h2>
+<details id="ship-label-queue" style="margin:14px 0"><summary><strong>NEW — Avery 5815 Multi-Recipient Queue (Preview)</strong></summary><p>Combine orders, customers and manual recipients. No existing printing feature is changed. PDF export remains disabled pending artwork/font integration and physical alignment validation.</p><button type="button" class="button" id="ship-queue-add-manual">Add Manual Recipient</button> <button type="button" class="button" id="ship-queue-clear">Clear Queue</button><p id="ship-queue-count"></p><div id="ship-queue-items"></div><label>First available label position (1–8) <input id="ship-queue-start" type="number" min="1" max="8" value="1" style="width:70px"></label> <button type="button" class="button" id="ship-queue-export">Validate Queue / PDF Status</button><p id="ship-queue-status" role="status"></p></details>
 <details style="margin:14px 0"><summary><strong>Avery 5815 Branded Shipping Address Labels</strong></summary>
 <p>Choose an existing customer or enter an address. Select your Garden Shed Clay logo image (including its printed return address). Generate a printable 8-up sheet. These are address labels, not prepaid postage labels.</p>
 <label for="ship-label-customer">Existing customer (optional)</label>
@@ -2110,6 +2111,7 @@ customers.forEach((customer) => {
    b.disabled=!complete||customer.status==="inactive"||!customer.customerId;
    b.addEventListener("click",action);labelActions.appendChild(b);
   }
+  const queueButton=document.createElement("button");queueButton.type="button";queueButton.className="button";queueButton.textContent="Add to 5815 Queue";queueButton.onclick=()=>window.gscAdd5815ToQueue(customer,"Customer list");labelActions.appendChild(queueButton);
   card.appendChild(labelActions);
 
   const statusText = document.createElement("p");
@@ -2524,6 +2526,7 @@ const orderDate =
           button.title=recipient.complete?"Use the shipping address stored on this order":"Shipping address incomplete; verify order before printing";
           button.addEventListener("click",action);packingActions.appendChild(button);
         }
+        const queueButton=document.createElement("button");queueButton.type="button";queueButton.className="button";queueButton.textContent="Add to 5815 Queue";queueButton.onclick=()=>window.gscAdd5815ToQueue({name:recipient.name,address:recipient.address},"Order");packingActions.appendChild(queueButton);
         card.appendChild(packingActions);
 
 if (order.status !== "shipped") {
@@ -3378,5 +3381,6 @@ saveChangesButton.disabled =
 
 <script src="/admin-customer-tools.js"></script>
 <script src="/admin-shipping-labels.js"></script>
+<script src="/admin-5815-queue.js"></script>
 </body>
 </html>
