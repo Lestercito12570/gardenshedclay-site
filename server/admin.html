@@ -1651,6 +1651,7 @@ loadProductsButton.addEventListener(
         const card =
           document.createElement("div");
 
+        card.className="order-admin-card";
         card.style.padding = "16px";
         card.style.marginTop = "12px";
         card.style.border =
@@ -2406,10 +2407,32 @@ loadOrdersButton.addEventListener(
           ? data.orders
           : [];
 
+      const openOrders=orders.filter(order=>String(order.status||"").toLowerCase()!=="shipped");
+      const completedOrders=orders.filter(order=>String(order.status||"").toLowerCase()==="shipped");
       manageOrdersStatus.textContent =
-        `${orders.length} orders loaded.`;
+        `${openOrders.length} open · ${completedOrders.length} completed · ${orders.length} total orders.`;
 
-            orders.forEach((order) => {
+      const openSection=document.createElement("section");
+      const openHeading=document.createElement("h3");
+      openHeading.textContent=`Open Orders (${openOrders.length})`;
+      openSection.appendChild(openHeading);
+      const openList=document.createElement("div");
+      openSection.appendChild(openList);
+      if(!openOrders.length){const empty=document.createElement("p");empty.textContent="No open orders.";openList.appendChild(empty);}
+      orderList.appendChild(openSection);
+
+      const completedSection=document.createElement("details");
+      completedSection.style.marginTop="24px";
+      const completedHeading=document.createElement("summary");
+      completedHeading.style.fontWeight="bold";
+      completedHeading.style.cursor="pointer";
+      completedHeading.textContent=`Completed Orders (${completedOrders.length}) — click to expand`;
+      completedSection.appendChild(completedHeading);
+      const completedList=document.createElement("div");
+      completedSection.appendChild(completedList);
+      orderList.appendChild(completedSection);
+
+      const renderOrder=(order,container)=> {
         const card =
           document.createElement("div");
 
@@ -2561,7 +2584,17 @@ shippedButton.textContent =
   "Shipped";
 
 manageOrdersStatus.textContent =
-  "Order marked as shipped.";
+  "Order marked as shipped and moved to Completed Orders.";
+  card.remove();
+  if(openList.querySelectorAll(".order-admin-card").length===0){
+    const empty=document.createElement("p");empty.textContent="No open orders.";openList.appendChild(empty);
+  }
+  completedList.prepend(card);
+  completedSection.open=true;
+  completedHeading.textContent=`Completed Orders (${completedList.querySelectorAll(".order-admin-card").length}) — click to expand`;
+  openHeading.textContent=`Open Orders (${openList.querySelectorAll(".order-admin-card").length})`;
+  shippedButton.remove();
+  manageOrdersStatus.textContent=`${openList.querySelectorAll(".order-admin-card").length} open · ${completedList.querySelectorAll(".order-admin-card").length} completed · ${orders.length} total orders. Order marked as shipped.`;
       
       
     } catch (error) {
@@ -2581,8 +2614,10 @@ manageOrdersStatus.textContent =
   );
 }
               
-        orderList.appendChild(card);
-      });
+        container.appendChild(card);
+      };
+      openOrders.forEach(order=>renderOrder(order,openList));
+      completedOrders.forEach(order=>renderOrder(order,completedList));
       
     } catch (error) {
       manageOrdersStatus.textContent =
