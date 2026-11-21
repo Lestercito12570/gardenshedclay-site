@@ -13,8 +13,8 @@ function loadAssets(){
  if(!fs.existsSync(zipPath))throw Error("Approved Avery 5815 assets ZIP is missing.");
  const entries=unzipSync(fs.readFileSync(zipPath));
  const names=Object.keys(entries);
- const logoName=names.find(n=>/(^|\\/)logo\\.(png|jpg|jpeg)$/i.test(n));
- const fontName=names.find(n=>/(^|\\/)EBGaramond12-Regular\\.ttf$/i.test(n));
+ const logoName=names.find(n=>["logo.png","logo.jpg","logo.jpeg"].includes(n.split("/").pop().toLowerCase()));
+ const fontName=names.find(n=>n.split("/").pop().toLowerCase()==="ebgaramond12-regular.ttf");
  if(!logoName||!fontName)throw Error("Approved Avery 5815 ZIP is missing logo.png or EBGaramond12-Regular.ttf.");
  cachedAssets={logo:Buffer.from(entries[logoName]),regular:Buffer.from(entries[fontName])};
  return cachedAssets;
