@@ -76,7 +76,7 @@
       "stripeCheckoutSessionId": "cs_live_bgJE7vZwlPEXDr30qbJ2JlmzuI3LiUlvqxHrAS0F7QRrcPQnrDeXdfNEug",
       "stripePaymentIntentId": "pi_3UdMgMDTEEQD8p6Z0FBeowU4",
       "orderDate": "2026-11-19T04:08:15.000Z",
-      "status": "pending-shipment",
+      "status": "shipped",
       "inventoryTracking": "pending",
       "customer": {
         "name": "wendy fleming",
