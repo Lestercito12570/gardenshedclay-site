@@ -1,14 +1,15 @@
 import PDFDocument from "pdfkit";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { unzipSync } from "fflate";
 
-const asset=name=>path.join(process.cwd(),"assets","avery5815",name);
+const serverDir=path.dirname(fileURLToPath(import.meta.url));
 // The approved artwork and embedded Garamond font are distributed together in the uploaded ZIP.
 let cachedAssets;
 function loadAssets(){
  if(cachedAssets)return cachedAssets;
- const zipPath=path.join(process.cwd(),"GSC_Avery_5815_website_assets.zip");
+ const zipPath=path.join(serverDir,"GSC_Avery_5815_website_assets.zip");
  if(!fs.existsSync(zipPath))throw Error("Approved Avery 5815 assets ZIP is missing.");
  const entries=unzipSync(fs.readFileSync(zipPath));
  const names=Object.keys(entries);
