@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const asset=name=>path.join(process.cwd(),"assets","avery5815",name);
-const assets={logo:asset("logo.jpg"),regular:asset("EBGaramond12-Regular.ttf"),bold:asset("EBGaramond12-Bold.ttf")};
+const assets={logo:asset("logo.jpg"),regular:asset("EBGaramond12-Regular.ttf")};
 const clean=s=>typeof s==="string"?s.trim():"";
 const valid=(r)=>r&&["name","line1","city","state","zip"].every(k=>clean(r[k]))&&["name","line1","line2","city","state","zip","country"].every(k=>!r[k]||typeof r[k]==="string"&&r[k].length<=150);
 export function registerAvery5815Pdf(app,requireAdmin){
@@ -22,7 +22,7 @@ export function registerAvery5815Pdf(app,requireAdmin){
    res.setHeader("Content-Disposition",'attachment; filename="GardenShedClay_Avery5815.pdf"');
    doc.on("error",err=>{console.error("Avery 5815 PDF failed:",err);res.destroy(err);});
    doc.pipe(res);
-   doc.registerFont("EB",assets.regular);doc.registerFont("EBBold",assets.bold);
+   doc.registerFont("EB",assets.regular);
    const labels=[];
    for(const e of entries)for(let i=0;i<e.copies;i++)labels.push(e.address);
    const pageCount=Math.ceil((start-1+labels.length)/8);
@@ -41,11 +41,11 @@ export function registerAvery5815Pdf(app,requireAdmin){
      doc.image(img,x+(288-logoW)/2,y+9,{width:logoW});
      const divider=y+9+logoH+9;
      doc.save().lineWidth(.55).strokeColor("#000000").moveTo(x+24,divider).lineTo(x+264,divider).stroke().restore();
-     const fontSize=text.length<=4?16.5:15.5,leading=text.length<=4?19:17.6;
+     const fontSize=text.length<=4?17.5:15.5,leading=text.length<=4?20:17.6;
      // PDFKit uses top-down text coordinates; adjust baseline relative to approved ReportLab v3.
      const firstTop=divider+22-fontSize*.88;
      text.forEach((line,i)=>{
-      const font=i===0?"EBBold":"EB";
+      const font="EB";
       doc.font(font).fontSize(fontSize).fillColor("#000000");
       // Shrink unusually long lines to stay within the safe 238pt text width.
       const width=doc.widthOfString(line);
