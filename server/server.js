@@ -1,4 +1,5 @@
 import { registerCustomerTools } from "./customer-tools.js";
+import { registerAvery5815Pdf } from "./avery-5815-pdf.js";
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
@@ -1232,6 +1233,8 @@ app.get(
   }
 );
 app.get("/admin-shipping-labels.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-shipping-labels.js")));
+registerAvery5815Pdf(app,requireAdmin);
+app.get("/admin-5815-queue.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-5815-queue.js")));
 app.get("/admin-customer-tools.js",requireAdmin,(req,res)=>res.type("js").sendFile(path.join(process.cwd(),"admin-customer-tools.js")));
 /*
  * Protected catalog reader
