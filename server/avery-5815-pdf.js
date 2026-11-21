@@ -1,9 +1,23 @@
 import PDFDocument from "pdfkit";
 import fs from "node:fs";
 import path from "node:path";
+import { unzipSync } from "fflate";
 
 const asset=name=>path.join(process.cwd(),"assets","avery5815",name);
-const assets={logo:asset("logo.jpg"),regular:asset("EBGaramond12-Regular.ttf")};
+// The approved artwork and embedded Garamond font are distributed together in the uploaded ZIP.
+let cachedAssets;
+function loadAssets(){
+ if(cachedAssets)return cachedAssets;
+ const zipPath=path.join(process.cwd(),"GSC_Avery_5815_website_assets.zip");
+ if(!fs.existsSync(zipPath))throw Error("Approved Avery 5815 assets ZIP is missing.");
+ const entries=unzipSync(fs.readFileSync(zipPath));
+ const names=Object.keys(entries);
+ const logoName=names.find(n=>/(^|\\/)logo\\.(png|jpg|jpeg)$/i.test(n));
+ const fontName=names.find(n=>/(^|\\/)EBGaramond12-Regular\\.ttf$/i.test(n));
+ if(!logoName||!fontName)throw Error("Approved Avery 5815 ZIP is missing logo.png or EBGaramond12-Regular.ttf.");
+ cachedAssets={logo:Buffer.from(entries[logoName]),regular:Buffer.from(entries[fontName])};
+ return cachedAssets;
+}
 const clean=s=>typeof s==="string"?s.trim():"";
 const valid=(r)=>r&&["name","line1","city","state","zip"].every(k=>clean(r[k]))&&["name","line1","line2","city","state","zip","country"].every(k=>!r[k]||typeof r[k]==="string"&&r[k].length<=150);
 export function registerAvery5815Pdf(app,requireAdmin){
@@ -14,8 +28,8 @@ export function registerAvery5815Pdf(app,requireAdmin){
   }
   const count=entries.reduce((n,e)=>n+e.copies,0);
   if(count>400)return res.status(400).json({error:"Maximum 400 labels per PDF."});
-  const missing=Object.entries(assets).filter(([,p])=>!fs.existsSync(p)).map(([name])=>name);
-  if(missing.length)return res.status(503).json({error:"Approved label artwork/font assets are not installed: "+missing.join(", ")+". PDF export is unavailable."});
+  let assets;
+  try{assets=loadAssets();}catch(err){console.error("Avery 5815 asset error:",err);return res.status(503).json({error:"Approved label assets unavailable: "+err.message});}
   try{
    const doc=new PDFDocument({size:"LETTER",margin:0,autoFirstPage:false,compress:true});
    res.setHeader("Content-Type","application/pdf");
